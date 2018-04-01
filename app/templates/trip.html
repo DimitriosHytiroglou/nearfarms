@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- COULD NOT GET MY CSS TO OVERWRITE MATERIALISE SO ADDED THIS -->
+<head>
+<style>
+select {display: block;}
+</style>
+</head>
+<div class="container">
+  <div class="row">
+    <div class= "section">
+      <p style="text-decoration: underline">Logged in as: {{ user }}</p>
+      <a href="{{ url_for('logout') }}">Logout</a><br>
+    </div>
+    <h4>Add a trip!</h4><br>
+    <form action="" method="post" name="login">
+      {{ tripForm.hidden_tag() }}
+      <div class="divider"></div>
+      <div class="section">
+        <p>
+          Trip Title:<br>
+          {{ tripForm.trip_title(size=120) }}<br>
+        </p>
+        <p>
+          Trip Destination:<br>
+          {{ tripForm.trip_destination(size=120) }}<br>
+          
+        </p>
+        <p>Add Friend<br><br>
+          {{ tripForm.trip_friend }}<br>
+        </p>
+      </div>
+    <p><input type="submit" value="Create New Trip"></p>
+  </div>
+</div>
+{% endblock %}

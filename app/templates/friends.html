@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  
+  <div class="container">
+    <a href="{{ url_for('logout') }}">Logout</a><br>
+    <div class="row">
+      <h1>Welcome to 0.0 Travel App</h1>
+      <div class= "section"> 
+        <a href="{{ url_for('create_trip') }}">Add trip</a><br>
+        <!-- MAYBE REMOVE THIS -->
+        <a href="{{ url_for('create_order', value=session['username']) }}">Add friend</a>
+      </div>
+      <div class="divider"></div>
+      <div class="section">
+        <h3>List of users:</h3>
+        
+        <table class="striped">
+          <thead>
+            <tr>
+              <th data-field="Trip Title">First name</th>
+              <th data-field="Destination">Last name</th>
+            </tr>
+          </thead>
+          {% for friend in friends %}
+            <tr>
+              <td>{{ friend['first_name'] }}</td>
+              <td>{{ friend['last_name'] }}</td>
+              <!-- Add more fields to showcase on this page
+              Below is a method of adding the 'add an order' button which will route you to create_order in views.py -->
+              
+            </tr>
+          {% endfor %}
+            
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

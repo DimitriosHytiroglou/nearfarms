@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class= "section">
+      <a href="{{ url_for('create_newUser') }}">Register</a>
+    </div>
+    <h4>Login</h4><br>
+    <form action="" method="post" name="login">
+      {{ loginForm.hidden_tag() }}
+      <div class="divider"></div>
+      <div class="section">
+        <p>
+          Username:<br>
+          {{ loginForm.username(size=120) }}<br>
+        </p>
+        <p>
+          Password:<br>
+          {{ loginForm.password(size=120) }}<br>
+          <!-- Additional form fields for the customer should go here -->
+        </p>
+        <p style="display:{{ wrong }};color:red">
+          Wrong username or password, try again!
+        </p>
+      </div>
+    <p><input type="submit" value="Login"></p>
+  </div>
+</div>
+{% endblock %}
