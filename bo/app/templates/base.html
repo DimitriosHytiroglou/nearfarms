@@ -1,0 +1,12 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - nearfarms</title>
+    {% else %}
+    <title>Welcome to nearfarms</title>
+    {% endif %}
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

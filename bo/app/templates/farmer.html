@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Farmer Home</h2>
+<form action="" method="get" name="update_remove">
+<section>
+    <div class="table_title">
+        <h4>Farmers Market Products</h4>
+    </div>
+
+<table id="search_table">
+    <thead>
+        <form>
+            Select farmers market:
+            <select id="farmers_market">
+                <option></option>
+                <option>Berkeley</option>
+                <option>Oakland</option>
+                <option>San Francsisco</option>
+        </form>
+        <tr>
+            <th id="product" class="product_col" class="category_col">Product</th>
+            <th id="type" class="type_col" class="category_col">Type</th>
+            <th id="subtype" class="subtype_col" class="category_col">Subtype</th>
+            <th id="quantity" class="quantity_col" class="category_col">Quantity</th>
+            <th id="price" class="price_col" class="category_col">Price</th>
+            <th id="image" class="image_col" class="category_col">Image</th>
+            <th id="update" class="update_col" class="button_col"></th>
+            <th id="remove" class="remove_col" class="button_col"></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for product in productList %}
+        <tr>
+			<td class="product_col" class="category_col">{{ product['Product'] }}</td>
+            <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
+            <td class="subtype_col" class="category_col">{{ product['Sub Type'] }}</td>
+            <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
+            <td class="price_col" class="category_col">{{ product['Price'] }}</td>
+            <td class="image_col" class="category_col">{{ product['Image'] }}</td>
+            <td class="update_col" class="button_col"><input type="submit" name="update" value="Update"></td>
+            <td class="remove_col" class="button_col"><input type="submit" name="remove" value="Remove"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('add_product') }}">Add Product</a>
+{% endblock %}

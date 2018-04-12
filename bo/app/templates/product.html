@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class= "section">
+      <a href="{{ url_for('farmer_home') }}">Home</a>
+    </div>
+    <h2>Add Products</h2>
+    <form action="" method="post" name="add_product">
+      {{ productForm.hidden_tag() }}
+      <div class="divider"></div>
+      <div class="section">
+        <p>
+          Product:<br>
+          {{ productForm.product(size=120) }}<br>
+        </p>
+        <p>
+          Product Type:<br>
+          {{ productForm.productType(size=120) }}<br>          
+        </p>
+        <p>
+          Sub Type:<br>
+          {{ productForm.subType(size=120) }}<br>
+        </p>
+        <p>
+          Quantity:<br>
+          {{ productForm.quantity(size=120) }}<br>
+        </p>
+        <p>
+          Price:<br>
+          {{ productForm.price(size=120) }}<br>
+        </p>
+        <p>
+          Image:<br>
+          {{ productForm.image(size=120) }}<br>
+        </p>
+      </div>
+      <p><input type="submit" value="Add product"></p>
+    </form>
+  </div>
+</div>
+{% endblock %}
