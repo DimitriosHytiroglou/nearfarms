@@ -89,7 +89,12 @@ def create_newProducer():
             session['username'] = username
             session['password'] = password
 
+            # Create directory to save images of this producer
+            if not os.path.exists('file_uploads/'+username):
+                os.makedirs('file_uploads/'+username)
+
             return redirect('/farmer_home')
+
 
         else:
             wrong = 'block'
@@ -193,22 +198,31 @@ def file_upload():
 
 ### NEED TO FIX ALL THE RETURN FIELDS IN THE FOLLOWING CODE
 
+### NEED TO ADD CHECK FOR IF FILE EXISTS WITH SAME NAME TO NOT OVEWRITE
+### ACTUALLY, NEED TO RENAME FILE UPON SAVING WITH RANDOM CODE AND SAVE THAT IN DATABASE
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return '''<!doctype html><p>BOB</p>'''#redirect(request.url)
+            #return render_template('product.html', **templateData)
+            #return '''<!doctype html><p>BOB</p>'''#redirect(request.url)
+            return redirect('/add_product')
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
-            return '''<!doctype html><p>BOB</p>''' #redirect(request.url)
+            #return render_template('product.html', **templateData)
+            #return '''<!doctype html><p>BOB</p>''' #redirect(request.url)
+            return redirect('/add_product')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             #file.save(os.path.join(app.root_path, filename))
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             flash('File uploaded succesfully!')
-            return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
+            return redirect('/add_product')
+            #return render_template('product.html', **templateData)
+            #return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
                                     #filename=filename))
     

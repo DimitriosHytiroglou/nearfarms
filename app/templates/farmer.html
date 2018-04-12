@@ -13,6 +13,9 @@
 <table id="search_table">
     <thead>
         <form>
+
+            <p>AT THIS POINT THE VALUE OF THE MARKET SHOULD BE PASSED TO A VARIABLE OF FARM ID TO BE STORED IN THE DATABASE</p>
+
             Select farmers market:
             <select id="farmers_market">
                 <option></option>
@@ -32,6 +35,10 @@
         </tr>
     </thead>
     
+
+    <!-- Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
+
+
     <tbody>
         {% for product in productList %}
         <tr>
