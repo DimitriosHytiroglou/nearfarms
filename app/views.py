@@ -35,6 +35,7 @@ def login():
         
         u = loginForm.username.data
         p = loginForm.password.data
+        t = loginForm.userType.data
 
         collection = chooseCollection('users')
         userPass = getUserPass(collection, u)
@@ -43,7 +44,10 @@ def login():
             if checkPass(userPass,p):
                 session['username'] = u
                 session['password'] = userPass
-                return redirect('/trips')
+                if t == 'Producer':
+                    return redirect('/farmer_home')
+                elif t == 'Consumer':
+                    return redirect('/consumer_home')
             else:
                 wrong = 'block'
                 return render_template('login.html', loginForm=loginForm, wrong=wrong)
