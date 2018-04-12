@@ -3,21 +3,32 @@
 
 <!-- Template home page that differentiates between logins -->
 
-<h2>Home</h2>
-
-
-<section>
-    <div>
-        <p>THIS IS A TEMPORARY ROUTING FOR DEVELOPING THE INTERFACES</p>
-        <h4>I am a:</h4>
-        <!-- <a href="{{ url_for('farmer_home') }}">Farmer</a> -->
-        <!-- <a href="{{ url_for('consumer_home') }}">Consumer</a> -->
+<!-- 4.12.2018 – CONNER UPDATED CLASSES WITH BULMA FRAMEWORK -->
+<section class="hero is-primary is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">THIS IS A TEMPORARY ROUTING FOR DEVELOPING THE INTERFACES</h1>
+            <div class="hero is-white">
+                <a class="button is-large is-primary is-inverted" href="{{ url_for('farmer_home') }}">FARMER</a>
+            </div>
+        <!-- <a class="button is-primary is-inverted" href="{{ url_for('consumer_home') }}">CONSUMER</a> -->
+        </div>
     </div>
-    <div>
-        <a href="{{ url_for('login') }}">login</a><br>
-        <a href="{{ url_for('create_newProducer') }}">Register Producer</a>
-        <a href="{{ url_for('create_newConsumer') }}">Register Consumer</a>
-
+</section>
+<section class="hero is-medium is-light">
+    <div class="hero-body">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <a class="button is-large is-primary" href="{{ url_for('create_newProducer') }}">Register Producer</a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <a class="button is-large is-primary" href="{{ url_for('create_newConsumer') }}">Register Consumer</a>
+                </div>
+            </div>
+        </nav>
     </div>
 </section>
 

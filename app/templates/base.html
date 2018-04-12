@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
   <head>
     {% if title %}
@@ -5,8 +7,61 @@
     {% else %}
     <title>Welcome to nearfarms</title>
     {% endif %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nearfarms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <!-- make sure you reference font awesome to use icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   </head>
   <body>
+    {% block navigation %}
+    <section class="hero is-white is-small is-medium">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <!-- Bulma container class  -->
+        <div class="container">
+          <!-- Bulma Navbar class  -->
+          <header class="navbar">
+            <!-- Bulma navbar-brand stickt to left hand  -->
+            <div class="navbar-brand">
+              <!-- Bulma navbar-item is child of brand  -->
+              <a class="navbar-item">
+                <img src="/static/logo.png" alt="Logo">
+              </a>
+              <!-- only shows on mobile  -->
+              <span class="navbar-burger" data-target="navbarMenuHeroC">
+              </span>
+            </div>
+            <div class="navbar-menu">
+              <!-- sticks to right hand side  -->
+              <div class="navbar-end">
+                <a class="navbar-item" href="{{ url_for('login') }}">Log In</a>
+              </div>
+            </div>
+          </header>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
     {% block content %}{% endblock %}
+    
+    {% block footer %} 
+    <footer class="hero-foot">
+      <nav class="tabs is-fullwidth">
+        <div class="container">
+          <ul>
+            <li><a>Contact Us</a></li>
+            <li><a>About</a></li>
+            <li><a>Find a Market</a></li>
+            <li><a>Delivery</a></li>
+          </ul>
+        </div>
+      </nav>
+    </footer>
+    {% endblock %}
+
   </body>
+
 </html>
