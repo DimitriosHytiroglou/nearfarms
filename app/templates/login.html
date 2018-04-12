@@ -1,32 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class= "section">
-      <a href="{{ url_for('home') }}">Home</a>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Hi There! Welcome to Near Farms.</h1>
+      <h1 class="subtitle">Connecting Farmers and Consumers since 2018</h1>
     </div>
-    <h4>Login</h4><br>
-    <form action="" method="post" name="login">
-      {{ loginForm.hidden_tag() }}
-      <div class="divider"></div>
-      <div class="section">
-        <p>
-          User type:<br>
-          {{ loginForm.userType }}<br>
-        </p>
-        <p>
-          Username:<br>
-          {{ loginForm.username(size=120) }}<br>
-        </p>
-        <p>
-          Password:<br>
-          {{ loginForm.password(size=120) }}<br>
-        </p>
-        <p style="display:{{ wrong }};color:red">
-          Wrong username or password, try again!
-        </p>
-      </div>
-    <p><input type="submit" value="Login"></p>
   </div>
-</div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body">
+    <h1 class="title">Let's Log You In:</h1>
+      <form action="" method="post" name="login">
+        {{ loginForm.hidden_tag() }}
+        <div class="field">
+          <label class="label">User type:</label>
+            <div class="control">
+              <p>
+                {{ loginForm.userType }}
+              </p>
+            </div>
+        </div>
+        <div class="field">
+          <label class="label">Username:</label>
+            <div class="control">
+              <p>
+                {{ loginForm.username(size=120) }}
+              </p>
+            </div>
+        </div>
+        <div class="field">
+          <label class="label">Password:</label>
+            <div class="control">
+              <p>
+                {{ loginForm.password(size=120) }}
+              </p>
+              <p style="display:{{ wrong }};color:red">
+                Wrong username or password, try again!
+              </p>
+            </div>
+        </div>
+      <p><input type="submit" value="Login"></p>
+  </div>
+</section>
 {% endblock %}
