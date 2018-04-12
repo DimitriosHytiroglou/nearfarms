@@ -1,49 +1,116 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class= "section">
-      <a href="{{ url_for('login') }}">Login</a>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Hi There! Welcome to Near Farms.</h1>
+      <h1 class="subtitle">Connecting Farmers and Consumers since 2018</h1>
     </div>
-    <h4>Hi There! Welcome to Near Farms.</h4><br>
-    <h5>Let's get you signed up</h5>
-    <form action="" method="post" name="login">
+  </div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body">
+    <h1 class="title">Let's get you signed up:</h1>
+    <!-- Bulma form documentation at https://bulma.io/documentation/form/general/ -->
+    <form action="/create_newProducer" method="post" name="login">
       {{ newProducerForm.hidden_tag() }}
-      <div class="divider"></div>
-      <div class="section">
-        <p>
-          First name:<br>
+      <!-- "In Bulma, the 'field' class is a container for label, form control, and opetional help text"
+      https://bulma.io/documentation/form/general/
+       -->
+      <div class="field">
+        <label class="label">First Name:</label>
+        <!-- "The control is a versatile container meant to enhance single form controls. Because it has the same height as a control elements, it can only contain input, select, button, icon..."
+        https://bulma.io/documentation/form/general/ -->
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.first_name(size=120) }}<br>
-        </p>
-        <p>
-          Last name:<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Last Name:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.last_name(size=120) }}<br>
-        </p>
-        <p>
-          Farm Name:<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Farm Name:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.farm_name(size=120) }}<br>
-        </p>
-        <p>
-          Email:<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.email(size=120) }}<br>
-        </p>
-        <p>
-          Username:<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Username:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.username(size=120) }}<br>
         </p>
         <p style="display:{{ wrong }};color:red">
           Username exists, please choose a different one!
         </p>
-        <p>
-          Password:<br>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.password(size=120) }}<br>
-        </p>
-        <p>
-          Farm Description:<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Username:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
+          {{ newProducerForm.password(size=120) }}<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Farm Description:</label>
+        <div class="control">
+          <!-- WANT TO USE <input> INSTEAD OF <p>... -->
+          <!-- <input class="input" type="text" placeholder="Text input"> -->
+          <p>
           {{ newProducerForm.farm_description(size=120) }}<br>
-        </p>
+          </p>
+        </div>
       </div>
     <p><input type="submit" value="Create New User"></p>
   </div>
-</div>
+</section>
 {% endblock %}

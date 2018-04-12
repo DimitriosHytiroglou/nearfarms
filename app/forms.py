@@ -32,6 +32,7 @@ class NewConsumerForm(Form):
 ### Add New Producer
 class NewProducerForm(Form):
     first_name = StringField('firstName', validators=[DataRequired()])      # John
+    print(first_name)
     last_name = StringField('lastName', validators=[DataRequired()])        # Farmer
     farm_name = StringField('farmName', validators=[DataRequired()])    	# John Farmer Farms LLC
     email = EmailField('email', validators=[DataRequired()])                # john.farmer@gmail.com
