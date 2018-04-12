@@ -61,7 +61,7 @@ def consumer_home():
 @app.route('/file_upload', methods = ['GET', 'POST'])
 def file_upload():
 
-    UPLOAD_FOLDER = '/file_uploads/'
+    UPLOAD_FOLDER = 'file_uploads/'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -84,8 +84,8 @@ def file_upload():
             return '''<!doctype html><p>BOB</p>''' #redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.root_path, filename))
-            #file.save(os.path.join(UPLOAD_FOLDER, filename))
+            #file.save(os.path.join(app.root_path, filename))
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
             return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
                                     #filename=filename))
     
