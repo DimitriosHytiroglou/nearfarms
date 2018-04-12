@@ -1,9 +1,10 @@
 import os
-from flask import render_template, redirect, request
+from flask import session, render_template, redirect, request, flash
 from app import app, models
-from .forms import ProductForm
+from .forms import *
 from .models import *
 from werkzeug import secure_filename
+from app.encryption.HashingHandler import *
 # Access the models file to use SQL functions
 
 
@@ -17,7 +18,120 @@ def home():
     
     return render_template('home.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('password', None)
+    return redirect('/')
 
+# App routing for USER LOGIN
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    loginForm = LoginForm()
+    
+    wrong = 'none'
+
+    if loginForm.validate_on_submit():
+        
+        u = loginForm.username.data
+        p = loginForm.password.data
+
+        collection = chooseCollection('users')
+        userPass = getUserPass(collection, u)
+
+        if userPass != []:
+            if checkPass(userPass,p):
+                session['username'] = u
+                session['password'] = userPass
+                return redirect('/trips')
+            else:
+                wrong = 'block'
+                return render_template('login.html', loginForm=loginForm, wrong=wrong)
+        else:
+                wrong = 'block'
+                return render_template('login.html', loginForm=loginForm, wrong=wrong)
+
+    return render_template('login.html', loginForm=loginForm, wrong=wrong)
+
+
+
+
+# App routing to CREATE FARMER ACCOUNT
+@app.route('/create_newProducer', methods=['GET', 'POST'])
+def create_newProducer():
+    
+    wrong = 'none'
+
+    newProducerForm = NewProducerForm()
+    if newProducerForm.validate_on_submit():
+        first_name = newProducerForm.first_name.data
+        last_name = newProducerForm.last_name.data
+        farm_name = newProducerForm.farm_name.data
+        email = newProducerForm.email.data
+        username = newProducerForm.username.data
+        password = newProducerForm.password.data
+        farm_description = newProducerForm.farm_description.data
+
+        collection = chooseCollection('users')
+        userPass = getUserPass(collection, username)
+
+        if userPass == []:
+            # Password Hashing
+            password = hashPass(password)
+
+            collection = chooseCollection('users')
+            insertUser(collection, email, username, password, first_name, last_name, farm_name, farm_description)
+
+            session['username'] = username
+            session['password'] = password
+
+            return redirect('/farmer_home')
+
+        else:
+            wrong = 'block'
+            return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong)
+
+    return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong)
+
+
+# App routing to CREATE USER
+@app.route('/create_newConsumer', methods=['GET', 'POST'])
+def create_newConsumer():
+    
+    wrong = 'none'
+
+    newConsumerForm = newConsumerForm()
+    if newConsumerForm.validate_on_submit():
+        first_name = newConsumerForm.first_name.data
+        last_name = newConsumerForm.last_name.data
+        email = newConsumerForm.email.data
+        username = newConsumerForm.username.data
+        password = newConsumerForm.password.data
+
+        collection = chooseCollection('users')
+        userPass = getUserPass(collection, username)
+
+        if userPass == []:
+            # Password Hashing
+            password = hashPass(password)
+
+            collection = chooseCollection('users')
+            insertUser(collection, email, username, password, first_name, last_name)
+
+            session['username'] = username
+            session['password'] = password
+
+            return redirect('/consumer_home')
+
+        else:
+            wrong = 'block'
+            return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong)
+
+    return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong)
+
+
+
+# App routing to ADD PRODUCE
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
     productForm = ProductForm()
@@ -61,7 +175,7 @@ def consumer_home():
 @app.route('/file_upload', methods = ['GET', 'POST'])
 def file_upload():
 
-    UPLOAD_FOLDER = 'file_uploads/'
+    UPLOAD_FOLDER = 'file_uploads/'+session['username']+'/'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -86,6 +200,7 @@ def file_upload():
             filename = secure_filename(file.filename)
             #file.save(os.path.join(app.root_path, filename))
             file.save(os.path.join(UPLOAD_FOLDER, filename))
+            flash('File uploaded succesfully!')
             return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
                                     #filename=filename))
     

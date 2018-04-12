@@ -18,15 +18,42 @@ client = pymongo.MongoClient("mongodb://nearfarmsapp:grannysmithsapples@nearfarm
 #Choose database
 db = client.megalab
 
+# # # GENERAL # # #
 
 # Choose Collection
 def chooseCollection(collectionChoice):
     collection = db[collectionChoice]
     return collection
 
+# Retrieve a users password
+def getUserPass(collection, username):
+	friends = collection.find({'Username':username})
+	if friends.count() is not 0:
+		return str(friends[0]['Password'])
+	else:
+		return []
+
+
+
+# # # CONSUMERS # # #
+
+
+
+
+# # # PRODUCERS # # #
+
+# Insert Producer
+def insertUser(collection, email, username, password, first, last, farm, description):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description})
+
 # insert value
 def insert_products(collection, product, productType, subType, quantity, price, image):
     collection.insert({'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':image})
+
+
+
+
+### WHAT IS THIS? LETS GIVE IT A NAME AND CATEGORIZE IT
 
 def retrieve_all(collection):
     return collection.find()
