@@ -1,40 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-  
   <div class="container">
-    <p style="text-decoration: underline">Logged in as: {{ user }}</p>
-    <a href="{{ url_for('logout') }}">Logout</a><br>
-    <a href="{{ url_for('friends') }}">Add friends</a>
     <div class="row">
-      <h1>Welcome to 0.0 Travel App</h1>
-      <div class= "section"> 
-        <a href="{{ url_for('create_trip') }}">Add a trip</a>
+      <h1>Welcome to ACME Aircraft Parts</h1>
+      <div class= "section">
+        <a href="{{ url_for('create_customer') }}">Add a Customer</a>
       </div>
       <div class="divider"></div>
       <div class="section">
-        <h3>Here's the trip information:</h3>
-        
+        <h3>These are all of our awesome customers:</h3>
         <table class="striped">
           <thead>
             <tr>
-              <th data-field="Trip Title">Trip Title</th>
-              <th data-field="Destination">Destination</th>
+              <th data-field="company">First Name</th>
+              <th data-field="email">Last Name</th>
+              <th data-field="email">Company</th>
+              <th data-field="email">Email</th>
+              <th data-field="email">Phone Number</th>
             </tr>
           </thead>
-          {% for trip in trips %}
+          {% for customer in customers %}
             <tr>
-              <td>{{ trip['trip_title'] }}</td>
-              <td>{{ trip['trip_destination'] }}</td>
-  
-              <td><a type="submit" href="{{ url_for('tripsrem', value=trip['trip_title']) }}">Remove Trip</a></td>
-
+              <td>{{ customer['first_name'] }}</td>
+              <td>{{ customer['last_name'] }}</td>
+              <td>{{ customer['company'] }}</td>
+              <td>{{ customer['email'] }}</td>
+              <td>{{ customer['phone_number'] }}</td>
+              <!-- Add more fields to showcase on this page
+              Below is a method of adding the 'add an order' button which will route you to create_order in views.py -->
+              <td><a href="{{ url_for('create_order', value=customer['customer_id']) }}">Add an Order</a></td>
             </tr>
           {% endfor %}
         </table>
       </div>
-      {% for trip in trips %}
-      <iframe width="390" height="240" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{ trip['trip_destination'] }}&key=AIzaSyBqeReBHW8oiFkhcAzctotdVt-9G7i_dJk" allowfullscreen></iframe>
-      {% endfor %}
+      <div class="section">
+        <h3>Orders from Customers:</h3>
+        <!-- Display all the current existing order information here -->
+        <table class="striped">
+          <thead>
+            <tr>
+              <th data-field="company">Name of Part</th>
+              <th data-field="email">Manufacturer of Part</th>
+              <th data-field="email">Customer ID</th>
+            </tr>
+          </thead>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order['name_of_part'] }}</td>
+              <td>{{ order['manufacturer_of_part'] }}</td>
+              <td>{{ order['customer_id'] }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
     </div>
   </div>
 {% endblock %}
