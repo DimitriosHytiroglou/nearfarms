@@ -37,6 +37,11 @@
       </div>
       <p><input type="submit" value="Add product"></p>
     </form>
+    <form action = {{ url_for('file_upload') }} method = "POST" 
+        enctype = "multipart/form-data">
+        <input type = "file" name = "file" />
+        <input type = "submit"/>
+    </form>
   </div>
 </div>
 {% endblock %}
