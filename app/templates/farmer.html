@@ -2,6 +2,8 @@
 {% block content %}
 
 <h2>Farmer Home</h2>
+<p style="text-decoration: underline">Logged in as: {{ user }}</p>
+<a href="{{ url_for('logout') }}">Logout</a><br>
 <form action="" method="get" name="update_remove">
 <section>
     <div class="table_title">

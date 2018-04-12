@@ -138,6 +138,7 @@ def add_product():
     if productForm.validate_on_submit():
         # Get data from the form
         # Send data from form to Database
+        producerID = session['username']
         product = productForm.product.data
         productType = productForm.productType.data
         subType = productForm.subType.data
@@ -146,7 +147,7 @@ def add_product():
         image = productForm.image.data
 
         collection = chooseCollection('products')
-        insert_products(collection, product, productType, subType, quantity, price, image)
+        insert_products(collection, producerID, product, productType, subType, quantity, price, image)
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm)
@@ -155,14 +156,17 @@ def add_product():
 def farmer_home():
     # Retreive data from database to display
     collection = chooseCollection('products')
-    products = retrieve_all(collection)
+    
+    #products = retrieve_all(collection)
+
+    products = retrieve_products(collection,session['username'])
 
     productList = []
 
     for product in products:
         productList.append(product)
 
-    return render_template('farmer.html', productList=productList)
+    return render_template('farmer.html', productList=productList, user=session['username'])
 
 @app.route('/consumer_home', methods=['GET'])
 def consumer_home():
