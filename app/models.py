@@ -16,7 +16,7 @@ client = pymongo.MongoClient("mongodb://nearfarmsapp:grannysmithsapples@nearfarm
 # ---TODO---> Must change password to be taken from hashed value on database and not stored in a string like this
 
 #Choose database
-db = client.megalab
+db = client.nearfarms
 
 # # # GENERAL # # #
 
