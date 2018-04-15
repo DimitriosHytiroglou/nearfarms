@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+
+
+{% block JS %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
+{% endblock %}
+
+
 {% block content %}
 
 <h2>Farmer Home</h2>
@@ -10,7 +17,7 @@
         <h4>Farmers Market Products</h4>
     </div>
 
-<table id="search_table">
+<table id="product_table">
     <thead>
         <form>
 
@@ -24,14 +31,14 @@
                 <option>San Francsisco</option>
         </form>
         <tr>
-            <th id="product" class="product_col" class="category_col">Product</th>
-            <th id="type" class="type_col" class="category_col">Type</th>
-            <th id="subtype" class="subtype_col" class="category_col">Subtype</th>
-            <th id="quantity" class="quantity_col" class="category_col">Quantity</th>
-            <th id="price" class="price_col" class="category_col">Price</th>
-            <th id="image" class="image_col" class="category_col">Image</th>
-            <th id="update" class="update_col" class="button_col"></th>
-            <th id="remove" class="remove_col" class="button_col"></th>
+            <th class="product_col" class="category_col">Product</th>
+            <th class="type_col" class="category_col">Type</th>
+            <th class="subtype_col" class="category_col">Subtype</th>
+            <th class="quantity_col" class="category_col">Quantity</th>
+            <th class="price_col" class="category_col">Price</th>
+            <th class="image_col" class="category_col">Image</th>
+            <th class="update_col" class="button_col"></th>
+            <th class="remove_col" class="button_col"></th>
         </tr>
     </thead>
     
@@ -48,11 +55,12 @@
             <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
             <td class="price_col" class="category_col">{{ product['Price'] }}</td>
             <td class="image_col" class="category_col">{{ product['Image'] }}</td>
-            <td class="update_col" class="button_col"><input type="submit" name="update" value="Update"></td>
-            <td class="remove_col" class="button_col"><input type="submit" name="remove" value="Remove"></td>
+            <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>
+            <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 <a href="{{ url_for('add_product') }}">Add Product</a>
+<script src="{{ url_for('static', filename="main.js")}}"></script>
 {% endblock %}
