@@ -93,7 +93,7 @@ def create_newProducer():
             if not os.path.exists('file_uploads/'+username):
                 os.makedirs('file_uploads/'+username)
 
-            return redirect('/farmer_home')
+            return redirect('/farmer_home') 
 
 
         else:
@@ -169,6 +169,7 @@ def farmer_home():
     #products = retrieve_all(collection)
 
     products = retrieve_products(collection,session['username'])
+    print(collection)
 
     productList = []
 

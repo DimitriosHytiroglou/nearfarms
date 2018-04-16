@@ -14,34 +14,44 @@
     <h1 class="title">Let's Log You In:</h1>
       <form action="" method="post" name="login">
         {{ loginForm.hidden_tag() }}
+        
         <div class="field">
           <label class="label">User type:</label>
             <div class="control">
-              <p>
+              <div class="select">
                 {{ loginForm.userType }}
-              </p>
+              </div>
             </div>
         </div>
+
         <div class="field">
           <label class="label">Username:</label>
-            <div class="control">
-              <p>
-                {{ loginForm.username(size=120) }}
-              </p>
+            <div class="control has-icons-left">          
+                {{ loginForm.username(size=100, class="input", placeholder="Username") }}
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
             </div>
         </div>
+
         <div class="field">
           <label class="label">Password:</label>
-            <div class="control">
-              <p>
-                {{ loginForm.password(size=120) }}
-              </p>
-              <p style="display:{{ wrong }};color:red">
-                Wrong username or password, try again!
-              </p>
-            </div>
+          <p style="display:{{ wrong }};color:red">
+            Wrong username or password, try again!
+          </p>
+          <div class="control has-icons-left">          
+              {{ loginForm.password(size=120, class="input", placeholder="Password") }}
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          </div>
         </div>
-      <p><input type="submit" value="Login"></p>
+      
+      <div class="field is-grouped is-grouped-left">
+        <p class="control">
+          <input class="button is-primary is-medium" type="submit" value="Login">
+        </p>
+      </div>
   </div>
 </section>
 {% endblock %}

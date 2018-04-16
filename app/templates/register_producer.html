@@ -22,12 +22,12 @@
         <label class="label">Name:</label>
         <div class="field-body">
           <div class="field">
-            <div class="control is-expanded">{{newProducerForm.first_name(class="input is-info is-primary", placeholder= "First")}}
+            <div class="control is-expanded">{{newProducerForm.first_name(size=100, class="input", placeholder= "First")}}
             </div>
           </div>
           <div class="field">
             <div class="control is-expanded">
-            {{newProducerForm.last_name(class="input is-info is-primary", placeholder= "Last")}}
+            {{newProducerForm.last_name(size=100, class="input", placeholder= "Last")}}
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
       <div class="field">
         <label class="label">Farm Name:</label>
         <div class="control has-icons-left">          
-          {{newProducerForm.farm_name(class="input is-info is-primary", placeholder= "Farm Name")}}
+          {{newProducerForm.farm_name(size=100, class="input", placeholder= "Farm Name")}}
           <span class="icon is-small is-left">
             <i class="fas fa-home"></i>
           </span>
@@ -45,7 +45,7 @@
       <div class="field">
         <label class="label">Farm Description:</label>
         <div class="control has-icons-left">          
-          {{newProducerForm.farm_description(class="input is-info is-primary", placeholder= "Farm Description")}}
+          {{newProducerForm.farm_description(size=100, class="input", placeholder= "Farm Description")}}
         <span class="icon is-small is-left">
           <i class="fas fa-home"></i>
         </span>
@@ -55,7 +55,7 @@
       <div class="field">
         <label class="label">Email:</label>
         <div class="control has-icons-left">          
-          {{newProducerForm.email(class="input is-info is-primary", placeholder= "Email")}}
+          {{newProducerForm.email(size=100, class="input", placeholder= "Email")}}
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
@@ -63,9 +63,12 @@
       </div>
 
       <div class="field">
-        <label class="label">Email:</label>
+        <label class="label">Username:</label>
+        <p style="display:{{ wrong }};color:red">
+          Username exists, please choose a different one!
+        </p>
         <div class="control has-icons-left">          
-          {{newProducerForm.username(class="input is-info is-primary", placeholder= "Username")}}
+          {{newProducerForm.username(size=100, class="input", placeholder= "Username")}}
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
@@ -75,7 +78,7 @@
       <div class="field">
         <label class="label">Password:</label>
         <div class="control has-icons-left">          
-          {{newProducerForm.password(class="input is-info is-primary", placeholder= "Password")}}
+          {{newProducerForm.password(size=100, class="input", placeholder= "Password")}}
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>

@@ -1,65 +1,94 @@
 {% extends "base.html" %}
+
 {% block JS %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
-{% endblock %}{% block content %}
+{% endblock %}
 
-<h2>Farmer Home</h2>
-<p style="text-decoration: underline">Logged in as: {{ user }}</p>
-<a href="{{ url_for('logout') }}">Logout</a><br>
-<form action="" method="get" name="update_remove">
-<section>
-    <div class="table_title">
-        <h4>Farmers Market Products</h4>
-    </div>
-
-<table id="product_table">
-    <thead>
-        <form>
-
-            <p>AT THIS POINT THE VALUE OF THE MARKET SHOULD BE PASSED TO A VARIABLE OF FARM ID TO BE STORED IN THE DATABASE</p>
-
-            Select farmers market:
-            <select id="farmers_market">
-                <option></option>
-                <option>Berkeley</option>
-                <option>Oakland</option>
-                <option>San Francsisco</option>
-        </form>
-        <tr>
-            <th class="product_col" class="category_col">Product</th>
-            <th class="type_col" class="category_col">Type</th>
-            <th class="subtype_col" class="category_col">Subtype</th>
-            <th class="quantity_col" class="category_col">Quantity</th>
-            <th class="price_col" class="category_col">Price</th>
-            <th class="image_col" class="category_col">Image</th>
-            <th class="update_col" class="button_col"></th>
-            <th class="remove_col" class="button_col"></th>
-        </tr>
-    </thead>
-    
-
-    <!-- Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
-
-
-    <tbody>
-        {% for product in productList %}
-        <tr>
-			<td class="product_col" class="category_col">{{ product['Product'] }}</td>
-            <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
-            <td class="subtype_col" class="category_col">{{ product['Sub Type'] }}</td>
-            <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
-            <td class="price_col" class="category_col">{{ product['Price'] }}</td>
-            <td class="image_col" class="category_col">{{ product['Image'] }}</td>
-            <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>
-            <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<a href="{{ url_for('add_product') }}">Add Product</a>
-<script src="{{ url_for('static', filename="main.js")}}"></script>
+<!-- If logged in: remove login button, display account information and logout button -->
+{% block login %}
+{% endblock %}
+{% block account %}
+<div class="field is-grouped">
+    <p class="navbar-item">You are logged in as {{ user }}</p>
+    <a class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
+</p>
 {% endblock %}
 
 
+{% block content %}
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Welcome Farmer John</h1>
+      <h1 class="subtitle">Your Products Can't Wait to Get Sold</h1>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body">
+    <h1 class="title">Farmers Market Products:</h1>
+    <form action="" method="get" name="update_remove">
+
+        <section>
+            <div class="table_title">
+<!--                 <h4>Farmers Market Products</h4> -->
+            </div>
+
+            <table id="product_table">
+                <thead>
+                    <form>
+                        <div class="field">
+                        <p>AT THIS POINT THE VALUE OF THE MARKET SHOULD BE PASSED TO A VARIABLE OF FARM ID TO BE STORED IN THE DATABASE</p>
+                        <label class="label">Select farmers market:
+                        </label>
+                        <div class="select is-medium">
+                            <select id="farmers_market">
+                                <option>Berkeley</option>
+                                <option>Oakland</option>
+                                <option>San Francsisco</option>
+                            </select>
+                        </div>
+                    </form>
+                    <tr>
+                        <th class="product_col" class="category_col">Product</th>
+                        <th class="type_col" class="category_col">Type</th>
+                        <th class="subtype_col" class="category_col">Subtype</th>
+                        <th class="quantity_col" class="category_col">Quantity</th>
+                        <th class="price_col" class="category_col">Price</th>
+                        <th class="image_col" class="category_col">Image</th>
+                        <th class="update_col" class="button_col"></th>
+                        <th class="remove_col" class="button_col"></th>
+                    </tr>
+                </thead>
+                
+
+                <!-- Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
 
 
+                <tbody>
+                    {% for product in productList %}
+                    <tr>
+            			<td class="product_col" class="category_col">{{ product['Product'] }}</td>
+                        <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
+                        <td class="subtype_col" class="category_col">{{ product['Sub Type'] }}</td>
+                        <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
+                        <td class="price_col" class="category_col">{{ product['Price'] }}</td>
+                        <td class="image_col" class="category_col">{{ product['Image'] }}</td>
+                        <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>
+                        <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </form>
+    <div class="field is-grouped-left">
+        <p class="control">
+            <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
+            <script src="{{ url_for('static', filename="main.js")}}">
+            </script>
+        </p>
+    </div>
+</section>
+{% endblock %}

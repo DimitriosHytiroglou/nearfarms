@@ -10,8 +10,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nearfarms</title>
+    <!-- Bulma framework -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <!-- make sure you reference font awesome to use icons -->
+    
+    <link type="text/css" rel="stylesheet" href="/static/main.css"  media="screen,projection"/>
+
+    <!-- reference to font awesome icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     {% block JS %}{% endblock %}  </head>
@@ -37,7 +41,10 @@
             <div class="navbar-menu">
               <!-- sticks to right hand side  -->
               <div class="navbar-end">
-                <a class="navbar-item" href="{{ url_for('login') }}">Log In</a>
+                {% block account %} {% endblock %}
+                {% block login %}
+                <a class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
+                {% endblock %}
               </div>
             </div>
           </header>
