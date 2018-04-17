@@ -19,15 +19,6 @@
 <section class="hero is-primary is-bold">
 
 
-
-
-
-
-
-
-
-
-
   <div class="hero-body">
     <div class="container">
       <h1 class="title">Shop for local produce</h1>
@@ -38,11 +29,44 @@
 
 <section class="hero is-white">
    
-
-
   <div class="hero-body">
     <h1 class="title">Farmers Market Products:</h1>
+        <!-- Adding filters: product, productType, subType -->
+        <div>
+            <p>Filters:</p>
+        </div>
+        <!-- product filter -->
+        <div class="select is-medium">    
+            <select id="product_filter" name="product_filter">
+                <option></option>
+                {% for product in ProductList %}
+                <option>{{product}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- productType filter -->
+        <div class="select is-medium">    
+            <select id="productType_filter" name="poductType_filter">
+                <option></option>
+                {% for productType in ProductTypeList %}
+                <option>{{productType}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- subType filter -->
+        <div class="select is-medium">    
+            <select id="subType_filter" name="subType_filter">
+                <option></option>
+                {% for SubType in SubTypeList %}
+                <option>{{SubType}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button  id="apply_filter_btn" name="apply_filter" value="apply_filter">Apply Filter</button>
+
+        <!-- Adding list of the produce from the database -->
         {% for produce in produceList %}
+        {% if (produce['Product'] != '' and produce['Product Type'] != '' and produce['Sub Type'] != '') %}
 
         <div>
             <p>Product: {{ produce['Product'] }}</p><br>
@@ -51,8 +75,9 @@
             <p>Quantity: {{ produce['Quantity'] }}</p><br>
             <p>Price: {{ produce['Price'] }}</p><br>
             <p>Image: {{ produce['Image'] }}</p><br>
+            <button  name="add_to_cart" value="add_to_cart">Add to Cart</button>
         </div>
-
+        {% endif %}
         {% endfor %}
     </div>
     
@@ -63,5 +88,6 @@
             </script>
         </p>
     </div>
+    <script src="{{ url_for('static', filename="main.js")}}"></script>
 </section>
 {% endblock %}

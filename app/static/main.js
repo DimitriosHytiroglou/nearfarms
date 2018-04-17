@@ -54,3 +54,13 @@ $('body').on('click','.prod','click', function() {
 
 //     }
 // };
+
+$("#apply_filter_btn").on('click', function() {
+	var product = $('#product_filter').find('option:selected').val();
+	var productType = $('#productType_filter').find('option:selected').val();
+	var subType = $('#subType_filter').find('option:selected').val();
+	
+	filters = [product, productType,subType]
+	console.log(filters);
+
+});
