@@ -69,7 +69,7 @@
                 <tbody>
                     {% for product in productList %}
                     <tr>
-            			<td><img src="{{url_for('static', filename='file_uploads/d/RedApple.jpg')}}"></td>
+            			<td><img class="prod" data="http://stackoverflow.com/does-not-exist.png" src="{{url_for('static', filename='file_uploads/d/RedApple.jpg')}}"></td>
 
                         <td class="product_col" class="category_col">{{ product['Product'] }}</td>
                         

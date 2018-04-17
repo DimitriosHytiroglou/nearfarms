@@ -24,6 +24,26 @@ $(".update_col").on('click', function() {
 
 });
 
+// DIMITRIS: Below is code im trying to use for the image upload
+
+$('body').on('click','.prod','click', function() {
+    console.log('CLICK!')
+    var form_data = new FormData($('#upload-file')[0]);
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '/uploadajax',
+    //     data: form_data,
+    //     contentType: false,
+    //     cache: false,
+    //     processData: false,
+    //     async: false,
+    //     success: function(data) {
+    //         console.log('Success!');
+    //     },
+    // });
+});
+
+
 // Javascript for the file upload button on product.html
 // var file = document.getElementById("file");
 // file.onchange = function(){
