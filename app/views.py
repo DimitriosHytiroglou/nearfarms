@@ -159,7 +159,7 @@ def add_product():
         insert_products(collection, producerID, product, productType, subType, quantity, price, image)
 
         return redirect('/farmer_home')
-    return render_template('product.html', productForm=productForm)
+    return render_template('product.html', productForm=productForm, user=session['username'])
 
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():

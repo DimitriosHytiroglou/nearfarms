@@ -11,123 +11,48 @@
 {% endblock %}
 
 {% block content %}
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">Welcome Farmer John</h1>
-      <h1 class="subtitle">Your Products Can't Wait to Get Sold</h1>
+<div class="container">
+  <div class="row">
+    <div class= "section">
+      <a href="{{ url_for('farmer_home') }}">Home</a>
     </div>
-  </div>
-</section>
-
-<section class="hero is-white">
-  <div class="hero-body">
-    <h2 class="title">Add Products:</h2>
-      <form action="" method="post" name="add_product">
-        {{ productForm.hidden_tag() }}
-        
-        <div class="field">
-          <label class="label">Product:</label>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left is-expanded">
-              {{ productForm.product(size=120, class="input", placeholder="Product") }}
-              <span class="icon is-small is-left">
-                <i class="fas fa-lemon"></i>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Product Type:</label>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left is-expanded">
-              {{ productForm.productType(size=120, class="input", placeholder="Product Type") }}
-              <span class="icon is-small is-left">
-                <i class="fas fa-tag"></i>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Product Subtype:</label>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left is-expanded">
-              {{ productForm.subType(size=120, class="input", placeholder="Product Subtype") }}
-              <span class="icon is-small is-left">
-                <i class="fas fa-tags"></i>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Quantity:</label>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left is-expanded">
-              {{ productForm.quantity(size=120, class="input", placeholder="Quantity") }}
-              <span class="icon is-small is-left">
-                <i class="fas fa-list-ol"></i>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Price:</label>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left is-expanded">
-              {{ productForm.price(size=120, class="input", placeholder="Price") }}
-              <span class="icon is-small is-left">
-                <i class="fas fa-dollar-sign"></i>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Image:</label>
-          <div class="field-body">
-            <div class="field">
-                <input type="file" class="inputfile inputfile-2" id="file" name = "file" >
-                <label for="file"><span id="filename">Choose File...</span></label>
-                <script type="text/javascript">
-                  var file = document.getElementById("file");
-                  file.onchange = function(){
-                    if(file.files.length > 0)
-                    {
-                      document.getElementById('filename').innerHTML = file.files[0].name;
-                    }
-                  };
-                </script>
-            </div>
-          </div>
-        </div>
-        
-        <div class="field is-grouped is-grouped-left">
-        <p class="control">
-          <input action = {{ url_for('file_upload') }} method = "POST" enctype = "multipart/form-data" class="button is-primary is-medium" type="submit" value="Add This Product">
+    <h2>Add Products</h2>
+    <form action="" method="post" name="add_product">
+      {{ productForm.hidden_tag() }}
+      <div class="divider"></div>
+      <div class="section">
+        <p>
+          Product:<br>
+          {{ productForm.product(size=120) }}<br>
         </p>
-        </div>
-
-        <!-- DIMI'S ORIGINAL CODE
-        <form action = {{ url_for('file_upload') }} method = "POST" 
+        <p>
+          Product Type:<br>
+          {{ productForm.productType(size=120) }}<br>          
+        </p>
+        <p>
+          Sub Type:<br>
+          {{ productForm.subType(size=120) }}<br>
+        </p>
+        <p>
+          Quantity:<br>
+          {{ productForm.quantity(size=120) }}<br>
+        </p>
+        <p>
+          Price:<br>
+          {{ productForm.price(size=120) }}<br>
+        </p>
+        <p>
+          Image:<br>
+          {{ productForm.image(size=120) }}<br>
+        </p>
+      </div>
+      <p><input type="submit" value="Add product"></p>
+    </form>
+    <form action = {{ url_for('file_upload') }} method = "POST" 
         enctype = "multipart/form-data">
         <input type = "file" name = "file" />
         <input type = "submit"/>
-        </form> -->
-
+    </form>
   </div>
-</section>
+</div>
 {% endblock %}
