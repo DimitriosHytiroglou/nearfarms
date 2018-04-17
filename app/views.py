@@ -189,7 +189,7 @@ def consumer_home():
 @app.route('/file_upload', methods = ['GET', 'POST'])
 def file_upload():
 
-    UPLOAD_FOLDER = 'file_uploads/'+session['username']+'/'
+    UPLOAD_FOLDER = 'app/static/file_uploads/'+session['username']+'/'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

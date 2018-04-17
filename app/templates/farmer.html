@@ -63,19 +63,30 @@
                 </thead>
                 
 
-                <!-- Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
+                <!--D Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
 
 
                 <tbody>
                     {% for product in productList %}
                     <tr>
-            			<td class="product_col" class="category_col">{{ product['Product'] }}</td>
+            			<td><img src="{{url_for('static', filename='file_uploads/d/RedApple.jpg')}}"></td>
+
+                        <td class="product_col" class="category_col">{{ product['Product'] }}</td>
+                        
                         <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
+                        
                         <td class="subtype_col" class="category_col">{{ product['Sub Type'] }}</td>
+                        
                         <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
+                        
                         <td class="price_col" class="category_col">{{ product['Price'] }}</td>
+                        
                         <td class="image_col" class="category_col">{{ product['Image'] }}</td>
+
+                        
+
                         <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>
+                        
                         <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
                     </tr>
                     {% endfor %}
@@ -86,7 +97,7 @@
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
-            <!-- 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
+            <!--C 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
             If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
             <script src="{{ url_for('static', filename="main.js")}}">
             </script>
