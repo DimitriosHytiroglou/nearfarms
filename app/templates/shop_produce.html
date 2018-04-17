@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block JS %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
+{% endblock %}
+
+<!-- If logged in: remove login button, display account information and logout button -->
+{% block login %}
+{% endblock %}
+{% block account %}
+<div class="field is-grouped">
+    <p class="navbar-item">You are logged in as {{ user }}</p>
+    <a class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
+</p>
+{% endblock %}
+
+
+{% block content %}
+<section class="hero is-primary is-bold">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Shop for local produce</h1>
+      <h1 class="subtitle">We have an amazing assortment just for you</h1>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+   
+
+
+  <div class="hero-body">
+    <h1 class="title">Farmers Market Products:</h1>
+        {% for produce in produceList %}
+
+        <div>
+            <p>Product: {{ produce['Product'] }}</p><br>
+            <p>Product Type: {{ produce['Product Type'] }}</p><br>
+            <p>Sub Type: {{ produce['Sub Type'] }}</p><br>
+            <p>Quantity: {{ produce['Quantity'] }}</p><br>
+            <p>Price: {{ produce['Price'] }}</p><br>
+            <p>Image: {{ produce['Image'] }}</p><br>
+        </div>
+
+        {% endfor %}
+    </div>
+    
+    <div class="field is-grouped-left">
+        <p class="control">
+            <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
+            <script src="{{ url_for('static', filename="main.js")}}">
+            </script>
+        </p>
+    </div>
+</section>
+{% endblock %}

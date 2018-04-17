@@ -36,9 +36,9 @@ def getUserPass(collection, username):
 
 
 # # # CONSUMERS # # #
-
-
-
+# returns all of the produce in database to display for the consumer !!! WILL NEED TO DELINEATE BY MARKET EVENTUALLY
+def retrieve_all_produce(collection):
+    return collection.find()
 
 # # # PRODUCERS # # #
 
@@ -57,7 +57,3 @@ def retrieve_products(collection, username):
 	else:
 		return []
 
-### WHAT IS THIS? LETS GIVE IT A NAME AND CATEGORIZE IT
-
-def retrieve_all(collection):
-    return collection.find()
