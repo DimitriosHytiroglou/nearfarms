@@ -169,7 +169,6 @@ def farmer_home():
     #products = retrieve_all(collection)
 
     products = retrieve_products(collection,session['username'])
-    print(collection)
 
     productList = []
 
@@ -226,4 +225,20 @@ def file_upload():
             #return render_template('product.html', **templateData)
             #return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
                                     #filename=filename))
+
+@app.route('/shop_produce', methods=['POST','GET'])
+def shop_produce():
+    collection = chooseCollection('products')
+
     
+    all_produce = retrieve_all_produce(collection)
+    
+    produceList = []
+
+    for produce in all_produce:
+        produceList.append(produce)
+
+    print(produceList)
+
+    return render_template('shop_produce.html', produceList=produceList, user=session['username'])
+   
