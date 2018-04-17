@@ -52,7 +52,7 @@ class ProductForm(Form):
     subType = StringField('subType', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
     price = IntegerField('price', validators=[DataRequired()])			 # probably need to change this to float
-    image = FileField('image', validators=[DataRequired()]) 			 # this is just a placeholder for now
+    # image = FileField('image', validators=[DataRequired()]) 			 # this is just a placeholder for now
 
 
 

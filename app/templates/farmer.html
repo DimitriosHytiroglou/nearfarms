@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-{% block JS %}
+{% block head %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/static/modal.css">
 {% endblock %}
 
 <!-- If logged in: remove login button, display account information and logout button -->
@@ -94,14 +96,29 @@
             </table>
         </section>
     </form>
+    <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+            <form action = {{ url_for('file_upload') }} method = "POST" 
+                enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+                <input type = "submit"/>
+            </form>
+        </div>
+
+    </div>
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
-            <!--C 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
-            If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
-            <script src="{{ url_for('static', filename="main.js")}}">
-            </script>
+            
         </p>
     </div>
 </section>
+<!--C 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
+If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
+<script src="{{ url_for('static', filename="main.js")}}"></script>
+<script src="{{ url_for('static', filename="modal.js")}}"></script>
 {% endblock %}

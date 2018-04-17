@@ -64,3 +64,4 @@ $("#apply_filter_btn").on('click', function() {
 	console.log(filters);
 
 });
+

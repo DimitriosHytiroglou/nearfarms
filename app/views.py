@@ -153,10 +153,10 @@ def add_product():
         subType = productForm.subType.data
         quantity = productForm.quantity.data
         price = productForm.price.data
-        image = productForm.image.data
+        # image = productForm.image.data
 
         collection = chooseCollection('products')
-        insert_products(collection, producerID, product, productType, subType, quantity, price, image)
+        insert_products(collection, producerID, product, productType, subType, quantity, price)
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'])
@@ -207,7 +207,7 @@ def file_upload():
             flash('No file part')
             #return render_template('product.html', **templateData)
             #return '''<!doctype html><p>BOB</p>'''#redirect(request.url)
-            return redirect('/add_product')
+            return redirect('/farmer_home')
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
@@ -215,13 +215,13 @@ def file_upload():
             flash('No selected file')
             #return render_template('product.html', **templateData)
             #return '''<!doctype html><p>BOB</p>''' #redirect(request.url)
-            return redirect('/add_product')
+            return redirect('/farmer_home')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             #file.save(os.path.join(app.root_path, filename))
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             flash('File uploaded succesfully!')
-            return redirect('/add_product')
+            return redirect('/farmer_home')
             #return render_template('product.html', **templateData)
             #return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
                                     #filename=filename))

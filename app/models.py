@@ -47,8 +47,8 @@ def insertUser(collection, email, username, password, first, last, farm, descrip
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description})
 
 # insert value
-def insert_products(collection, producerID, product, productType, subType, quantity, price, image):
-    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':image})
+def insert_products(collection, producerID, product, productType, subType, quantity, price):
+    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price})
 
 def retrieve_products(collection, username):
 	products = collection.find({'ProducerID':username})
