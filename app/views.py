@@ -228,17 +228,31 @@ def file_upload():
 
 @app.route('/shop_produce', methods=['POST','GET'])
 def shop_produce():
+
     collection = chooseCollection('products')
 
     
     all_produce = retrieve_all_produce(collection)
     
+    # gathering all of the produce listed in database
     produceList = []
+
+    # gathing all of the products, productypes, subtypes, 
+    ProductList = []
+    ProductTypeList = []
+    SubTypeList = []
 
     for produce in all_produce:
         produceList.append(produce)
+        ProductList.append(produce['Product'])
+        ProductTypeList.append(produce['Product Type'])
+        SubTypeList.append(produce['Sub Type'])
 
-    print(produceList)
+    # getting unique values and sorting in alphabetical order
+    ProductList = sorted(list(set(ProductList)))
+    ProductTypeList = sorted(list(set(ProductTypeList)))
+    SubTypeList = sorted(list(set(SubTypeList)))
 
-    return render_template('shop_produce.html', produceList=produceList, user=session['username'])
+    return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
+        SubTypeList=SubTypeList, user=session['username'])
    
