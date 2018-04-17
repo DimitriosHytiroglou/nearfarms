@@ -86,6 +86,8 @@
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
+            <!-- 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
+            If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
             <script src="{{ url_for('static', filename="main.js")}}">
             </script>
         </p>
