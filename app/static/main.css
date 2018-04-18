@@ -71,7 +71,7 @@ select {
 }
 
 /* DIMITRIS: I added this to keep those apples pics small :P :P change it however is more appropriate!*/
-img {
+#product-image {
 	height: 20px;
 	width: 20px;
 }
