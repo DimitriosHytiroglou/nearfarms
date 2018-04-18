@@ -179,48 +179,53 @@ def farmer_home():
 
     return render_template('farmer.html', productList=productList, user=session['username'])
 
-@app.route('/product_update', methods=['GET'])
+@app.route('/product_update', methods=['POST'])
 def productUpdate():
     
-
-
-
     # Retrieve data from database to display
     collection = chooseCollection('products')
     
     if request.method == "POST":
 
         # JUST REMOVE THE DICTIONARIES AND PASS THE REQUEST.FORM DIRECTLY
-        update['_id'] = request.form['product']
-        update['producerID'] = request.form['producerID']
+        update = {}
+        update['_id'] = request.form['_id']
         update['product'] = request.form['product']
         update['productType'] = request.form['productType']
         update['subType'] = request.form['subType']
         update['quantity'] = request.form['quantity']
         update['price'] = request.form['price']
+        
+        print(update['_id'])
+        print(update['product'])
+        print(request.form['productType'])
+        print(request.form['subType'])
+        print(request.form['quantity'])
+        print(request.form['price'])
 
-        update_product(collection, request.form['product'], request.form['producerID'], request.form['product'], request.form['productType'], request.form['subType'], request.form['quantity'], request.form['price'])
+        update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['subType'], request.form['quantity'], request.form['price'])
 
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+        # return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
     # !! DELETE !! THE REST OF THE CODE FOR THIS APP ROUTING. WAS JUST USED FOR DEVELOPMENT
 
-    #products = retrieve_all(collection)
+        
 
-    products = retrieve_products(collection,session['username'])
+        products = retrieve_products(collection,session['username'])
 
-    productList = []
+        productList = []
 
-    for product in products:
-        productList.append(product)
+        for product in products:
+            productList.append(product)
 
     # REMEMBER TO USE THE LINE BELOW TO AVOID REFRESHING THE PAGE
     # This just signals a 200 to the AJAX request
     # return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
     # REPLACE THE NORMAL REDIRECT WITH IT
 
-    return render_template('farmer.html', productList=productList, user=session['username'])
+        return render_template('farmer.html', productList=productList, user=session['username'])
 
 
 

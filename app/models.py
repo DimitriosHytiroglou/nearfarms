@@ -60,6 +60,7 @@ def retrieve_products(collection, username):
 		return []
 
 # Update value
-def update_product(collection, _id, producerID, product, productType, subType, quantity, price):
-	collection.update_one({"_id": "ObjectID('"+_id+"')"}, {"$set": {'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
+def update_product(collection, _id, product, productType, subType, quantity, price):
+	collection.update_one({"_id": "ObjectID('"+_id+"')"}, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
 
+#  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/
