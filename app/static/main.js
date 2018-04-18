@@ -26,25 +26,26 @@ $(".update_col").on('click', function() {
 
 
 $("#apply_filter_btn").on('click', function applyFilter() {
-	var product = $('#product_filter').find('option:selected').val();
-	var productType = $('#productType_filter').find('option:selected').val();
-	var subType = $('#subType_filter').find('option:selected').val();
+	var product = $('#product_filter').find('option:selected').text();
+	var productType = $('#productType_filter').find('option:selected').text();
+	var subType = $('#subType_filter').find('option:selected').text();
 	
 	filters = [product, productType,subType]
 	console.log(filters);
-
-	var apply = {'product':product,'productType':productType,'subType':subType};
+	// console.log(subType);
+	// var apply = {'product':product,'productType':productType,'subType':subType};
 
 	$.post("apply-filter", {
  					product:product,
  					productType:productType,
- 					subType:subType, 					
+ 					subType:subType					
 
  			}).done(function (reply) {
-                $(document.body.parentNode).html(reply)
+                $(document.body.parentNode).html(reply);
                 
             }
         );
 
 
 });
+

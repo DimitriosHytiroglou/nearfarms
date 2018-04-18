@@ -205,26 +205,20 @@ def file_upload():
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            #return render_template('product.html', **templateData)
-            #return '''<!doctype html><p>BOB</p>'''#redirect(request.url)
             return redirect('/farmer_home')
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
-            #return render_template('product.html', **templateData)
-            #return '''<!doctype html><p>BOB</p>''' #redirect(request.url)
             return redirect('/farmer_home')
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            #file.save(os.path.join(app.root_path, filename))
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             flash('File uploaded succesfully!')
             return redirect('/farmer_home')
-            #return render_template('product.html', **templateData)
-            #return '''<!doctype html><p>BOB</p>'''#redirect(url_for('uploaded_file',
-                                    #filename=filename))
+
 
 @app.route('/shop_produce', methods=['POST','GET'])
 def shop_produce():
@@ -253,7 +247,7 @@ def shop_produce():
     ProductTypeList = sorted(list(set(ProductTypeList)))
     SubTypeList = sorted(list(set(SubTypeList)))
 
-
+    
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
@@ -266,15 +260,50 @@ def shop_produce():
 def applyFilter():
     
 
+    ###########################################################
+    #  GET THE PRODUCE, SAME AS ABOVE, THIS MUST BE SIMPLIFIED
+    ###########################################################
+
+    collection = chooseCollection('products')
+
+    
+    all_produce = retrieve_all_produce(collection)
+    
+    # gathering all of the produce listed in database
+    produceList = []
+
+    # gathing all of the products, productypes, subtypes, 
+    ProductList = []
+    ProductTypeList = []
+    SubTypeList = []
+
+    for produce in all_produce:
+        produceList.append(produce)
+        ProductList.append(produce['Product'])
+        ProductTypeList.append(produce['Product Type'])
+        SubTypeList.append(produce['Sub Type'])
+
+    # getting unique values and sorting in alphabetical order
+    ProductList = sorted(list(set(ProductList)))
+    ProductTypeList = sorted(list(set(ProductTypeList)))
+    SubTypeList = sorted(list(set(SubTypeList)))
+
+    
+    ##########################################
+    # APPLYING THE FILTERS
+    ##########################################
+
+    filters = {}
+
     if request.method == "POST":
 
-        filters = {}
+        
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
-        filters['subType'] = request.form['subtype']
+        filters['subType'] = request.form['subType']
         
 
-
+    # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         SubTypeList=SubTypeList, filters=filters)
 
