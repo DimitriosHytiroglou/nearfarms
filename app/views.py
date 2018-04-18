@@ -254,5 +254,8 @@ def shop_produce():
     SubTypeList = sorted(list(set(SubTypeList)))
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, user=session['username'])
+        SubTypeList=SubTypeList)
    
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404_error.html'), 404
