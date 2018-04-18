@@ -37,7 +37,7 @@
 <!--                 <h4>Farmers Market Products</h4> -->
             </div>
 
-            <table id="product_table">
+            <table class = "table" id="product_table">
                 <thead>
                     <form>
                         <div class="field">
@@ -71,7 +71,7 @@
                 <tbody>
                     {% for product in productList %}
                     <tr>
-            			<td><img class="prod" data="http://stackoverflow.com/does-not-exist.png" src="{{url_for('static', filename='file_uploads/d/RedApple.jpg')}}"></td>
+            			<td><img class="prod" data="http://stackoverflow.com/does-not-exist.png" src="{{url_for('static', filename='file_uploads/d/RedApple.jpg')}}" id="product-image"></td>
 
                         <td class="product_col" class="category_col">{{ product['Product'] }}</td>
                         
