@@ -8,6 +8,7 @@ $(".update_col").on('click', function() {
 	var quantity = $(this).closest('tr').find('.quantity_col').text();
 	var price = $(this).closest('tr').find('.price_col').text();
 	var image = $(this).closest('tr').find('.image_col').text();
+	var _id = $(this).closest('tr').find('._id_col').text();
 	var tr = $(this).closest("tr").remove().clone();
 
 	// this if function makes sure the update occurs in the same table row rather than appending the update to the end of the table
@@ -24,6 +25,8 @@ $(".update_col").on('click', function() {
 
 });
 
+
+// Apply filters
 
 $("#apply_filter_btn").on('click', function applyFilter() {
 	var product = $('#product_filter').find('option:selected').text();
@@ -49,3 +52,29 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 
 });
 
+
+// Update Product
+
+$("#apply_filter_btn").on('click', function applyFilter() {
+	var product = $('#product_filter').find('option:selected').text();
+	var productType = $('#productType_filter').find('option:selected').text();
+	var subType = $('#subType_filter').find('option:selected').text();
+	
+	filters = [product, productType,subType]
+	console.log(filters);
+	// console.log(subType);
+	// var apply = {'product':product,'productType':productType,'subType':subType};
+
+	$.post("apply-filter", {
+ 					product:product,
+ 					productType:productType,
+ 					subType:subType					
+
+ 			}).done(function (reply) {
+                $(document.body.parentNode).html(reply);
+                
+            }
+        );
+
+
+});
