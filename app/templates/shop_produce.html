@@ -66,7 +66,7 @@
 
         <!-- Adding list of the produce from the database -->
         {% for produce in produceList %}
-        {% if (produce['Product'] != '' and produce['Product Type'] != '' and produce['Sub Type'] != '') %}
+        {% if (produce['Product'] == 'apple') %}
 
         <div>
             <p>Product: {{ produce['Product'] }}</p><br>

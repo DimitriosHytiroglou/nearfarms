@@ -1,4 +1,6 @@
 
+
+
 // update products in line via farmer.html
 $(".update_col").on('click', function() {
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
@@ -10,6 +12,8 @@ $(".update_col").on('click', function() {
 	var image = $(this).closest('tr').find('.image_col').text();
 	var _id = $(this).closest('tr').find('._id_col').text();
 	var tr = $(this).closest("tr").remove().clone();
+
+	console.log(price)
 
 	// this if function makes sure the update occurs in the same table row rather than appending the update to the end of the table
 	if (rowIndex == 0) {
@@ -28,17 +32,21 @@ $(".update_col").on('click', function() {
 $('body').on('click','.submit_prod_button','click', function() {
 
 	console.log('HUBBA!')
+	// console.log(e.target);
+	console.log(this);
 
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
-	var product = $(this).closest('tr').find('.product_col').text();
-	var productType = $(this).closest('tr').find('.type_col').text();
-	var subType = $(this).closest('tr').find('.subtype_col').text();
-	var quantity = $(this).closest('tr').find('.quantity_col').text();
-	var price = $(this).closest('tr').find('.price_col').text();
-	var _id = $(this).closest('tr').find('._id_col').text();
-	var tr = $(this).closest("tr").remove().clone();
+	console.log(($(this).closest('tr').find('.product_col').val()));
 
+	var product = $(this).closest('tr').find('.product_col').val();
+	var productType = $(this).closest('tr').find('.type_col').val();
+	var subType = $(this).closest('tr').find('.subtype_col').val();
+	var quantity = $(this).closest('tr').find('.quantity_col').val();
+	var price = $(this).closest('tr').find('.price_col').val();
+	var _id = $(this).closest('tr').find('._id_col').val();
+	// var tr = $(this).closest("tr").remove().clone();
 
+	console.log(price);
 // THERE IS AN ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
 
 	$.post("product_update", {
@@ -50,7 +58,8 @@ $('body').on('click','.submit_prod_button','click', function() {
  					_id:_id					
 
  			}).done(function (reply) {
-                $(document.body.parentNode).html(reply);
+            window.location.reload(true);
+                
                 
             }
         );
@@ -86,28 +95,33 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 });
 
 
+
+
+
 // Update Product
 
-$("#apply_filter_btn").on('click', function applyFilter() {
-	var product = $('#product_filter').find('option:selected').text();
-	var productType = $('#productType_filter').find('option:selected').text();
-	var subType = $('#subType_filter').find('option:selected').text();
+// CHECK IF NEED TO REMOVE
+
+// $("#apply_filter_btn").on('click', function applyFilter() {
+// 	var product = $('#product_filter').find('option:selected').text();
+// 	var productType = $('#productType_filter').find('option:selected').text();
+// 	var subType = $('#subType_filter').find('option:selected').text();
 	
-	filters = [product, productType,subType]
-	console.log(filters);
-	// console.log(subType);
-	// var apply = {'product':product,'productType':productType,'subType':subType};
+// 	filters = [product, productType,subType]
+// 	console.log(filters);
+// 	// console.log(subType);
+// 	// var apply = {'product':product,'productType':productType,'subType':subType};
 
-	$.post("apply-filter", {
- 					product:product,
- 					productType:productType,
- 					subType:subType					
+// 	$.post("apply-filter", {
+//  					product:product,
+//  					productType:productType,
+//  					subType:subType					
 
- 			}).done(function (reply) {
-                $(document.body.parentNode).html(reply);
+//  			}).done(function (reply) {
+//                 $(document.body.parentNode).html(reply);
                 
-            }
-        );
+//             }
+//         );
 
 
-});
+// });

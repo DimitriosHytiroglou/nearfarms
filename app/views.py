@@ -5,6 +5,7 @@ from .forms import *
 from .models import *
 from werkzeug import secure_filename
 from app.encryption.HashingHandler import *
+import json
 # Access the models file to use SQL functions
 
 
@@ -222,10 +223,10 @@ def productUpdate():
 
     # REMEMBER TO USE THE LINE BELOW TO AVOID REFRESHING THE PAGE
     # This just signals a 200 to the AJAX request
-    # return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+     
     # REPLACE THE NORMAL REDIRECT WITH IT
-
-        return render_template('farmer.html', productList=productList, user=session['username'])
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+        # return render_template('farmer.html', productList=productList, user=session['username'])
 
 
 
