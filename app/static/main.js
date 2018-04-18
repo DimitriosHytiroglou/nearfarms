@@ -24,38 +24,8 @@ $(".update_col").on('click', function() {
 
 });
 
-// DIMITRIS: Below is code im trying to use for the image upload
 
-$('body').on('click','.prod','click', function() {
-    console.log('CLICK!')
-    var form_data = new FormData($('#upload-file')[0]);
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/uploadajax',
-    //     data: form_data,
-    //     contentType: false,
-    //     cache: false,
-    //     processData: false,
-    //     async: false,
-    //     success: function(data) {
-    //         console.log('Success!');
-    //     },
-    // });
-});
-
-
-// Javascript for the file upload button on product.html
-// var file = document.getElementById("file");
-// file.onchange = function(){
-//     if(file.files.length > 0)
-//     {
-
-//       document.getElementById('filename').innerHTML = 					file.files[0].name;
-
-//     }
-// };
-
-$("#apply_filter_btn").on('click', function() {
+$("#apply_filter_btn").on('click', function applyFilter() {
 	var product = $('#product_filter').find('option:selected').val();
 	var productType = $('#productType_filter').find('option:selected').val();
 	var subType = $('#subType_filter').find('option:selected').val();
@@ -63,5 +33,18 @@ $("#apply_filter_btn").on('click', function() {
 	filters = [product, productType,subType]
 	console.log(filters);
 
-});
+	var apply = {'product':product,'productType':productType,'subType':subType};
 
+	$.post("apply-filter", {
+ 					product:product,
+ 					productType:productType,
+ 					subType:subType, 					
+
+ 			}).done(function (reply) {
+                $(document.body.parentNode).html(reply)
+                
+            }
+        );
+
+
+});

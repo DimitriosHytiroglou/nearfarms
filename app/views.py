@@ -253,9 +253,35 @@ def shop_produce():
     ProductTypeList = sorted(list(set(ProductTypeList)))
     SubTypeList = sorted(list(set(SubTypeList)))
 
+
+    filters = {}
+    filters['product'] = ''
+    filters['productType'] = ''
+    filters['subType'] = ''
+
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList)
-   
+        SubTypeList=SubTypeList, filters=filters)
+
+@app.route('/apply-filter', methods=['POST'])
+def applyFilter():
+    
+
+    if request.method == "POST":
+
+        filters = {}
+        filters['product'] = request.form['product']
+        filters['productType'] = request.form['productType']
+        filters['subType'] = request.form['subtype']
+        
+
+
+    return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
+        SubTypeList=SubTypeList, filters=filters)
+
+    
+
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404_error.html'), 404
