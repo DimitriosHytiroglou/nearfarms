@@ -1,4 +1,4 @@
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import StringField, IntegerField, SelectField, PasswordField, validators
 from flask_wtf.html5 import EmailField
 from flask_wtf.file import FileField
