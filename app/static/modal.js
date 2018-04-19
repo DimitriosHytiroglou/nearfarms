@@ -12,7 +12,12 @@ var span = document.getElementsByClassName("close")[0];
 $('body').on('click','.prod','click', function() {
     modal.style.display = "block";
 
+
     var _id = $(this).parent().closest('tr').find(":hidden").text();
+
+    console.log(_id)
+
+    $(".modal-content").find("input[name='_id']").val(_id);
 
 });
 

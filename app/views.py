@@ -177,11 +177,6 @@ def farmer_home():
     for product in products:
         productList.append(product)
 
-        print(product['_id'])
-        print("BOB")
-        print(product['Image'])
-
-
     return render_template('farmer.html', productList=productList, user=session['username'])
 
 @app.route('/product_update', methods=['POST'])
@@ -214,10 +209,6 @@ def productDelete():
     
     if request.method == "POST":
        
-        print('delete')
-        print(request.form['_id'])
-        delete_product(collection, request.form['_id'])     
-        print('deleted')
         products = retrieve_products(collection,session['username'])
 
         productList = []
@@ -226,8 +217,6 @@ def productDelete():
             productList.append(product)
      
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-
-
 
 
 @app.route('/consumer_home', methods=['GET'])

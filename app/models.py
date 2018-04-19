@@ -1,14 +1,6 @@
 import pymongo
 import bson 
 
-####### DEPRECATING LOCAL STORAGE ########
-# gets you the handler on the mongo client
-#client = pymongo.MongoClient()
-# choose the database
-#db = client.nearfarms
-#/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\#
-
-
 ######### Adding REMOTE STORAGE ##########
 # Connects to MongoDB Atlas Database
 # and gets you the handler on the mongo client
@@ -35,11 +27,11 @@ def getUserPass(collection, username):
 		return []
 
 
-
 # # # CONSUMERS # # #
 # returns all of the produce in database to display for the consumer !!! WILL NEED TO DELINEATE BY MARKET EVENTUALLY
 def retrieve_all_produce(collection):
     return collection.find()
+
 
 # # # PRODUCERS # # #
 
@@ -48,11 +40,13 @@ def insertUser(collection, email, username, password, first, last, farm, descrip
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description})
 
 
-# insert value
+# # # PRODUCTS # # #
+
+# Insert new product
 def insert_products(collection, producerID, product, productType, subType, quantity, price, image):
     collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':''})
 
-
+# Retrieve all of producer's products
 def retrieve_products(collection, username):
 	products = collection.find({'ProducerID':username})
 	if products.count() is not 0:
@@ -60,17 +54,18 @@ def retrieve_products(collection, username):
 	else:
 		return []
 
-# Update MongoDB
+# Update existing product
 def update_product(collection, _id, product, productType, subType, quantity, price):
 	idb = bson.ObjectId(_id)
 	collection.update_one({"_id": idb }, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
 #  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/\
 
-# Delete object in MongoDB
+# Delete existing product
 def delete_product(collection, _id):
 	idb = bson.ObjectId(_id)
 	collection.delete_one({"_id": idb })	
 
+# Update existing product's image
 def update_image(collection, _id, image):
 	idb = bson.ObjectId(_id)
 	collection.update_one({"_id": idb }, {"$set": {'Image':image}})	
