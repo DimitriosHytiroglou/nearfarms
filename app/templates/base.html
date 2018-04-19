@@ -27,25 +27,63 @@
     <section class="hero is-white is-small is-medium">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
-        <!-- Bulma container class  -->
-        <div class="container">
           <!-- Bulma Navbar class  -->
-          <header class="navbar">
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            
             <!-- Bulma navbar-brand stickt to left hand  -->
             <div class="navbar-brand">
               <!-- Bulma navbar-item is child of brand  -->
               <a class="navbar-item" href="{{ url_for('home') }}">
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
-              <!-- only shows on mobile  -->
-              <span class="navbar-burger" data-target="navbarMenuHeroC">
+              <!-- navbar-burger needs to be last child of navbar-brand -->
+              <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <!-- "The navbar-menu is the counterpart of the navbar brand. As such, it must appear as a direct child of navbar, as a sibling of navbar-brand. It also needs two elements as direct children: navbar-start and navbar-end" -->
+            <!-- navbar-start will appear on the left
+                 navbar-end will appear on the right -->
+            <div class="navbar-menu">
+              <div class="navbar-start">
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="field is-grouped">
+                    {% block account %}
+                    <p class="control"> 
+                      <div class="navbar-item">
+                        <p style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
+                        <div class="navbar-item"></div>
+                        <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
+                      {% endblock %}
+                      {% block login %}
+                      <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+<!-- 
+                <a style="display: {{ user_status['in'] }}" class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
+                <div class="field is-grouped">
+                  <p style="display: {{ user_status['out'] }}" class="navbar-item">You are logged in as {{ user }}</p>
+                  <a style="display: {{ user_status['out'] }}" class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
+                </p> -->
+                      </div>
+                    </p>
+                    {% endblock %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+              
+              <!-- <span class="navbar-burger" data-target="navbarMenuHeroC">
               </span>
             </div>
             <div class="navbar-menu">
-              <!-- sticks to right hand side  -->
+              
               <div class="navbar-end">
-                {% block account %} {% endblock %}
-                {% block login %}
+                
+                
                 <a style="display: {{ user_status['in'] }}" class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
 
                 <div class="field is-grouped">
@@ -53,11 +91,11 @@
                   <a style="display: {{ user_status['out'] }}" class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
                 </p>
 
-                {% endblock %}
+
               </div>
             </div>
           </header>
-        </div>
+        </div> -->
       </div>
     </section>
     {% endblock %}

@@ -2,20 +2,8 @@
 
 {% block head %}
 
-
 <link type="text/css" rel="stylesheet" href="/static/modal.css">
 {% endblock %}
-
-<!-- If logged in: remove login button, display account information and logout button -->
-{% block login %}
-{% endblock %}
-{% block account %}
-<div class="field is-grouped">
-    <p class="navbar-item">You are logged in as {{ user }}</p>
-    <a class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
-</p>
-{% endblock %}
-
 
 {% block content %}
 <section class="hero is-primary is-bold">
