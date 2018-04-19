@@ -73,8 +73,6 @@
                     <tr>
             			<td><img class="prod" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=product['Image'])}}" id="product-image"></td>
 
-                        <td>{{ product['Image'] }}</td>
-
                         <td class="product_col" class="category_col">{{ product['Product'] }}</td>
                         
                         <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
@@ -84,8 +82,6 @@
                         <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
                         
                         <td class="price_col" class="category_col">{{ product['Price'] }}</td>
-                        
-                        <td class="image_col" class="category_col">{{ product['Image'] }}</td>
 
                         <td style="display: none" class="id_col" class="id_col">{{ product['_id'] }}</td>
 
