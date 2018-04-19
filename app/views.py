@@ -321,6 +321,9 @@ def shop_produce():
     ProductTypeList = sorted(list(set(ProductTypeList)))
     SubTypeList = sorted(list(set(SubTypeList)))
 
+    # print (ProductList)
+    print (produceList)
+
     
     filters = {}
     filters['product'] = ''

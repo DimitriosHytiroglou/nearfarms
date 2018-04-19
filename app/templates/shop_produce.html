@@ -56,7 +56,6 @@
 
         <!-- Adding list of the produce from the database -->
         {% for produce in produceList %}
-        {% if (produce['Product'] == 'apple') %}
 
         <div>
             <p>Product: {{ produce['Product'] }}</p><br>
@@ -67,7 +66,6 @@
             <p>Image: {{ produce['Image'] }}</p><br>
             <button  name="add_to_cart" value="add_to_cart">Add to Cart</button>
         </div>
-        {% endif %}
         {% endfor %}
     </div>
     
