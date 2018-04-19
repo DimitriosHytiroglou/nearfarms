@@ -14,10 +14,6 @@ $('body').on('click','.prod','click', function() {
 
     var _id = $(this).parent().closest('tr').find(":hidden").text();
 
-    console.log($(".modal-content").find("input[name='_id']").val(_id));
-
-
-
 });
 
 // When the user clicks on <span> (x), close the modal

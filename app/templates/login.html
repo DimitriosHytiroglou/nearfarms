@@ -36,15 +36,17 @@
 
         <div class="field">
           <label class="label">Password:</label>
-          <p style="display:{{ wrong }};color:red">
-            Wrong username or password, try again!
-          </p>
+          
           <div class="control has-icons-left">          
               {{ loginForm.password(size=120, class="input", placeholder="Password") }}
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
           </div>
+          
+          <p style="display:{{ wrong }};color:red">
+            Wrong username or password, try again!
+          </p>
         </div>
       
       <div class="field is-grouped is-grouped-left">

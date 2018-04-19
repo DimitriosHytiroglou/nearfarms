@@ -357,12 +357,10 @@ def applyFilter():
 
     if request.method == "POST":
 
-        
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
         filters['subType'] = request.form['subType']
         
-
     # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         SubTypeList=SubTypeList, filters=filters)
