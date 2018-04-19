@@ -56,19 +56,20 @@ def login():
         t = loginForm.userType.data.lower()
 
         collection = chooseCollection('users')
+        
+        # Gets hashed password associated with this username
         userPass = getUserPass(collection, u)
-
-        #  NEED TO ADD A CHECK HERE THAT USERS CHOOSE APPROPRIATELY WHAT THEY ARE SO THEY ARE NOT LOGGED IN BUT WITHOUT ACCESS
-        print("t=",t)
+        
         if userPass != []:
             if checkPass(userPass,p) and getUserType(collection,u)==t:
                 session['username'] = u
                 session['password'] = userPass
 
+        # Sets the session variable for the Login/Logout button
                 session['status']['in'] = 'none'
                 session['status']['out'] = 'block'
 
-
+        # Checks the type of user loggin in and sets the session['user_type'] variable
                 if t == 'producer':
                     session['user_type'] = 'producer'
                     return redirect('/farmer_home')
@@ -141,10 +142,14 @@ def create_newProducer():
 @app.route('/create_newConsumer', methods=['GET', 'POST'])
 def create_newConsumer():
     
+# Set variable that determines "Wrong username or password" message
     wrong = 'none'
 
     newConsumerForm = NewConsumerForm()
+    
     if newConsumerForm.validate_on_submit():
+        
+    # Retrieve user inserted values from from
         first_name = newConsumerForm.first_name.data
         last_name = newConsumerForm.last_name.data
         email = newConsumerForm.email.data
@@ -152,22 +157,28 @@ def create_newConsumer():
         password = newConsumerForm.password.data
         user_type = 'consumer'
 
+    # Check if username exists in database
         collection = chooseCollection('users')
+        
         userPass = getUserPass(collection, username)
-
+        
         if userPass == []:
-            # Password Hashing
+        # Hash password to be saved in database
             password = hashPass(password)
 
+        # Insert new consumer user in the database
             collection = chooseCollection('users')
             insertConsumer(collection, email, username, password, first_name, last_name, user_type)
 
+        # Set username and password session variables
             session['username'] = username
             session['password'] = password
 
+        # Set session variable that determines Login/Logout button
             session['status']['in'] = 'none'
             session['status']['out'] = 'block'
 
+        # Set session variable that determines user access to features
             session['user_type'] = 'consumer'
 
             return redirect('/shop_produce')
@@ -320,7 +331,7 @@ def shop_produce():
 
     collection = chooseCollection('products')
 
-    
+    # Retrieve all products from the database
     all_produce = retrieve_all_produce(collection)
     
     # gathering all of the produce listed in database
@@ -345,7 +356,7 @@ def shop_produce():
     # print (ProductList)
     print (produceList)
 
-    
+    # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
@@ -363,6 +374,7 @@ def applyFilter():
 
     collection = chooseCollection('products')
 
+    # Retrieve all products from the database
     all_produce = retrieve_all_produce(collection)
     
     # gathering all of the produce listed in database
@@ -388,10 +400,12 @@ def applyFilter():
     # APPLYING THE FILTERS
     ##########################################
 
+
     filters = {}
 
     if request.method == "POST":
 
+    # Populate filters with user selected values
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
         filters['subType'] = request.form['subType']

@@ -6,7 +6,7 @@ import bson
 # and gets you the handler on the mongo client
 # The connection string format is "mongodb://ClusterName:Password@AllClusterShards"
 client = pymongo.MongoClient("mongodb://nearfarmsapp:grannysmithsapples@nearfarmscluster-shard-00-00-uoq95.mongodb.net:27017,nearfarmscluster-shard-00-01-uoq95.mongodb.net:27017,nearfarmscluster-shard-00-02-uoq95.mongodb.net:27017/megalab?ssl=true&replicaSet=NearFarmsCluster-shard-0&authSource=admin")
-# ---TODO---> Must change password to be taken from hashed value on database and not stored in a string like this
+# ---TODO---> Must change password MongodDB Atlas to be taken from hashed value on database and not stored in a string like this
 
 #Choose database
 db = client.nearfarms
