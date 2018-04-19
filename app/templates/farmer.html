@@ -71,7 +71,7 @@
                 <tbody>
                     {% for product in productList %}
                     <tr>
-            			<td><img class="prod" data="http://stackoverflow.com/does-not-exist.png" src="{{url_for('static', filename=product['Image'])}}" id="product-image"></td>
+            			<td><img class="prod" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=product['Image'])}}" id="product-image"></td>
 
                         <td>{{ product['Image'] }}</td>
 
