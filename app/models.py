@@ -26,18 +26,27 @@ def getUserPass(collection, username):
 	else:
 		return []
 
+def getUserType(collection, username):
+	types = collection.find({'Username':username})
+	if types.count() is not 0:
+		print(str(types[0]['User Type']))
+		return str(types[0]['User Type'])
+	else:
+		return []
 
 # # # CONSUMERS # # #
 # returns all of the produce in database to display for the consumer !!! WILL NEED TO DELINEATE BY MARKET EVENTUALLY
 def retrieve_all_produce(collection):
     return collection.find()
 
+def insertConsumer(collection, email, username, password, first, last, userType):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
 # # # PRODUCERS # # #
 
 # Insert Producer
-def insertUser(collection, email, username, password, first, last, farm, description):
-	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description})
+def insertProducer(collection, email, username, password, first, last, farm, description, userType):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description, "User Type":userType})
 
 
 # # # PRODUCTS # # #

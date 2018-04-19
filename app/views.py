@@ -14,6 +14,8 @@ def index():
     session['username'] = None
     session['password'] = None
 
+    session['user_type'] = None
+
     user_status = {}
     user_status['in'] = 'block'
     user_status['out'] = 'none'
@@ -36,6 +38,8 @@ def logout():
     session['status']['in'] = 'block'
     session['status']['out'] = 'none'
 
+    session.pop('user_type', None)
+
     return redirect('/')
 
 # App routing for USER LOGIN
@@ -49,13 +53,15 @@ def login():
         
         u = loginForm.username.data
         p = loginForm.password.data
-        t = loginForm.userType.data
+        t = loginForm.userType.data.lower()
 
         collection = chooseCollection('users')
         userPass = getUserPass(collection, u)
 
+        #  NEED TO ADD A CHECK HERE THAT USERS CHOOSE APPROPRIATELY WHAT THEY ARE SO THEY ARE NOT LOGGED IN BUT WITHOUT ACCESS
+        print("t=",t)
         if userPass != []:
-            if checkPass(userPass,p):
+            if checkPass(userPass,p) and getUserType(collection,u)==t:
                 session['username'] = u
                 session['password'] = userPass
 
@@ -63,10 +69,13 @@ def login():
                 session['status']['out'] = 'block'
 
 
-                if t == 'Producer':
+                if t == 'producer':
+                    session['user_type'] = 'producer'
                     return redirect('/farmer_home')
-                elif t == 'Consumer':
-                    return redirect('/consumer_home')
+
+                elif t == 'consumer':
+                    session['user_type'] = 'consumer'
+                    return redirect('/shop_produce')
             else:
                 wrong = 'block'
                 return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
@@ -94,6 +103,7 @@ def create_newProducer():
         username = newProducerForm.username.data
         password = newProducerForm.password.data
         farm_description = newProducerForm.farm_description.data
+        user_type = 'producer'
 
         collection = chooseCollection('users')
         userPass = getUserPass(collection, username)
@@ -103,10 +113,15 @@ def create_newProducer():
             password = hashPass(password)
 
             collection = chooseCollection('users')
-            insertUser(collection, email, username, password, first_name, last_name, farm_name, farm_description)
+            insertProducer(collection, email, username, password, first_name, last_name, farm_name, farm_description, user_type)
 
             session['username'] = username
             session['password'] = password
+
+            session['status']['in'] = 'none'
+            session['status']['out'] = 'block'
+
+            session['user_type'] = 'producer'
 
             # Create directory to save images of this producer
             if not os.path.exists('file_uploads/'+username):
@@ -128,13 +143,14 @@ def create_newConsumer():
     
     wrong = 'none'
 
-    newConsumerForm = newConsumerForm()
+    newConsumerForm = NewConsumerForm()
     if newConsumerForm.validate_on_submit():
         first_name = newConsumerForm.first_name.data
         last_name = newConsumerForm.last_name.data
         email = newConsumerForm.email.data
         username = newConsumerForm.username.data
         password = newConsumerForm.password.data
+        user_type = 'consumer'
 
         collection = chooseCollection('users')
         userPass = getUserPass(collection, username)
@@ -144,12 +160,17 @@ def create_newConsumer():
             password = hashPass(password)
 
             collection = chooseCollection('users')
-            insertUser(collection, email, username, password, first_name, last_name)
+            insertConsumer(collection, email, username, password, first_name, last_name, user_type)
 
             session['username'] = username
             session['password'] = password
 
-            return redirect('/consumer_home')
+            session['status']['in'] = 'none'
+            session['status']['out'] = 'block'
+
+            session['user_type'] = 'consumer'
+
+            return redirect('/shop_produce')
 
         else:
             wrong = 'block'
@@ -184,7 +205,7 @@ def add_product():
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():
     # Retreive data from database to display
-    if session['username'] != None:
+    if session['username'] != None and session['user_type']=='producer':
         
         collection = chooseCollection('products')
     
