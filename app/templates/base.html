@@ -28,7 +28,7 @@
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
           <!-- Bulma Navbar class  -->
-          <nav class="navbar" role="navigation" aria-label="main navigation">
+          <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
             
             <!-- Bulma navbar-brand stickt to left hand  -->
             <div class="navbar-brand">
@@ -37,16 +37,16 @@
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
               <!-- navbar-burger needs to be last child of navbar-brand -->
-              <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-                <span></span>
-                <span></span>
-                <span></span>
+              <div class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
               </div>
             </div>
             <!-- "The navbar-menu is the counterpart of the navbar brand. As such, it must appear as a direct child of navbar, as a sibling of navbar-brand. It also needs two elements as direct children: navbar-start and navbar-end" -->
             <!-- navbar-start will appear on the left
                  navbar-end will appear on the right -->
-            <div class="navbar-menu">
+            <div class="navbar-menu" id="navMenu">              
               <div class="navbar-start">
               </div>
               <div class="navbar-end">
@@ -61,12 +61,6 @@
                       {% endblock %}
                       {% block login %}
                       <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
-<!-- 
-                <a style="display: {{ user_status['in'] }}" class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
-                <div class="field is-grouped">
-                  <p style="display: {{ user_status['out'] }}" class="navbar-item">You are logged in as {{ user }}</p>
-                  <a style="display: {{ user_status['out'] }}" class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
-                </p> -->
                       </div>
                     </p>
                     {% endblock %}
@@ -75,27 +69,6 @@
               </div>
             </div>
           </nav>
-              
-              <!-- <span class="navbar-burger" data-target="navbarMenuHeroC">
-              </span>
-            </div>
-            <div class="navbar-menu">
-              
-              <div class="navbar-end">
-                
-                
-                <a style="display: {{ user_status['in'] }}" class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
-
-                <div class="field is-grouped">
-                  <p style="display: {{ user_status['out'] }}" class="navbar-item">You are logged in as {{ user }}</p>
-                  <a style="display: {{ user_status['out'] }}" class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
-                </p>
-
-
-              </div>
-            </div>
-          </header>
-        </div> -->
       </div>
     </section>
     {% endblock %}
@@ -117,7 +90,29 @@
     </footer>
     {% endblock %}
 
-  </body>
+<script type="text/javascript">
+// Get all "navbar-burger" elements
+var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach(function($el) {
+    $el.addEventListener('click', function() {
+
+      // Get the target from the "data-target" attribute
+      var target = $el.dataset.target;
+      var $target = document.getElementById(target);
+
+      // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+      $el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+</script>
+
+  </body>
 </html>
