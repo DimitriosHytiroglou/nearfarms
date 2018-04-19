@@ -4,6 +4,7 @@ from app import app, models
 from .forms import *
 from .models import *
 from werkzeug import secure_filename
+from werkzeug.datastructures import ImmutableMultiDict
 from app.encryption.HashingHandler import *
 import json
 # Access the models file to use SQL functions
@@ -125,8 +126,8 @@ def create_newProducer():
             session['user_type'] = 'producer'
 
             # Create directory to save images of this producer
-            if not os.path.exists('file_uploads/'+username):
-                os.makedirs('file_uploads/'+username)
+            if not os.path.exists('app/static/file_uploads/'+username):
+                os.makedirs('app/static/file_uploads/'+username)
 
             return redirect('/farmer_home') 
 
@@ -304,7 +305,6 @@ def file_upload():
             return redirect('/farmer_home')
         file = request.files['file']
         
-        from werkzeug.datastructures import ImmutableMultiDict
         data = dict(request.form)
 
 
