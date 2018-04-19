@@ -46,7 +46,13 @@
               <div class="navbar-end">
                 {% block account %} {% endblock %}
                 {% block login %}
-                <a class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
+                <a style="display: {{ user_status['in'] }}" class="navbar-item" href="{{ url_for('login') }}">LOG IN</a>
+
+                <div class="field is-grouped">
+                  <p style="display: {{ user_status['out'] }}" class="navbar-item">You are logged in as {{ user }}</p>
+                  <a style="display: {{ user_status['out'] }}" class="navbar-item" href="{{ url_for('logout') }}">LOG OUT</a>
+                </p>
+
                 {% endblock %}
               </div>
             </div>

@@ -8,21 +8,34 @@ from app.encryption.HashingHandler import *
 import json
 # Access the models file to use SQL functions
 
-
 @app.route('/')
 def index():
+
+    session['username'] = None
+    session['password'] = None
+
+    user_status = {}
+    user_status['in'] = 'block'
+    user_status['out'] = 'none'
+
+    session['status'] = user_status
+
     return redirect('/home')
     #return redirect('/farmer_home')
 
 @app.route('/home', methods=['GET'])
 def home():
     
-    return render_template('home.html')
+    return render_template('home.html', user=session['username'], user_status=session['status'])
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     session.pop('password', None)
+
+    session['status']['in'] = 'block'
+    session['status']['out'] = 'none'
+
     return redirect('/')
 
 # App routing for USER LOGIN
@@ -45,18 +58,23 @@ def login():
             if checkPass(userPass,p):
                 session['username'] = u
                 session['password'] = userPass
+
+                session['status']['in'] = 'none'
+                session['status']['out'] = 'block'
+
+
                 if t == 'Producer':
                     return redirect('/farmer_home')
                 elif t == 'Consumer':
                     return redirect('/consumer_home')
             else:
                 wrong = 'block'
-                return render_template('login.html', loginForm=loginForm, wrong=wrong)
+                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
         else:
                 wrong = 'block'
-                return render_template('login.html', loginForm=loginForm, wrong=wrong)
+                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
-    return render_template('login.html', loginForm=loginForm, wrong=wrong)
+    return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
 
 
@@ -99,9 +117,9 @@ def create_newProducer():
 
         else:
             wrong = 'block'
-            return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong)
+            return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
-    return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong)
+    return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
 
 # App routing to CREATE USER
@@ -135,9 +153,9 @@ def create_newConsumer():
 
         else:
             wrong = 'block'
-            return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong)
+            return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
-    return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong)
+    return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
 
 
@@ -161,23 +179,27 @@ def add_product():
         insert_products(collection, producerID, product, productType, subType, quantity, price, image)
 
         return redirect('/farmer_home')
-    return render_template('product.html', productForm=productForm, user=session['username'])
+    return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'])
 
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():
     # Retreive data from database to display
-    collection = chooseCollection('products')
+    if session['username'] != None:
+        
+        collection = chooseCollection('products')
     
-    #products = retrieve_all(collection)
+        products = retrieve_products(collection,session['username'])
+    
+        productList = []
+    
+        for product in products:
+            productList.append(product)
+    
+        return render_template('farmer.html', productList=productList, user=session['username'], user_status=session['status'])
 
-    products = retrieve_products(collection,session['username'])
-
-    productList = []
-
-    for product in products:
-        productList.append(product)
-
-    return render_template('farmer.html', productList=productList, user=session['username'])
+    else:
+        flash('You were successfully logged in')
+        return redirect('/home')
 
 @app.route('/product_update', methods=['POST'])
 def productUpdate():
@@ -306,7 +328,7 @@ def shop_produce():
     filters['subType'] = ''
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, filters=filters)
+        SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
 
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
@@ -352,11 +374,11 @@ def applyFilter():
         
     # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, filters=filters)
+        SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
 
     
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404_error.html'), 404
+    return render_template('404_error.html', user=session['username'], user_status=session['status']), 404
