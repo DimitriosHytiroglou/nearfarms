@@ -154,10 +154,11 @@ def add_product():
         subType = productForm.subType.data
         quantity = productForm.quantity.data
         price = productForm.price.data
+        image = ''
         # image = productForm.image.data
 
         collection = chooseCollection('products')
-        insert_products(collection, producerID, product, productType, subType, quantity, price)
+        insert_products(collection, producerID, product, productType, subType, quantity, price, image)
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'])
@@ -177,6 +178,9 @@ def farmer_home():
         productList.append(product)
 
         print(product['_id'])
+        print("BOB")
+        print(product['Image'])
+
 
     return render_template('farmer.html', productList=productList, user=session['username'])
 
@@ -256,6 +260,11 @@ def file_upload():
             flash('No file part')
             return redirect('/farmer_home')
         file = request.files['file']
+        
+        from werkzeug.datastructures import ImmutableMultiDict
+        data = dict(request.form)
+
+
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
@@ -265,6 +274,11 @@ def file_upload():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
+            
+            collection = chooseCollection('products')
+            image = 'file_uploads/'+session['username']+'/'+filename
+            update_image(collection, data['_id'][0], image)
+
             flash('File uploaded succesfully!')
             return redirect('/farmer_home')
 
@@ -308,14 +322,12 @@ def shop_produce():
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
     
-
     ###########################################################
     #  GET THE PRODUCE, SAME AS ABOVE, THIS MUST BE SIMPLIFIED
     ###########################################################
 
     collection = chooseCollection('products')
 
-    
     all_produce = retrieve_all_produce(collection)
     
     # gathering all of the produce listed in database
@@ -336,7 +348,6 @@ def applyFilter():
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
     SubTypeList = sorted(list(set(SubTypeList)))
-
     
     ##########################################
     # APPLYING THE FILTERS
@@ -357,7 +368,6 @@ def applyFilter():
         SubTypeList=SubTypeList, filters=filters)
 
     
-
 
 
 @app.errorhandler(404)

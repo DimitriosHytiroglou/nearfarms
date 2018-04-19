@@ -10,8 +10,14 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 $('body').on('click','.prod','click', function() {
-    console.log('HELLLOOOO MODALL')
     modal.style.display = "block";
+
+    var _id = $(this).parent().closest('tr').find(":hidden").text();
+
+    console.log($(".modal-content").find("input[name='_id']").val(_id));
+
+
+
 });
 
 // When the user clicks on <span> (x), close the modal

@@ -49,8 +49,8 @@ def insertUser(collection, email, username, password, first, last, farm, descrip
 
 
 # insert value
-def insert_products(collection, producerID, product, productType, subType, quantity, price):
-    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price})
+def insert_products(collection, producerID, product, productType, subType, quantity, price, image):
+    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':''})
 
 
 def retrieve_products(collection, username):
@@ -70,4 +70,8 @@ def update_product(collection, _id, product, productType, subType, quantity, pri
 def delete_product(collection, _id):
 	idb = bson.ObjectId(_id)
 	collection.delete_one({"_id": idb })	
+
+def update_image(collection, _id, image):
+	idb = bson.ObjectId(_id)
+	collection.update_one({"_id": idb }, {"$set": {'Image':image}})	
 	
