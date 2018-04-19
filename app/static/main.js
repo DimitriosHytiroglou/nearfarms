@@ -94,7 +94,6 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 	var subType = $('#subType_filter').find('option:selected').text();
 	
 	filters = [product, productType,subType]
-	console.log(filters);
 	// console.log(subType);
 	// var apply = {'product':product,'productType':productType,'subType':subType};
 

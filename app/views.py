@@ -364,7 +364,6 @@ def shop_produce():
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
     
-    
     filters = {}
 
     if request.method == "POST":
@@ -372,11 +371,6 @@ def applyFilter():
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
         filters['subType'] = request.form['subType']
-
-
-
-        print (filters)
-
 
 
     ###########################################################
