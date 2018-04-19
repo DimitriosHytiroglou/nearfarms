@@ -352,10 +352,6 @@ def shop_produce():
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
     SubTypeList = sorted(list(set(SubTypeList)))
-
-    # print (ProductList)
-    print (produceList)
-
     # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
@@ -368,6 +364,21 @@ def shop_produce():
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
     
+    
+    filters = {}
+
+    if request.method == "POST":
+
+        filters['product'] = request.form['product']
+        filters['productType'] = request.form['productType']
+        filters['subType'] = request.form['subType']
+
+
+
+        print (filters)
+
+
+
     ###########################################################
     #  GET THE PRODUCE, SAME AS ABOVE, THIS MUST BE SIMPLIFIED
     ###########################################################
@@ -386,7 +397,11 @@ def applyFilter():
     SubTypeList = []
 
     for produce in all_produce:
-        produceList.append(produce)
+        if (filters['product'] == '' and filters['productType'] == '' and filters['subType'] == ''):
+            produceList.append(produce)
+        elif (filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type'] or filters['subType'] == produce['Sub Type']):
+            produceList.append(produce)
+        
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
         SubTypeList.append(produce['Sub Type'])
@@ -400,15 +415,6 @@ def applyFilter():
     # APPLYING THE FILTERS
     ##########################################
 
-
-    filters = {}
-
-    if request.method == "POST":
-
-    # Populate filters with user selected values
-        filters['product'] = request.form['product']
-        filters['productType'] = request.form['productType']
-        filters['subType'] = request.form['subType']
         
     # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\

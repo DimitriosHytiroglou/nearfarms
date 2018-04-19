@@ -104,7 +104,7 @@ $("#apply_filter_btn").on('click', function applyFilter() {
  					subType:subType					
 
  			}).done(function (reply) {
-                $(document.body.parentNode).html(reply);
+                $(document.body).html(reply);
                 
             }
         );
