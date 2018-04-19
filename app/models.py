@@ -1,4 +1,5 @@
 import pymongo
+import bson 
 
 ####### DEPRECATING LOCAL STORAGE ########
 # gets you the handler on the mongo client
@@ -59,8 +60,14 @@ def retrieve_products(collection, username):
 	else:
 		return []
 
-# Update value
+# Update MongoDB
 def update_product(collection, _id, product, productType, subType, quantity, price):
-	collection.update_one({"_id": "ObjectID('"+_id+"')"}, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
+	idb = bson.ObjectId(_id)
+	collection.update_one({"_id": idb }, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
+#  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/\
 
-#  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/
+# Delete object in MongoDB
+def delete_product(collection, _id):
+	idb = bson.ObjectId(_id)
+	collection.delete_one({"_id": idb })	
+	

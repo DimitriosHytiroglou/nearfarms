@@ -187,32 +187,9 @@ def productUpdate():
     collection = chooseCollection('products')
     
     if request.method == "POST":
+       
 
-        # JUST REMOVE THE DICTIONARIES AND PASS THE REQUEST.FORM DIRECTLY
-        update = {}
-        update['_id'] = request.form['_id']
-        update['product'] = request.form['product']
-        update['productType'] = request.form['productType']
-        update['subType'] = request.form['subType']
-        update['quantity'] = request.form['quantity']
-        update['price'] = request.form['price']
-        
-        print(update['_id'])
-        print(update['product'])
-        print(request.form['productType'])
-        print(request.form['subType'])
-        print(request.form['quantity'])
-        print(request.form['price'])
-
-        update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['subType'], request.form['quantity'], request.form['price'])
-
-
-        # return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-
-
-    # !! DELETE !! THE REST OF THE CODE FOR THIS APP ROUTING. WAS JUST USED FOR DEVELOPMENT
-
-        
+        update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['subType'], request.form['quantity'], request.form['price'])     
 
         products = retrieve_products(collection,session['username'])
 
@@ -220,13 +197,31 @@ def productUpdate():
 
         for product in products:
             productList.append(product)
-
-    # REMEMBER TO USE THE LINE BELOW TO AVOID REFRESHING THE PAGE
-    # This just signals a 200 to the AJAX request
      
-    # REPLACE THE NORMAL REDIRECT WITH IT
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-        # return render_template('farmer.html', productList=productList, user=session['username'])
+
+
+
+@app.route('/product_delete', methods=['POST'])
+def productDelete():
+    
+    # Retrieve data from database to display
+    collection = chooseCollection('products')
+    
+    if request.method == "POST":
+       
+        print('delete')
+        print(request.form['_id'])
+        delete_product(collection, request.form['_id'])     
+        print('deleted')
+        products = retrieve_products(collection,session['username'])
+
+        productList = []
+
+        for product in products:
+            productList.append(product)
+     
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 
