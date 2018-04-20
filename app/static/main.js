@@ -119,11 +119,9 @@ $("#add_to_cart_button").on('click', function() {
 	var quantity = $("#quantity_detail").text();
 	var price = $("#price_detail").text();
 
-
+	console.log(product);
 
 	shopping_cart = [product, productType, subType, quantity, price]
-
-	console.log(product)
 
 	$.post("shopping_cart", {
 		product:product,
