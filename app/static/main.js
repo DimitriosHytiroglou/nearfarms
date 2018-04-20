@@ -133,7 +133,7 @@ $('body').on('click','.add_to_cart_button','click', function() {
 
 	shopping_cart = [product, productType, subType, quantity, price]
 
-	$.post("shopping_cart", {
+	$.post("add_to_shopping_cart", {
 		product:product,
 		productType:productType,
 		subType:subType,
@@ -141,6 +141,7 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		price:price
 	}).done(function (reply) {
                 $(document.body).html(reply);
+                window.location.reload(true);
                 
             }
         );

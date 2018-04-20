@@ -434,8 +434,8 @@ def applyFilter():
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
 
-@app.route('/shopping_cart', methods=['GET','POST'])
-def shopping_cart():
+@app.route('/add_to_shopping_cart', methods=['GET','POST'])
+def add_to_shopping_cart():
 
     cartList = []
     cart = {}
@@ -455,20 +455,21 @@ def shopping_cart():
 
 # Insert to shopping cart
     collection = chooseCollection('shoppingCart')
-    insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
+    # insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
 
 # ADD HERE FUNCTION TO REMOVE
     collection = chooseCollection('products')
     # deductFromInventory()
 
-    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    # return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 #  RENAME THESE 2 APPROPRIATELY
 #  ABOVE should be: add_to_shopping_cart
 #  BELOW should be: shopping_cart 
 
-@app.route('/goto_shopping_cart', methods=['GET','POST'])
-def goto_shopping_cart():
+@app.route('/shopping_cart', methods=['GET','POST'])
+def shopping_cart():
     
     collection = chooseCollection('shoppingCart')
     contents = retrieveShoppingCart(collection, session['username'])
