@@ -45,9 +45,17 @@ def insertConsumer(collection, email, username, password, first, last, userType)
 # # # PRODUCERS # # #
 
 # Insert Producer
-def insertProducer(collection, email, username, password, first, last, farm, description, userType):
-	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description, "User Type":userType})
+def insertProducer(collection, email, username, password, first, last, farm, description, userType, image):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description, "User Type":userType, 'Image':image})
 
+# Retrieve all Producer data
+def getFarmData(collection, username):
+	farm_data = collection.find({'Username':username})
+	return farm_data
+
+def update_prof_pic(collection, username, image):
+	collection.update_one({"Username": username }, {"$set": {'Image':image}})	
+	
 
 # # # PRODUCTS # # #
 

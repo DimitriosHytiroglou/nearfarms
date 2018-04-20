@@ -106,6 +106,7 @@ def create_newProducer():
         password = newProducerForm.password.data
         farm_description = newProducerForm.farm_description.data
         user_type = 'producer'
+        image = ''
 
         collection = chooseCollection('users')
         userPass = getUserPass(collection, username)
@@ -115,7 +116,7 @@ def create_newProducer():
             password = hashPass(password)
 
             collection = chooseCollection('users')
-            insertProducer(collection, email, username, password, first_name, last_name, farm_name, farm_description, user_type)
+            insertProducer(collection, email, username, password, first_name, last_name, farm_name, farm_description, user_type, image)
 
             session['username'] = username
             session['password'] = password
@@ -228,8 +229,18 @@ def farmer_home():
     
         for product in products:
             productList.append(product)
-    
-        return render_template('farmer.html', productList=productList, user=session['username'], user_status=session['status'])
+        
+        print('bob')
+        
+    # Get Farmer data
+        collection = chooseCollection('users')
+        farmerDeets = getFarmData(collection, session['username'])
+        farmerList = []
+        [farmerList.append(deets) for deets in farmerDeets]    
+        farmer = farmerList[0]
+        
+
+        return render_template('farmer.html', productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
 
     else:
         flash('You were successfully logged in')
@@ -316,12 +327,21 @@ def file_upload():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
             
-            collection = chooseCollection('products')
-            image = 'file_uploads/'+session['username']+'/'+filename
-            update_image(collection, data['_id'][0], image)
+            if data['_id'][0] == 'profPic':
+                file.save(os.path.join(UPLOAD_FOLDER, session['username']+'_profile.'+filename.rsplit('.', 1)[1].lower()))
+                
+                collection = chooseCollection('users')
+                image = 'file_uploads/'+session['username']+'/'+session['username']+'_profile.'+filename.rsplit('.', 1)[1].lower()
+                update_prof_pic(collection, session['username'], image)
 
+            else:
+                file.save(os.path.join(UPLOAD_FOLDER, filename))
+            
+                collection = chooseCollection('products')
+                image = 'file_uploads/'+session['username']+'/'+filename
+                update_image(collection, data['_id'][0], image)
+            
             flash('File uploaded succesfully!')
             return redirect('/farmer_home')
 

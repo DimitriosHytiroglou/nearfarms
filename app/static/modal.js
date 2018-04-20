@@ -21,6 +21,15 @@ $('body').on('click','.prod','click', function() {
 
 });
 
+// When the user clicks the Profile pic, open the modal  
+$('body').on('click','.profPic','click', function() {
+    modal.style.display = "block";
+
+    $(".modal-content").find("input[name='_id']").val('profPic');
+
+});
+
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
