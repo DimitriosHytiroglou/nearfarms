@@ -111,25 +111,13 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 
 });
 
-
-// DIMITRIS
-//  NOTE TO SELF, put the product id's in the id attribute instead of hidden HTML 
-
 // Pull data for shopping cart from add to cart button
-$('body').on('click','.add_to_cart_button','click', function() {
+$("button").on('click', function() {
 	console.log('hello');
+	var product = $('.media-content').find('p:eq(0)').text();
 
-	var product = $(this).closest('.card-content').find('.product_detail').text();
-	var productType = $(this).closest('.card-content').find('.productType_detail').text();
-	var subType = $(this).closest('.card-content').find('.subType_detail').text();
-	var quantity = $(this).closest('.card-content').find('.quantity_detail').text();
-	var price = $(this).closest('.card-content').find('.price_detail').text();
 
 	console.log(product);
-	console.log(productType);
-	console.log(subType);
-	console.log(quantity);
-	console.log(price);
 
 
 	shopping_cart = [product, productType, subType, quantity, price]
@@ -142,7 +130,6 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		price:price
 	}).done(function (reply) {
                 $(document.body).html(reply);
-                
                 
             }
         );

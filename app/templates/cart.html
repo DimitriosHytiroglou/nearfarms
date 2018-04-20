@@ -43,16 +43,22 @@
                 <tbody>
                     {% for item in cartList %}
                     <tr>
-                        <td class="product_col" class="category_col">{{ item['product'] }}</td>  
-                        <td class="type_col" class="category_col">{{ item['productType'] }}</td>
+                        <td class="product_col" class="category_col">{{ item['Product'] }}</td>  
+                        <td class="type_col" class="category_col">{{ item['Product Type'] }}</td>
                         <td class="subtype_col" class="category_col">{{ item['subType'] }}</td>
-                        <td class="quantity_col" class="category_col">{{ item['quantity'] }}</td>
-                        <td class="price_col" class="category_col">{{ item['price'] }}</td>
+                        <td class="quantity_col" class="category_col">{{ item['Quantity'] }}</td>
+                        <td class="price_col" class="category_col">{{ item['Price'] }}</td>
 
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="field is-grouped-left">
+                <p class="control">
+                    <a class="button is-primary" href="{{ url_for('shop_produce') }}">Continue Shopping</a>
+                    
+                </p>
+            </div>
         </section>
     </form>
 </section>

@@ -449,13 +449,13 @@ def add_to_shopping_cart():
         # have to extract price from request.form since text before
         cart['price'] = float(request.form['price'].strip()[7:])
         cartList.append(cart)
+        # Insert to shopping cart
+        collection = chooseCollection('shoppingCart')
+        insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
 
     print (cart)
     print (cartList)
 
-# Insert to shopping cart
-    collection = chooseCollection('shoppingCart')
-    # insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
 
 # ADD HERE FUNCTION TO REMOVE
     collection = chooseCollection('products')
@@ -471,12 +471,27 @@ def add_to_shopping_cart():
 @app.route('/shopping_cart', methods=['GET','POST'])
 def shopping_cart():
     
+    if request.method == "POST":
+        product = request.form['product']
+        productType = request.form['productType']
+        subType = request.form['subType']
+        # have to extract quantity from request.form since text before
+        quantity = int(request.form['quantity'].strip()[10:])
+        # have to extract price from request.form since text before
+        price = float(request.form['price'].strip()[7:])
+        # Insert to shopping cart
+        collection = chooseCollection('shoppingCart')
+        insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
+
+
     collection = chooseCollection('shoppingCart')
     contents = retrieveShoppingCart(collection, session['username'])
 
     cartList = []
     for item in contents:
         cartList.append(item)
+
+    print (cartList)
 
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
