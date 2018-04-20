@@ -453,8 +453,30 @@ def shopping_cart():
     print (cart)
     print (cartList)
 
+# Insert to shopping cart
+    collection = chooseCollection('shoppingCart')
+    insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
+
+# ADD HERE FUNCTION TO REMOVE
+    collection = chooseCollection('products')
+    # deductFromInventory()
+
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
+#  RENAME THESE 2 APPROPRIATELY
+
+# 
+@app.route('/goto_shopping_cart', methods=['GET','POST'])
+def goto_shopping_cart():
+    
+    collection = chooseCollection('shoppingCart')
+    contents = retrieveShoppingCart(collection, session['username'])
+
+    cartList = []
+    for item in contents:
+        cartList.append(item)
+
+    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 @app.errorhandler(404)
 def page_not_found(e):

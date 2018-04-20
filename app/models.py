@@ -42,6 +42,17 @@ def retrieve_all_produce(collection):
 def insertConsumer(collection, email, username, password, first, last, userType):
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
+# # # SHOPPING CART # # #
+def insertToShoppingCart(collection, username, product, productType, subType, quantity, price):
+	collection.insert({"Username":username, "Product":product, "Product Type":productType, "subType":subType, "Quantity":quantity,"Price":price})
+
+def retrieveShoppingCart(collection, username):
+	contents = collection.find({'Username':username})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
 # # # PRODUCERS # # #
 
 # Insert Producer
@@ -76,6 +87,10 @@ def update_product(collection, _id, product, productType, subType, quantity, pri
 	idb = bson.ObjectId(_id)
 	collection.update_one({"_id": idb }, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
 #  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/\
+
+def deductFromInventory(collection, _id, amount):
+	idb = bson.ObjectId(_id)
+	# collection.update_one({"_id": idb }, {"$set": {'Quantity':}})
 
 # Delete existing product
 def delete_product(collection, _id):
