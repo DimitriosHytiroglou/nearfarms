@@ -491,36 +491,24 @@ def shopping_cart():
     for item in contents:
         cartList.append(item)
 
-    print (cartList)
-
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
-
-@app.route('/shopping_cart_delete', methods=['POST'])
-def shoppingCartDelete():
-    
-    # Retrieve data from database to display
-    collection = chooseCollection('shoppingCart')
-    
-    if request.method == "POST":
-       
-        contents = retrieveShoppingCart(collection,session['username'])
-
-        cartList = []
-
-        for item in contents:
-            cartList.append(item)
-     
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 
-    reservations = []
+    if request.method == "POST":
+        data = request.form['reserved_list']
+        print (data)
+        print ("hello")
+        
+    
+    
+    
 
-    return render_template('reservations.html', reservations=reservations, user=session['username'], user_status=session['status'])
+    return render_template('reservations.html', user=session['username'], user_status=session['status'])
 
 @app.errorhandler(404)
 def page_not_found(e):

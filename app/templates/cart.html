@@ -51,7 +51,7 @@
                         <td class="quantity_col" class="category_col">{{ item['Quantity'] }}</td>
                         <td class="price_col" class="category_col">{{ item['Price'] }}</td>
                         <td style="display: none" class="id_col" class="id_col">{{ item['_id'] }}</td>
-                        <td><input type="checkbox"></td>
+                        <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
                         <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
 
                     </tr>
@@ -60,7 +60,7 @@
             </table>
             <div class="field is-grouped-left">
                 <p class="control">
-                    <a class="button is-primary" href="{{ url_for('shop_produce') }}">Reserve Produce</a>
+                    <a class="reserve_button button is-primary" href="{{ url_for('reservations') }}">Reserve Produce</a>
                     
                 </p>
             </div>

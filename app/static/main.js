@@ -117,20 +117,12 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 
 // Pull data for shopping cart from add to cart button
 $('body').on('click','.add_to_cart_button','click', function() {
-	console.log('hello');
 
 	var product = $(this).closest('.card-content').find('.product_detail').text();
 	var productType = $(this).closest('.card-content').find('.productType_detail').text();
 	var subType = $(this).closest('.card-content').find('.subType_detail').text();
 	var quantity = $(this).closest('.card-content').find('.quantity_detail').text();
 	var price = $(this).closest('.card-content').find('.price_detail').text();
-
-	console.log(product);
-	console.log(productType);
-	console.log(subType);
-	console.log(quantity);
-	console.log(price);
-
 
 	shopping_cart = [product, productType, subType, quantity, price]
 
@@ -150,26 +142,55 @@ $('body').on('click','.add_to_cart_button','click', function() {
 });
 
 
-$(".remove_col").on('click', function() {
-	console.log("hello");
+// Function to change value to true or false based on whether box is checked or not
+ $(".checkbox").on("click", function () { 
+      var checkbox = $(this).closest( ".checkbox" );
+			checkbox.val( checkbox[0].checked ? "true" : "false" );
+ });
 
-	var _id = $(this).closest('tr').find(":hidden").text();
-	console.log(_id)
 
+// function to post reservation data
+$(".reserve_button").on("click", function() {
 
-// THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
+	var reserved_list = []
 
-	$.post("shopping_cart_delete", {
- 					_id:_id					
+	// function to pull data based on whether box is checked or not
+	$('tbody').find('tr').each(function (i, el) {
+		var checkbox = $(this).find(".checkbox")
 
- 			}).done(function (reply) {
-            window.location.reload(true);
-                
+		if (checkbox.val() == "true") {
+			var product = $(this).closest('tr').find('.product_col').text();
+			var productType = $(this).closest('tr').find('.type_col').text();
+			var subType = $(this).closest('tr').find('.subtype_col').text();
+			var quantity = $(this).closest('tr').find('.quantity_col').text();
+			var price = $(this).closest('tr').find('.price_col').text();
+			var _id = $(this).closest('tr').find(":hidden").text();
+
+			var product_dict = {
+
+				product: product,
+				productType: productType,
+				subType: subType,
+				quantity: quantity,
+				price: price,
+				_id: _id
+			}
+
+			reserved_list.push(product_dict);
+		}
+
+    });
+	console.log(reserved_list)
+
+	$.post("reservations", {
+		reserved_list:reserved_list
+	}).done(function (reply) {
+                $(document.body).html(reply);
+
             }
         );
-}
 
-);
+});
 
 
 
