@@ -464,8 +464,9 @@ def shopping_cart():
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 #  RENAME THESE 2 APPROPRIATELY
+#  ABOVE should be: add_to_shopping_cart
+#  BELOW should be: shopping_cart 
 
-# 
 @app.route('/goto_shopping_cart', methods=['GET','POST'])
 def goto_shopping_cart():
     
@@ -477,6 +478,14 @@ def goto_shopping_cart():
         cartList.append(item)
 
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
+
+
+@app.route('/reservations', methods=['GET','POST'])
+def reservations():
+
+    reservations = []
+
+    return render_template('reservations.html', reservations=reservations, user=session['username'], user_status=session['status'])
 
 @app.errorhandler(404)
 def page_not_found(e):
