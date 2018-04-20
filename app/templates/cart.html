@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link type="text/css" rel="stylesheet" href="/static/modal.css">
+{% endblock %}
+
+{% block content %}
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Your Shopping Cart</h1>
+      <h1 class="subtitle">We Can't Wait To Process Your Order And Deliver Your Products</h1>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body">
+    <h1 class="title">Your Shopping Cart:</h1>
+    <form action="" method="get" name="update_remove">
+
+        <section>
+            <div class="table_title">
+<!--                 <h4>Farmers Market Products</h4> -->
+            </div>
+
+            <table class = "table" id="product_table">
+                <thead>
+                    <tr>
+                        <th class="product_col" class="category_col">Product</th>
+                        <th class="type_col" class="category_col">Type</th>
+                        <th class="subtype_col" class="category_col">Subtype</th>
+                        <th class="quantity_col" class="category_col">Quantity</th>
+                        <th class="price_col" class="category_col">Price</th>
+                    </tr>
+                </thead>
+                
+
+                <!--D Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
+
+
+                <tbody>
+                    {% for item in cartList %}
+                    <tr>
+                        <td class="product_col" class="category_col">{{ item['product'] }}</td>  
+                        <td class="type_col" class="category_col">{{ item['productType'] }}</td>
+                        <td class="subtype_col" class="category_col">{{ item['subType'] }}</td>
+                        <td class="quantity_col" class="category_col">{{ item['quantity'] }}</td>
+                        <td class="price_col" class="category_col">{{ item['price'] }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </form>
+</section>
+
+
+
+
+{% endblock %}

@@ -414,7 +414,26 @@ def applyFilter():
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
 
-    
+@app.route('/shopping_cart', methods=['GET','POST'])
+def shopping_cart():
+
+    cartList = []
+    cart = {}
+
+    if request.method == "POST":
+        cart['product'] = request.form['product']
+        cart['productType'] = request.form['productType']
+        cart['subType'] = request.form['subType']
+        # have to extract quantity from request.form since text before
+        cart['quantity'] = int(request.form['quantity'].strip()[10:])
+        # have to extract price from request.form since text before
+        cart['price'] = float(request.form['price'].strip()[7:])
+        cartList.append(cart)
+
+    print (cart)
+    print (cartList)
+
+    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 
 @app.errorhandler(404)

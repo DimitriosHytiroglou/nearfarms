@@ -111,7 +111,29 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 
 });
 
+// Pull data for shopping cart from add to cart button
+$("#add_to_cart_button").on('click', function() {
+	var product = $('#product_detail').text();
+	var productType = $("#productType_detail").text();
+	var subType = $("#subType_detail").text();
+	var quantity = $("#quantity_detail").text();
+	var price = $("#price_detail").text();
 
+	shopping_cart = [product, productType, subType, quantity, price]
+
+	$.post("shopping_cart", {
+		product:product,
+		productType:productType,
+		subType:subType,
+		quantity:quantity,
+		price:price
+	}).done(function (reply) {
+                $(document.body).html(reply);
+                
+            }
+        );
+
+});
 
 
 

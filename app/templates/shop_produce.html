@@ -77,24 +77,24 @@
                         </figure>
                       </div>
                       <div class="media-content">
-                        <p class="title is-4">{{ produce['Product'] }}</p>
-                        <p class="subtitle is-6">{{ produce['Product Type'] }}</p>
+                        <p id="product_detail" class="title is-4">{{ produce['Product'] }}</p>
+                        <p id="productType_detail" class="subtitle is-6">{{ produce['Product Type'] }}</p>
                       </div>
                     </div>
 
                     <div class="content">
-                      <span class="tag is-light">{{ produce['Sub Type'] }}</span>
+                      <span id="subType_detail" class="tag is-light">{{ produce['Sub Type'] }}</span>
                     </div>
                     <footer class="card-footer">
-                        <p class="content is-small card-footer-item">
+                        <p id="quantity_detail" class="content is-small card-footer-item">
                             QUANTITY: {{ produce['Quantity'] }}
                         </p>
-                        <p class="content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
-                        <button class="button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
+                        <p id="price_detail" class="content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
+                        <a href="{{ url_for('shopping_cart') }}" id="add_to_cart_button" class="button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-plus"></i>
                             </span>
-                        </button>
+                        </a>
                     </footer>
                   </div>
                 </div>
