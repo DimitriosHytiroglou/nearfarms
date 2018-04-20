@@ -3,7 +3,7 @@
 <section class="hero is-primary is-bold">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">Hi There! Welcome to Near Farms.</h1>
+      <h1 class="title">FARMERS GONNA FARM.</h1>
       <h1 class="subtitle">Connecting Farmers and Consumers since 2018</h1>
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 <section class="hero is-white">
   <div class="hero-body">
-    <h1 class="title">Let's get you signed up:</h1>
+    <h1 class="title">Farmer sign up:</h1>
     <!-- Bulma form documentation at https://bulma.io/documentation/form/general/ -->
     <form action="/create_newProducer" method="post" name="login">
       {{ newProducerForm.hidden_tag() }}
@@ -35,11 +35,12 @@
 
       <div class="field">
         <label class="label">Farm Name:</label>
-        <div class="control has-icons-left">          
-          {{newProducerForm.farm_name(size=100, class="input", placeholder= "Farm Name")}}
-          <span class="icon is-small is-left">
-            <i class="fas fa-home"></i>
-          </span>
+          <div class="control has-icons-left">          
+            {{newProducerForm.farm_name(size=100, class="input", placeholder= "Farm Name")}}
+            <span class="icon is-small is-left">
+              <i class="fas fa-home"></i>
+            </span>
+          </div>
       </div>
 
       <div class="field">
@@ -90,6 +91,7 @@
           <input class="button is-primary" type="submit" value="Create New User">
         </p>
       </div>
+  </form>
   </div>
 </section>
 {% endblock %}
