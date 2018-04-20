@@ -200,6 +200,7 @@ def add_product():
         # Get data from the form
         # Send data from form to Database
         producerID = session['username']
+        marketID = productForm.marketID.data
         product = productForm.product.data
         productType = productForm.productType.data
         subType = productForm.subType.data
@@ -209,7 +210,7 @@ def add_product():
         # image = productForm.image.data
 
         collection = chooseCollection('products')
-        insert_products(collection, producerID, product, productType, subType, quantity, price, image)
+        insert_products(collection, producerID, product, productType, subType, quantity, price, image, marketID)
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'])
@@ -306,7 +307,6 @@ def file_upload():
         file = request.files['file']
         
         data = dict(request.form)
-
 
         # if user does not select file, browser also
         # submit a empty part without filename

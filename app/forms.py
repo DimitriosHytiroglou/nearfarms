@@ -47,6 +47,7 @@ class NewProducerForm(Form):
 
 ###ADD NEW PRODUCT FORM
 class ProductForm(Form):
+    marketID =  SelectField('tripFriend', choices = [('Berkeley','Berkeley'),('Oakland','Oakland'),('San Francisco','San Francisco')])
     product = StringField('product', validators=[DataRequired()])
     productType = StringField('productType', validators=[DataRequired()])
     subType = StringField('subType', validators=[DataRequired()])

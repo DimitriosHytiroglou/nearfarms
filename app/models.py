@@ -52,8 +52,8 @@ def insertProducer(collection, email, username, password, first, last, farm, des
 # # # PRODUCTS # # #
 
 # Insert new product
-def insert_products(collection, producerID, product, productType, subType, quantity, price, image):
-    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':''})
+def insert_products(collection, producerID, product, productType, subType, quantity, price, image, marketID):
+    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':'','MarketID':marketID})
 
 # Retrieve all of producer's products
 def retrieve_products(collection, username):

@@ -19,6 +19,22 @@
       <form action="" method="post" name="add_product">
         {{ productForm.hidden_tag() }}
 
+
+        <div class="field">
+          <label class="label">Product:</label>
+          <div class="field-body">
+            <div class="field">
+              <div class="control has-icons-left is-expanded">
+              {{ productForm.marketID }}
+              <span class="icon is-small is-left">
+                <i class="fas fa-lemon"></i>
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="field">
           <label class="label">Product:</label>
           <div class="field-body">
