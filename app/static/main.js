@@ -111,15 +111,25 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 
 });
 
+
+// DIMITRIS
+//  NOTE TO SELF, put the product id's in the id attribute instead of hidden HTML 
+
 // Pull data for shopping cart from add to cart button
-$("#add_to_cart_button").on('click', function() {
-	var product = $('#product_detail').text();
-	var productType = $("#productType_detail").text();
-	var subType = $("#subType_detail").text();
-	var quantity = $("#quantity_detail").text();
-	var price = $("#price_detail").text();
+$('body').on('click','.add_to_cart_button','click', function() {
+
+	var product = $(this).closest('.card-content').find('.product_detail').text();
+	var productType = $(this).closest('.card-content').find('.productType_detail').text();
+	var subType = $(this).closest('.card-content').find('.subType_detail').text();
+	var quantity = $(this).closest('.card-content').find('.quantity_detail').text();
+	var price = $(this).closest('.card-content').find('.price_detail').text();
 
 	console.log(product);
+	console.log(productType);
+	console.log(subType);
+	console.log(quantity);
+	console.log(price);
+
 
 	shopping_cart = [product, productType, subType, quantity, price]
 
