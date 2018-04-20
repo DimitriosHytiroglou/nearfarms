@@ -496,6 +496,25 @@ def shopping_cart():
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 
+@app.route('/shopping_cart_delete', methods=['POST'])
+def shoppingCartDelete():
+    
+    # Retrieve data from database to display
+    collection = chooseCollection('shoppingCart')
+    
+    if request.method == "POST":
+       
+        contents = retrieveShoppingCart(collection,session['username'])
+
+        cartList = []
+
+        for item in contents:
+            cartList.append(item)
+     
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+
+
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 

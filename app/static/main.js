@@ -64,7 +64,7 @@ $('body').on('click','.submit_prod_button','click', function() {
 );
 
 
-// DELETE PRODUCT
+// DELETE PRODUCT FROM FARMER'S LIST
 $(".remove_col").on('click', function() {
 
 	var _id = $(this).closest('tr').find(":hidden").text();
@@ -148,5 +148,29 @@ $('body').on('click','.add_to_cart_button','click', function() {
         );
 
 });
+
+
+$(".remove_col").on('click', function() {
+	console.log("hello");
+
+	var _id = $(this).closest('tr').find(":hidden").text();
+	console.log(_id)
+
+
+// THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
+
+	$.post("shopping_cart_delete", {
+ 					_id:_id					
+
+ 			}).done(function (reply) {
+            window.location.reload(true);
+                
+            }
+        );
+}
+
+);
+
+
 
 
