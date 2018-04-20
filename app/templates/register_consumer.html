@@ -1,38 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <h4>Hi There! Welcome to Near Farms.</h4><br>
-    <h5>Let's get you signed up</h5>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">BUYERS GONNA BUY</h1>
+      <h1 class="subtitle">Connecting Farmers and Consumers since 2018.</h1>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body">
+    <h1 class="title">Consumer sign up:</h1>
     <form action="" method="post" name="login">
       {{ newConsumerForm.hidden_tag() }}
-      <div class="divider"></div>
-      <div class="section">
-        <p>
-          First name:<br>
-          {{ newConsumerForm.first_name(size=120) }}<br>
-        </p>
-        <p>
-          Last name:<br>
-          {{ newConsumerForm.last_name(size=120) }}<br>
-        </p>
-        <p>
-          Email:<br>
-          {{ newConsumerForm.email(size=120) }}<br>
-        </p>
-        <p>
-          Username:<br>
-          {{ newConsumerForm.username(size=120) }}<br>
-        </p>
+
+      <div class="field">
+        <label class="label">Name:</label>
+        <div class="field-body">
+          <div class="field">
+            <div class="control is-expanded">{{newConsumerForm.first_name(size=100, class="input", placeholder= "First")}}
+            </div>
+          </div>
+          <div class="field">
+            <div class="control is-expanded">
+            {{newConsumerForm.last_name(size=100, class="input", placeholder= "Last")}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email:</label>
+        <div class="control has-icons-left">          
+          {{newConsumerForm.email(size=100, class="input", placeholder= "Email")}}
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Username:</label>
         <p style="display:{{ wrong }};color:red">
           Username exists, please choose a different one!
         </p>
-        <p>
-          Password:<br>
-          {{ newConsumerForm.password(size=120) }}<br>
+        <div class="control has-icons-left">          
+          {{newConsumerForm.username(size=100, class="input", placeholder= "Username")}}
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password:</label>
+        <div class="control has-icons-left">          
+          {{newConsumerForm.password(size=100, class="input", placeholder= "Password")}}
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+        </div>
+      </div>
+
+      <div class="field is-grouped is-grouped-right">
+        <p class="control">
+          <input class="button is-primary" type="submit" value="Sign Me Up">
         </p>
       </div>
-    <p><input type="submit" value="Create New User"></p>
+    </form>
   </div>
-</div>
+</section>
 {% endblock %}
