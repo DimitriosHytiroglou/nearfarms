@@ -261,10 +261,10 @@ def farmer_home():
         products = retrieve_products(collection,session['username'])
     
         productList = []
-    
+        
         for product in products:
             productList.append(product)
-        
+        print (productList)
     # Get Farmer data
         collection = chooseCollection('users')
         farmerDeets = getFarmData(collection, session['username'])

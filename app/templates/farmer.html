@@ -54,6 +54,7 @@
                     </form>
                     <tr>
                         <th class="image_col" class="category_col">Image</th>
+                        <th class="marketID_col" class="category_col">Market</th>
                         <th class="product_col" class="category_col">Product</th>
                         <th class="type_col" class="category_col">Type</th>
                         <th class="units_col" class="category_col">Units</th>
@@ -73,21 +74,14 @@
                     {% for product in productList %}
                     <tr>
             			<td><img class="prod" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=product['Image'])}}" id="product-image"></td>
-
-                        <td class="product_col" class="category_col">{{ product['Product'] }}</td>
-                        
-                        <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>
-                        
-                        <td class="units_col" class="category_col">{{ product['units'] }}</td>
-                        
-                        <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>
-                        
+                        <td class="marketID_col" class="category_col">{{ product['MarketID'] }}</td>
+                        <td class="product_col" class="category_col">{{ product['Product'] }}</td>                        
+                        <td class="type_col" class="category_col">{{ product['Product Type'] }}</td>                        
+                        <td class="units_col" class="category_col">{{ product['units'] }}</td>                        
+                        <td class="quantity_col" class="category_col">{{ product['Quantity'] }}</td>                    
                         <td class="price_col" class="category_col">{{ product['Price'] }}</td>
-
                         <td style="display: none" class="id_col" class="id_col">{{ product['_id'] }}</td>
-
-                        <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>
-                        
+                        <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>   
                         <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
                     </tr>
                     {% endfor %}
