@@ -28,11 +28,14 @@
             <table class = "table" id="product_table">
                 <thead>
                     <tr>
-                        <th class="product_col" class="category_col">Product</th>
-                        <th class="type_col" class="category_col">Type</th>
-                        <th class="units_col" class="category_col">Units</th>
-                        <th class="price_col" class="category_col">Price</th>
-                        <th class="price_col" class="category_col">Market</th>
+                        <th class="product_col category_col">Product</th>
+                        <th class="type_col category_col">Type</th>
+                        <th class="price_col category_col">Quantity</th>
+                        <th></th>
+                        <th></th>
+                        <th class="units_col category_col">Units</th>
+                        <th class="price_col category_col">Price</th>
+                        <th class="price_col category_col">Market</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -45,14 +48,17 @@
                 <tbody>
                     {% for item in cartList %}
                     <tr>
-                        <td class="product_col" class="category_col">{{ item['Product'] }}</td>  
-                        <td class="type_col" class="category_col">{{ item['Product Type'] }}</td>
-                        <td class="units_col" class="category_col">{{ item['units'] }}</td>
-                        <td class="price_col" class="category_col">{{ item['Price'] }}</td>
-                        <td class="price_col" class="category_col">{{ item['marketID'] }}</td>
-                        <td style="display: none" class="id_col" class="id_col">{{ item['_id'] }}</td>
+                        <td class="product_col category_col">{{ item['Product'] }}</td>  
+                        <td class="type_col category_col">{{ item['Product Type'] }}</td>
+                        <td class="quantity_col category_col"><input value=1 size=4></td>
+                        <td class="pos_increment_col button_col"><button  name="increment" value="+">+</button></td>
+                        <td class="neg_increment_col button_col"><button  name="decrement" value="-">-</button></td>
+                        <td class="units_col category_col">{{ item['units'] }}</td>
+                        <td class="price_col category_col">{{ item['Price'] }}</td>
+                        <td class="price_col category_col">{{ item['marketID'] }}</td>
+                        <td style="display: none" class="id_col">{{ item['_id'] }}</td>
                         <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
-                        <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
+                        <td class="remove_col button_col"><button  name="remove" value="Remove">Remove</button></td>
 
                     </tr>
                     {% endfor %}
