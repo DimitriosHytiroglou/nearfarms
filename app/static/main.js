@@ -121,17 +121,17 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var product = $(this).closest('.card-content').find('.product_detail').text();
 	var productType = $(this).closest('.card-content').find('.productType_detail').text();
 	var units = $(this).closest('.card-content').find('.units_detail').text();
-	var quantity = $(this).closest('.card-content').find('.quantity_detail').text();
 	var price = $(this).closest('.card-content').find('.price_detail').text();
+	var marketID = $(this).closest('.card-content').find('.marketID_detail').text();
 
-	shopping_cart = [product, productType, units, quantity, price]
+	shopping_cart = [product, productType, units, price]
 
 	$.post("shopping_cart", {
 		product:product,
 		productType:productType,
 		units:units,
-		quantity:quantity,
-		price:price
+		price:price,
+		marketID:marketID
 	}).done(function (reply) {
                 $(document.body).html(reply);
                 

@@ -477,15 +477,16 @@ def add_to_shopping_cart():
     if request.method == "POST":
         cart['product'] = request.form['product']
         cart['productType'] = request.form['productType']
+        
+        cart['marketID'] = request.form['marketID']
+        # have to extract units from request.form since text before
         cart['units'] = request.form['units']
-        # have to extract quantity from request.form since text before
-        cart['quantity'] = int(request.form['quantity'].strip()[10:])
         # have to extract price from request.form since text before
-        cart['price'] = float(request.form['price'].strip()[7:])
+        cart['price'] = request.form['price'].strip()[7:]
         cartList.append(cart)
         # Insert to shopping cart
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, units, quantity, price)
+        insertToShoppingCart(collection, session['username'], product, productType, units, price, marketID)
 
     print (cart)
     print (cartList)
@@ -508,14 +509,14 @@ def shopping_cart():
     if request.method == "POST":
         product = request.form['product']
         productType = request.form['productType']
-        units = request.form['units']
-        # have to extract quantity from request.form since text before
-        quantity = int(request.form['quantity'].strip()[10:])
+        marketID = request.form['marketID']
+        # have to extract units from request.form since text before
+        units = request.form['units'].strip()[7:]
         # have to extract price from request.form since text before
-        price = float(request.form['price'].strip()[7:])
+        price = request.form['price'].strip()[7:]
         # Insert to shopping cart
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, units, quantity, price)
+        insertToShoppingCart(collection, session['username'], product, productType, units, price, marketID)
 
 
     collection = chooseCollection('shoppingCart')

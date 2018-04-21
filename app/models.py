@@ -43,8 +43,8 @@ def insertConsumer(collection, email, username, password, first, last, userType)
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
 # # # SHOPPING CART # # #
-def insertToShoppingCart(collection, username, product, productType, units, quantity, price):
-	collection.insert({"Username":username, "Product":product, "Product Type":productType, "units":units, "Quantity":quantity,"Price":price})
+def insertToShoppingCart(collection, username, product, productType, units, price, marketID):
+	collection.insert({"Username":username, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID})
 
 def retrieveShoppingCart(collection, username):
 	contents = collection.find({'Username':username})
