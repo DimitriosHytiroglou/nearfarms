@@ -43,8 +43,8 @@ def insertConsumer(collection, email, username, password, first, last, userType)
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
 # # # SHOPPING CART # # #
-def insertToShoppingCart(collection, username, product, productType, subType, quantity, price):
-	collection.insert({"Username":username, "Product":product, "Product Type":productType, "subType":subType, "Quantity":quantity,"Price":price})
+def insertToShoppingCart(collection, username, product, productType, units, quantity, price):
+	collection.insert({"Username":username, "Product":product, "Product Type":productType, "units":units, "Quantity":quantity,"Price":price})
 
 def retrieveShoppingCart(collection, username):
 	contents = collection.find({'Username':username})
@@ -71,8 +71,8 @@ def update_prof_pic(collection, username, image):
 # # # PRODUCTS # # #
 
 # Insert new product
-def insert_products(collection, producerID, product, productType, subType, quantity, price, image, marketID):
-    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price, 'Image':'','MarketID':marketID})
+def insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID):
+    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'units':units,'Quantity':quantity, 'Price':price, 'Image':'','MarketID':marketID})
 
 # Retrieve all of producer's products
 def retrieve_products(collection, username):
@@ -83,9 +83,9 @@ def retrieve_products(collection, username):
 		return []
 
 # Update existing product
-def update_product(collection, _id, product, productType, subType, quantity, price):
+def update_product(collection, _id, product, productType, units, quantity, price):
 	idb = bson.ObjectId(_id)
-	collection.update_one({"_id": idb }, {"$set": {'Product':product, 'Product Type':productType, 'Sub Type':subType,'Quantity':quantity, 'Price':price}})	
+	collection.update_one({"_id": idb }, {"$set": {'Product':product, 'Product Type':productType, 'units':units,'Quantity':quantity, 'Price':price}})	
 #  https://codehandbook.org/pymongo-tutorial-crud-operation-mongodb/\
 
 def deductFromInventory(collection, _id, amount):

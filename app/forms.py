@@ -50,7 +50,7 @@ class ProductForm(Form):
     marketID =  SelectField('tripFriend', choices = [('Berkeley','Berkeley'),('Oakland','Oakland'),('San Francisco','San Francisco')])
     product = StringField('product', validators=[DataRequired()])
     productType = StringField('productType', validators=[DataRequired()])
-    subType = StringField('subType', validators=[DataRequired()])
+    units = StringField('units', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
     price = DecimalField('price',places=2, validators=[DataRequired()])			 # probably need to change this to float
     # image = FileField('image', validators=[DataRequired()]) 			 # this is just a placeholder for now

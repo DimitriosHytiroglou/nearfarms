@@ -15,33 +15,34 @@ def homepage():
 
     # Retrieve all products from the database
     all_produce = retrieve_all_produce(collection)
+    print (all_produce)
     
     # gathering all of the produce listed in database
     produceList = []
 
-    # gathing all of the products, productypes, subtypes, 
+    # gathing all of the products, productypes, units, 
     ProductList = []
     ProductTypeList = []
-    SubTypeList = []
+    unitsList = []
 
     for produce in all_produce:
         produceList.append(produce)
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
-        SubTypeList.append(produce['Sub Type'])
+        unitsList.append(produce['units'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
-    SubTypeList = sorted(list(set(SubTypeList)))
+    unitsList = sorted(list(set(unitsList)))
     # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
-    filters['subType'] = ''
+    filters['units'] = ''
 
     return render_template('homepage.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, filters=filters)
+        unitsList=unitsList, filters=filters)
 
 @app.route('/')
 def index():
@@ -238,14 +239,14 @@ def add_product():
         marketID = productForm.marketID.data
         product = productForm.product.data
         productType = productForm.productType.data
-        subType = productForm.subType.data
+        units = productForm.units.data
         quantity = productForm.quantity.data
         price = str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
         image = ''
         # image = productForm.image.data
 
         collection = chooseCollection('products')
-        insert_products(collection, producerID, product, productType, subType, quantity, price, image, marketID)
+        insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID)
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'])
@@ -263,8 +264,6 @@ def farmer_home():
     
         for product in products:
             productList.append(product)
-        
-        print('bob')
         
     # Get Farmer data
         collection = chooseCollection('users')
@@ -289,7 +288,7 @@ def productUpdate():
     if request.method == "POST":
        
 
-        update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['subType'], request.form['quantity'], request.form['price'])     
+        update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['units'], request.form['quantity'], request.form['price'])     
 
         products = retrieve_products(collection,session['username'])
 
@@ -391,29 +390,29 @@ def shop_produce():
     # gathering all of the produce listed in database
     produceList = []
 
-    # gathing all of the products, productypes, subtypes, 
+    # gathing all of the products, productypes, units, 
     ProductList = []
     ProductTypeList = []
-    SubTypeList = []
+    unitsList = []
 
     for produce in all_produce:
         produceList.append(produce)
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
-        SubTypeList.append(produce['Sub Type'])
+        unitsList.append(produce['units'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
-    SubTypeList = sorted(list(set(SubTypeList)))
+    unitsList = sorted(list(set(unitsList)))
     # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
-    filters['subType'] = ''
+    filters['units'] = ''
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
+        unitsList=unitsList, filters=filters, user=session['username'], user_status=session['status'])
 
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
@@ -424,7 +423,7 @@ def applyFilter():
 
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
-        filters['subType'] = request.form['subType']
+        filters['units'] = request.form['units']
 
 
     ###########################################################
@@ -439,25 +438,25 @@ def applyFilter():
     # gathering all of the produce listed in database
     produceList = []
 
-    # gathing all of the products, productypes, subtypes, 
+    # gathing all of the products, productypes, units, 
     ProductList = []
     ProductTypeList = []
-    SubTypeList = []
+    unitsList = []
 
     for produce in all_produce:
-        if (filters['product'] == '' and filters['productType'] == '' and filters['subType'] == ''):
+        if (filters['product'] == '' and filters['productType'] == '' and filters['units'] == ''):
             produceList.append(produce)
-        elif (filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type'] or filters['subType'] == produce['Sub Type']):
+        elif (filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type'] or filters['units'] == produce['units']):
             produceList.append(produce)
         
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
-        SubTypeList.append(produce['Sub Type'])
+        unitsList.append(produce['units'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
-    SubTypeList = sorted(list(set(SubTypeList)))
+    unitsList = sorted(list(set(unitsList)))
     
     ##########################################
     # APPLYING THE FILTERS
@@ -466,7 +465,7 @@ def applyFilter():
         
     # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        SubTypeList=SubTypeList, filters=filters, user=session['username'], user_status=session['status'])
+        unitsList=unitsList, filters=filters, user=session['username'], user_status=session['status'])
 
 @app.route('/add_to_shopping_cart', methods=['GET','POST'])
 def add_to_shopping_cart():
@@ -477,7 +476,7 @@ def add_to_shopping_cart():
     if request.method == "POST":
         cart['product'] = request.form['product']
         cart['productType'] = request.form['productType']
-        cart['subType'] = request.form['subType']
+        cart['units'] = request.form['units']
         # have to extract quantity from request.form since text before
         cart['quantity'] = int(request.form['quantity'].strip()[10:])
         # have to extract price from request.form since text before
@@ -485,7 +484,7 @@ def add_to_shopping_cart():
         cartList.append(cart)
         # Insert to shopping cart
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
+        insertToShoppingCart(collection, session['username'], product, productType, units, quantity, price)
 
     print (cart)
     print (cartList)
@@ -508,14 +507,14 @@ def shopping_cart():
     if request.method == "POST":
         product = request.form['product']
         productType = request.form['productType']
-        subType = request.form['subType']
+        units = request.form['units']
         # have to extract quantity from request.form since text before
         quantity = int(request.form['quantity'].strip()[10:])
         # have to extract price from request.form since text before
         price = float(request.form['price'].strip()[7:])
         # Insert to shopping cart
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, subType, quantity, price)
+        insertToShoppingCart(collection, session['username'], product, productType, units, quantity, price)
 
 
     collection = chooseCollection('shoppingCart')
@@ -524,6 +523,8 @@ def shopping_cart():
     cartList = []
     for item in contents:
         cartList.append(item)
+
+    print (cartList)
 
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 

@@ -216,7 +216,7 @@
    
   <div class="hero-body">
     <h1 class="title">Farmers Market Products:</h1>
-        <!-- Adding filters: product, productType, subType -->
+        <!-- Adding filters: product, productType, units -->
         <div>
             <p>Filters:</p>
         </div>
@@ -238,12 +238,12 @@
                 {% endfor %}
             </select>
         </div>
-        <!-- subType filter -->
+        <!-- units filter -->
         <div class="select is-medium">    
-            <select id="subType_filter" name="subType_filter">
+            <select id="units_filter" name="units_filter">
                 <option></option>
-                {% for SubType in SubTypeList %}
-                <option>{{SubType}}</option>
+                {% for units in unitsList %}
+                <option>{{units}}</option>
                 {% endfor %}
             </select>
         </div>
@@ -278,7 +278,7 @@
                     </div>
 
                     <div class="content">
-                      <span class="subType_detail tag is-light">{{ produce['Sub Type'] }}</span>
+                      <span class="units_detail tag is-light">{{ produce['units'] }}</span>
                     </div>
                     <footer class="card-footer">
                         <p  class="quantity_detail content is-small card-footer-item">
