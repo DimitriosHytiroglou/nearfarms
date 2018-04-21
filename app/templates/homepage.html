@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - nearfarms</title>
+    <title>Welcome to nearfarms</title>
+    {% endif %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nearfarms</title>
+    <!-- Bulma framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    
+    <link type="text/css" rel="stylesheet" href="/static/main.css"  media="screen,projection"/>
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
+
+    <!-- reference to font awesome icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    <script type="text/javascript" src="/node_modules/bulma-extensions/bulma-carousel/dist/bulma-carousel.min.js"></script>
+
+    {% block head %}{% endblock %}  </head>
+  <body>
+    {% block navigation %}
+    <section class="hero is-white is-small is-medium">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+          <!-- Bulma Navbar class  -->
+          <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            
+            <!-- Bulma navbar-brand stickt to left hand  -->
+            <div class="navbar-brand">
+              <!-- Bulma navbar-item is child of brand  -->
+              <a class="navbar-item" href="{{ url_for('home') }}">
+                <img src="/static/logo.png" id="logo" alt="Logo">
+              </a>
+              <!-- navbar-burger needs to be last child of navbar-brand -->
+              <div class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </div>
+            </div>
+            <!-- "The navbar-menu is the counterpart of the navbar brand. As such, it must appear as a direct child of navbar, as a sibling of navbar-brand. It also needs two elements as direct children: navbar-start and navbar-end" -->
+            <!-- navbar-start will appear on the left
+                 navbar-end will appear on the right -->
+            <div class="navbar-menu" id="navMenu">              
+              <div class="navbar-start">
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                {% block register %}
+                      <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                          <button class="button is-white">
+                            <span>REGISTER</span>
+                          </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                          <div class="dropdown-content">
+                            <a href="{{ url_for('create_newConsumer') }}" class="dropdown-item">
+                              Consumers
+                            </a>
+                            <a href="{{ url_for('create_newProducer') }}" class="dropdown-item">
+                              Producers
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    {% endblock %}
+                    {% block login %}
+                    <div class="navbar-item">
+                        <a class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                    </div>
+                </div>
+                {% endblock %}
+              </div>
+            </div>
+          </nav>
+      </div>
+    </section>
+{% endblock %}
+{% block content %}
+<section class="hero is-small is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-search"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Search</p>
+              <p class="heading  has-text-centered">Delicious produce in your area.</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-shopping-cart"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Order</p>
+              <p class="heading  has-text-centered">As much produce as the land can provide.</p>
+          </div>
+        </div>  
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-hand-paper"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Pickup</p>
+              <p class="heading has-text-centered">At a local farmers market.</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-users"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Pickup</p>
+              <p class="heading  has-text-centered">At a local farmers market.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-mobile">
+        <div class="column is-half-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
+          <figure class="image is-4by3">
+            <img src="https://picsum.photos/400/300">
+          </figure>
+        </div>
+        <div class="column is-half-mobile is-half-tablet is-half-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
+          <div class="content is-large">
+            <h1>Berkeley Farmers Market</h1>
+            <p>Widely regarded as the first farmers market in human history, Berkeley Farmers Market is where people shop who care about the world. <strong>So should you.</strong> </p>
+          </div>
+        </div>
+      </div>
+      <div class='carousel is-5 carousel-animated carousel-animate-slide'>
+        <div class='carousel-container'>
+<!--           {% for produce in produceList %}
+          <div class='carousel-item is-active'>
+            <figure class="image is-2by1">
+              <img src="{{url_for('static', filename=produce['Image'])}}">
+            </figure>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="carousel-navigation is-centered">
+          <div class="carousel-nav-left">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </div>
+          <div class="carousel-nav-right">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </div>
+        </div> -->
+      </div>
+      <div class="columns is-mobile">
+        <div class="column">
+          <div class="content">
+          <h1>Hours of Operation</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Monday-Friday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+                <tr>
+                  <td>Saturday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+                <tr>
+                  <td>Sunday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>      
+  </div>
+</section>
+
+<section class="hero is-white">
+   
+  <div class="hero-body">
+    <h1 class="title">Farmers Market Products:</h1>
+        <!-- Adding filters: product, productType, subType -->
+        <div>
+            <p>Filters:</p>
+        </div>
+        <!-- product filter -->
+        <div class="select is-medium">    
+            <select id="product_filter" name="product_filter">
+                <option></option>
+                {% for product in ProductList %}
+                <option>{{product}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- productType filter -->
+        <div class="select is-medium">    
+            <select id="productType_filter" name="poductType_filter">
+                <option></option>
+                {% for productType in ProductTypeList %}
+                <option>{{productType}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- subType filter -->
+        <div class="select is-medium">    
+            <select id="subType_filter" name="subType_filter">
+                <option></option>
+                {% for SubType in SubTypeList %}
+                <option>{{SubType}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="button is-primary" id="apply_filter_btn" name="apply_filter" value="apply_filter">Apply Filter</button>
+
+        <!-- Adding list of the produce from the database -->
+
+    <br>
+    <br>
+    <br>   
+
+    <div class="tile is-ancestor" style="flex-wrap: wrap">
+        {% for produce in produceList %}
+            <div class="tile is-3 is-parent">
+                <div class="tile is-child card">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img onerror="this.src='https://bulma.io/images/placeholders/1280x960.png'" alt="Placeholder image" src="{{url_for('static', filename=produce['Image'])}}">
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <figure class="image is-48x48">
+                          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="media-content">
+                        <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
+                        <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
+                      </div>
+                    </div>
+
+                    <div class="content">
+                      <span class="subType_detail tag is-light">{{ produce['Sub Type'] }}</span>
+                    </div>
+                    <footer class="card-footer">
+                        <p  class="quantity_detail content is-small card-footer-item">
+                            QUANTITY: {{ produce['Quantity'] }}
+                        </p>
+                        <p  class="price_detail content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
+                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart" href="{{ url_for('shopping_cart') }}">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </a>
+                    </footer>
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+{% endblock %}
+    
+{% block footer %} 
+    <footer class="hero-foot is-fixed-bottom">
+      <nav class="tabs is-fullwidth">
+        <div class="container">
+          <ul>
+            <li><a>Contact Us</a></li>
+            <li><a>About</a></li>
+            <li><a>Find a Market</a></li>
+            <li><a>Delivery</a></li>
+          </ul>
+        </div>
+      </nav>
+    </footer>
+    {% endblock %}
+
+<script type="text/javascript">
+// Get all "navbar-burger" elements
+var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach(function($el) {
+    $el.addEventListener('click', function() {
+
+      // Get the target from the "data-target" attribute
+      var target = $el.dataset.target;
+      var $target = document.getElementById(target);
+
+      // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+      $el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+</script>
+
+  </body>
+</html>

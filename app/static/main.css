@@ -1,3 +1,9 @@
+#homepage-image {
+	width: 200px;
+}
+#homepage-image img {
+	width:100%;
+}
 #trip_friend {
     display: block;
 }

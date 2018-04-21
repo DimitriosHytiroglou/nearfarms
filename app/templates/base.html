@@ -33,7 +33,7 @@
             <!-- Bulma navbar-brand stickt to left hand  -->
             <div class="navbar-brand">
               <!-- Bulma navbar-item is child of brand  -->
-              <a class="navbar-item" href="{{ url_for('home') }}">
+              <a class="navbar-item" href="{{ url_for('homepage') }}">
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
               <!-- navbar-burger needs to be last child of navbar-brand -->
@@ -58,10 +58,10 @@
                         <p style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
                         <div class="navbar-item"></div>
                         <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
+                      </div>
                       {% endblock %}
                       {% block login %}
                       <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
-                      </div>
                     </p>
                     {% endblock %}
                   </div>

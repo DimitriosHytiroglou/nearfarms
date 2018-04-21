@@ -9,6 +9,40 @@ from app.encryption.HashingHandler import *
 import json
 # Access the models file to use SQL functions
 
+@app.route('/homepage')
+def homepage():
+    collection = chooseCollection('products')
+
+    # Retrieve all products from the database
+    all_produce = retrieve_all_produce(collection)
+    
+    # gathering all of the produce listed in database
+    produceList = []
+
+    # gathing all of the products, productypes, subtypes, 
+    ProductList = []
+    ProductTypeList = []
+    SubTypeList = []
+
+    for produce in all_produce:
+        produceList.append(produce)
+        ProductList.append(produce['Product'])
+        ProductTypeList.append(produce['Product Type'])
+        SubTypeList.append(produce['Sub Type'])
+
+    # getting unique values and sorting in alphabetical order
+    ProductList = sorted(list(set(ProductList)))
+    ProductTypeList = sorted(list(set(ProductTypeList)))
+    SubTypeList = sorted(list(set(SubTypeList)))
+    # Populate the filters with empty values
+    filters = {}
+    filters['product'] = ''
+    filters['productType'] = ''
+    filters['subType'] = ''
+
+    return render_template('homepage.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
+        SubTypeList=SubTypeList, filters=filters)
+
 @app.route('/')
 def index():
 
