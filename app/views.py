@@ -393,26 +393,26 @@ def shop_produce():
     # gathing all of the products, productypes, units, 
     ProductList = []
     ProductTypeList = []
-    unitsList = []
+    marketList = []
 
     for produce in all_produce:
         produceList.append(produce)
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
-        unitsList.append(produce['units'])
+        marketList.append(produce['MarketID'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
-    unitsList = sorted(list(set(unitsList)))
+    marketList = sorted(list(set(marketList)))
     # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
-    filters['units'] = ''
+    filters['MarketID'] = ''
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        unitsList=unitsList, filters=filters, user=session['username'], user_status=session['status'])
+        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
 
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
@@ -423,7 +423,7 @@ def applyFilter():
 
         filters['product'] = request.form['product']
         filters['productType'] = request.form['productType']
-        filters['units'] = request.form['units']
+        filters['MarketID'] = request.form['MarketID']
 
 
     ###########################################################
@@ -441,23 +441,24 @@ def applyFilter():
     # gathing all of the products, productypes, units, 
     ProductList = []
     ProductTypeList = []
-    unitsList = []
+    marketList = []
 
     for produce in all_produce:
-        if (filters['product'] == '' and filters['productType'] == '' and filters['units'] == ''):
+        if (filters['MarketID'] == '' and filters['product'] == '' and filters['productType'] == ''):
             produceList.append(produce)
-        elif (filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type'] or filters['units'] == produce['units']):
+        elif (filters['MarketID'] == produce['MarketID'] or filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type']):
             produceList.append(produce)
         
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
-        unitsList.append(produce['units'])
+        marketList.append(produce['MarketID'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
-    unitsList = sorted(list(set(unitsList)))
+    marketList = sorted(list(set(marketList)))
     
+    print (marketList)
     ##########################################
     # APPLYING THE FILTERS
     ##########################################
@@ -465,7 +466,7 @@ def applyFilter():
         
     # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        unitsList=unitsList, filters=filters, user=session['username'], user_status=session['status'])
+        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
 
 @app.route('/add_to_shopping_cart', methods=['GET','POST'])
 def add_to_shopping_cart():

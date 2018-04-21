@@ -25,6 +25,15 @@
         <div>
             <p>Filters:</p>
         </div>
+        <!-- market filter -->
+        <div class="select is-medium">    
+            <select id="market_filter" name="market_filter">
+                <option></option>
+                {% for market in marketList %}
+                <option>{{market}}</option>
+                {% endfor %}
+            </select>
+        </div>
         <!-- product filter -->
         <div class="select is-medium">    
             <select id="product_filter" name="product_filter">
@@ -40,15 +49,6 @@
                 <option></option>
                 {% for productType in ProductTypeList %}
                 <option>{{productType}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- units filter -->
-        <div class="select is-medium">    
-            <select id="units_filter" name="units_filter">
-                <option></option>
-                {% for units in unitsList %}
-                <option>{{units}}</option>
                 {% endfor %}
             </select>
         </div>
@@ -83,11 +83,11 @@
                     </div>
 
                     <div class="content">
-                      <span class="units_detail tag is-light">{{ produce['units'] }}</span>
+                      <span class="units_detail tag is-light">{{ produce['MarketID'] }}</span>
                     </div>
                     <footer class="card-footer">
                         <p  class="quantity_detail content is-small card-footer-item">
-                            QUANTITY: {{ produce['Quantity'] }}
+                            UNITS: {{ produce['units'] }}
                         </p>
                         <p  class="price_detail content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
                         <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart" href="{{ url_for('shopping_cart') }}">

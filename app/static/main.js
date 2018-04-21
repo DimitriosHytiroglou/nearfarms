@@ -91,16 +91,16 @@ $(".remove_col").on('click', function() {
 $("#apply_filter_btn").on('click', function applyFilter() {
 	var product = $('#product_filter').find('option:selected').text();
 	var productType = $('#productType_filter').find('option:selected').text();
-	var units = $('#units_filter').find('option:selected').text();
+	var MarketID = $('#market_filter').find('option:selected').text();
 	
-	filters = [product, productType,units]
+	filters = [product, productType,MarketID]
 	// console.log(subType);
 	// var apply = {'product':product,'productType':productType,'subType':subType};
 
 	$.post("apply-filter", {
  					product:product,
  					productType:productType,
- 					units:units					
+ 					MarketID:MarketID					
 
  			}).done(function (reply) {
                 $(document.body).html(reply);
