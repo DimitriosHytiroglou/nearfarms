@@ -47,10 +47,10 @@ class NewProducerForm(Form):
 
 ###ADD NEW PRODUCT FORM
 class ProductForm(Form):
-    marketID =  SelectField('tripFriend', choices = [('Berkeley','Berkeley'),('Oakland','Oakland'),('San Francisco','San Francisco')])
+    marketID =  SelectField('marketID', choices = [('Berkeley','Berkeley'),('Oakland','Oakland'),('San Francisco','San Francisco')])
     product = StringField('product', validators=[DataRequired()])
     productType = StringField('productType', validators=[DataRequired()])
-    units = StringField('units', validators=[DataRequired()])
+    units = SelectField('units', choices = [('lbs','lbs'),('bunch','bunch'),('per item','item')])
     quantity = IntegerField('quantity', validators=[DataRequired()])
     price = DecimalField('price',places=2, validators=[DataRequired()])			 # probably need to change this to float
     # image = FileField('image', validators=[DataRequired()]) 			 # this is just a placeholder for now
