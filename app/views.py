@@ -240,7 +240,7 @@ def add_product():
         productType = productForm.productType.data
         subType = productForm.subType.data
         quantity = productForm.quantity.data
-        price = productForm.price.data
+        price = str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
         image = ''
         # image = productForm.image.data
 

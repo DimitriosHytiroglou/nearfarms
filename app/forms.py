@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, IntegerField, SelectField, PasswordField, validators
+from wtforms import StringField, IntegerField, SelectField, PasswordField, validators, DecimalField
 from flask_wtf.html5 import EmailField
 from flask_wtf.file import FileField
 from wtforms.validators import DataRequired
@@ -52,7 +52,7 @@ class ProductForm(Form):
     productType = StringField('productType', validators=[DataRequired()])
     subType = StringField('subType', validators=[DataRequired()])
     quantity = IntegerField('quantity', validators=[DataRequired()])
-    price = IntegerField('price', validators=[DataRequired()])			 # probably need to change this to float
+    price = DecimalField('price',places=2, validators=[DataRequired()])			 # probably need to change this to float
     # image = FileField('image', validators=[DataRequired()]) 			 # this is just a placeholder for now
 
 
