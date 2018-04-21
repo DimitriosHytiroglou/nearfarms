@@ -30,12 +30,12 @@
                     <tr>
                         <th class="product_col category_col">Product</th>
                         <th class="type_col category_col">Type</th>
-                        <th class="price_col category_col">Quantity</th>
+                        <th class="quantity_col category_col">Quantity</th>
+                        <th class="units_col category_col"></th>
                         <th></th>
                         <th></th>
-                        <th class="units_col category_col">Units</th>
-                        <th class="price_col category_col">Price</th>
-                        <th class="price_col category_col">Market</th>
+                        <th class="price_col category_col">Price/Unit</th>
+                        <th class="market_col category_col">Market</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -50,12 +50,12 @@
                     <tr>
                         <td class="product_col category_col">{{ item['Product'] }}</td>  
                         <td class="type_col category_col">{{ item['Product Type'] }}</td>
-                        <td class="quantity_col category_col"><input value=1 size=4></td>
-                        <td class="pos_increment_col button_col"><button  name="increment" value="+">+</button></td>
-                        <td class="neg_increment_col button_col"><button  name="decrement" value="-">-</button></td>
+                        <td class="quantity_col category_col">1</td>
                         <td class="units_col category_col">{{ item['units'] }}</td>
+                        <td class="pos_increment_col button_col"><a  name="increment" value="+">+</a></td>
+                        <td class="neg_increment_col button_col"><a  name="decrement" value="-">-</a></td>
                         <td class="price_col category_col">{{ item['Price'] }}</td>
-                        <td class="price_col category_col">{{ item['marketID'] }}</td>
+                        <td class="marketcol category_col">{{ item['marketID'] }}</td>
                         <td style="display: none" class="id_col">{{ item['_id'] }}</td>
                         <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
                         <td class="remove_col button_col"><button  name="remove" value="Remove">Remove</button></td>

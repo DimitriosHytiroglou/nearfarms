@@ -141,7 +141,39 @@ $('body').on('click','.add_to_cart_button','click', function() {
 
 });
 
+// FUNCTION TO INCREMENT OR DECREMENT QUANTITY ON SHOPPING CART PAGE
 
+// $(".update_col").on('click', function() {
+// 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
+// 	var product = $(this).closest('tr').find('.product_col').text();
+
+$('.pos_increment_col').on('click',function() {
+	var quantity = $(this).closest('tr').find('.quantity_col').text();
+	var quantity_int = parseInt(quantity) +1
+	$(this).closest('tr').find('.quantity_col').text(quantity_int);
+});
+
+$('.neg_increment_col').on('click',function() {
+	var quantity = $(this).closest('tr').find('.quantity_col').text();
+	var quantity_int = parseInt(quantity) - 1
+
+	if (quantity_int >=0) {
+		$(this).closest('tr').find('.quantity_col').text(quantity_int);
+	}
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+// FUNCTION TO PULL AND PUSH DATA INTO RESERVATIONS PAGE
 // Function to change value to true or false based on whether box is checked or not
  $(".checkbox").on("click", function () { 
       var checkbox = $(this).closest( ".checkbox" );
