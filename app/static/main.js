@@ -1,6 +1,4 @@
 
-
-
 // update products in line via farmer.html
 $(".update_col").on('click', function() {
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
@@ -226,15 +224,15 @@ $(".reserve_button").on("click", function() {
     });
 	console.log(reserved_list)
 
-	$.post("reservations", {
-		reserved_list:reserved_list
+  $.post("reservations", {
+		reserved_list: JSON.stringify(reserved_list)
 	}).done(function (reply) {
                 $(document.body).html(reply);
-
+                
+                
             }
         );
-
-});
+    });
 
 
 

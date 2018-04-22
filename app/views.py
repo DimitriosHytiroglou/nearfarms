@@ -237,7 +237,7 @@ def add_product():
         productType = productForm.productType.data
         units = productForm.units.data
         quantity = productForm.quantity.data
-        price = '$ ' + str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
+        price = '$' + str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
         image = ''
         # image = productForm.image.data
 
@@ -591,8 +591,6 @@ def shopping_cart():
     for item in contents:
         cartList.append(item)
 
-    print (cartList)
-
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 
@@ -601,16 +599,18 @@ def shopping_cart():
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 
-    if request.method == "POST":
-        data = request.form['reserved_list']
-        print (data)
-        print ("hello")
-        
-    
-    
-    
+    reservedList =[]
 
-    return render_template('reservations.html', user=session['username'], user_status=session['status'])
+    if request.method == "POST":
+        json_data = request.form['reserved_list']
+        d_list = json.loads(json_data)
+        for i in d_list:
+            i['totalPrice'] = round((float(i['quantity']) * float(i['price'][1:])),2)
+            reservedList.append(i)
+    
+    print (reservedList)
+
+    return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])
 
 @app.errorhandler(404)
 def page_not_found(e):
