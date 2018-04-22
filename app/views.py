@@ -261,10 +261,13 @@ def farmer_home():
         products = retrieve_products(collection,session['username'])
     
         productList = []
-        marketList = 
+        marketList = []
         
         for product in products:
             productList.append(product)
+            marketList.append(product['MarketID'])
+        
+        marketList = sorted(list(set(marketList)))
         
     # Get Farmer data
         collection = chooseCollection('users')
@@ -272,9 +275,12 @@ def farmer_home():
         farmerList = []
         [farmerList.append(deets) for deets in farmerDeets]    
         farmer = farmerList[0]
+
+        # blank filter
+        filters = {'MarketID':''}
         
 
-        return render_template('farmer.html', productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
+        return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
 
     else:
         flash('You were successfully logged in')
@@ -292,10 +298,14 @@ def applyFilterFarmer():
     products = retrieve_products(collection,session['username'])
 
     productList = []
+    marketList = ['']
     
     for product in products:
         if filters['MarketID'] == product['MarketID']:
             productList.append(product)
+        marketList.append(product['MarketID'])
+
+    marketList = sorted(list(set(marketList)))
 
 # Get Farmer data
     collection = chooseCollection('users')
@@ -305,7 +315,7 @@ def applyFilterFarmer():
     farmer = farmerList[0]
     
 
-    return render_template('farmer.html', productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
+    return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
 
 
 
