@@ -261,10 +261,11 @@ def farmer_home():
         products = retrieve_products(collection,session['username'])
     
         productList = []
+        marketList = 
         
         for product in products:
             productList.append(product)
-        print (productList)
+        
     # Get Farmer data
         collection = chooseCollection('users')
         farmerDeets = getFarmData(collection, session['username'])
@@ -278,6 +279,46 @@ def farmer_home():
     else:
         flash('You were successfully logged in')
         return redirect('/home')
+
+@app.route('/apply-filter-farmer', methods=['POST'])
+def applyFilterFarmer():
+    filters = {}
+
+    if request.method == "POST":
+        filters['MarketID'] = request.form['MarketID']
+        
+    collection = chooseCollection('products')
+
+    products = retrieve_products(collection,session['username'])
+
+    productList = []
+    
+    for product in products:
+        if filters['MarketID'] == product['MarketID']:
+            productList.append(product)
+
+# Get Farmer data
+    collection = chooseCollection('users')
+    farmerDeets = getFarmData(collection, session['username'])
+    farmerList = []
+    [farmerList.append(deets) for deets in farmerDeets]    
+    farmer = farmerList[0]
+    
+
+    return render_template('farmer.html', productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/product_update', methods=['POST'])
 def productUpdate():

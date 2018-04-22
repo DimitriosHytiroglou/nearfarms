@@ -163,7 +163,19 @@ $('.neg_increment_col').on('click',function() {
 	
 });
 
+// Gets value from dropdown on farmer's page
+ $("#farmers_market").change(function () {
+    var MarketID = this.value;
 
+    $.post("apply-filter-farmer", {
+		MarketID:MarketID
+	}).done(function (reply) {
+                $(document.body).html(reply);
+                
+                
+            }
+        );
+    });
 
 
 
