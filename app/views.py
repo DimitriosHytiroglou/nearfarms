@@ -425,10 +425,11 @@ def applyFilter():
         filters['productType'] = request.form['productType']
         filters['MarketID'] = request.form['MarketID']
 
-
-    ###########################################################
-    #  GET THE PRODUCE, SAME AS ABOVE, THIS MUST BE SIMPLIFIED
-    ###########################################################
+    # count number of filters in use, to be used for conditionals below
+    count = 0
+    for key in filters:
+        if filters[key] != '':
+            count +=1
 
     collection = chooseCollection('products')
 
@@ -439,15 +440,38 @@ def applyFilter():
     produceList = []
 
     # gathing all of the products, productypes, units, 
-    ProductList = []
-    ProductTypeList = []
-    marketList = []
+    ProductList = ['']
+    ProductTypeList = ['']
+    marketList = ['']
 
+    # loop to determin what information will be presented based on filters
     for produce in all_produce:
-        if (filters['MarketID'] == '' and filters['product'] == '' and filters['productType'] == ''):
+        # condition all filters are blank
+        if count == 0:
+        
             produceList.append(produce)
-        elif (filters['MarketID'] == produce['MarketID'] or filters['product'] == produce['Product'] or filters['productType'] == produce['Product Type']):
-            produceList.append(produce)
+
+        # condition for one filter used
+        if count == 1:
+            if (filters['MarketID'] == produce['MarketID'] or filters['product'] == produce['Product'] or \
+                filters['productType'] == produce['Product Type']):
+                
+                produceList.append(produce)
+
+        # condition for two filters used
+        if count ==2 :
+            if (filters['MarketID'] == produce['MarketID'] and filters['product'] == produce['Product']) or \
+            (filters['MarketID'] == produce['MarketID'] and filters['productType'] == produce['Product Type']) or \
+            (filters['product'] == produce['Product'] and filters['productType'] == produce['Product Type']):
+                
+                produceList.append(produce)
+
+        # condition for all filters used
+        if count == 3:
+            if (filters['MarketID'] == produce['MarketID'] and filters['product'] == produce['Product'] and \
+                filters['productType'] == produce['Product Type']):
+                
+                produceList.append(produce)
         
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
@@ -458,13 +482,6 @@ def applyFilter():
     ProductTypeList = sorted(list(set(ProductTypeList)))
     marketList = sorted(list(set(marketList)))
     
-    print (marketList)
-    ##########################################
-    # APPLYING THE FILTERS
-    ##########################################
-
-        
-    # return redirect('/farmer_home', filters=filters)
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
 

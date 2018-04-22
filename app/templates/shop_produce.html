@@ -28,7 +28,7 @@
         <!-- market filter -->
         <div class="select is-medium">    
             <select id="market_filter" name="market_filter">
-                <option></option>
+                <option>{{filters['MarketID']}}</option>
                 {% for market in marketList %}
                 <option>{{market}}</option>
                 {% endfor %}
@@ -37,7 +37,7 @@
         <!-- product filter -->
         <div class="select is-medium">    
             <select id="product_filter" name="product_filter">
-                <option></option>
+                <option>{{filters['product']}}</option>
                 {% for product in ProductList %}
                 <option>{{product}}</option>
                 {% endfor %}
@@ -46,7 +46,7 @@
         <!-- productType filter -->
         <div class="select is-medium">    
             <select id="productType_filter" name="poductType_filter">
-                <option></option>
+                <option>{{filters['productType']}}</option>
                 {% for productType in ProductTypeList %}
                 <option>{{productType}}</option>
                 {% endfor %}
