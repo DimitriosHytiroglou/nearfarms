@@ -25,7 +25,7 @@
 <!--                 <h4>Farmers Market Products</h4> -->
             </div>
 
-            <table class = "table" id="product_table">
+            <table class = "table">
                 <thead>
                     <tr>
                         <th class="product_col category_col">Product</th>
@@ -55,7 +55,7 @@
                         <td class="pos_increment_col button_col"><a  name="increment" value="+">+</a></td>
                         <td class="neg_increment_col button_col"><a  name="decrement" value="-">-</a></td>
                         <td class="price_col category_col">{{ item['Price'] }}</td>
-                        <td class="marketcol category_col">{{ item['marketID'] }}</td>
+                        <td class="market_col category_col">{{ item['marketID'] }}</td>
                         <td style="display: none" class="id_col">{{ item['_id'] }}</td>
                         <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
                         <td class="remove_col button_col"><button  name="remove" value="Remove">Remove</button></td>

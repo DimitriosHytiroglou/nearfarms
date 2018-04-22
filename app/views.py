@@ -553,9 +553,6 @@ def add_to_shopping_cart():
         collection = chooseCollection('shoppingCart')
         insertToShoppingCart(collection, session['username'], product, productType, units, price, marketID)
 
-    print (cart)
-    print (cartList)
-
 
 # ADD HERE FUNCTION TO REMOVE
     collection = chooseCollection('products')
@@ -594,20 +591,34 @@ def shopping_cart():
     return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 
-
-
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 
-    reservedList =[]
-
     if request.method == "POST":
         json_data = request.form['reserved_list']
-        d_list = json.loads(json_data)
-        for i in d_list:
-            i['totalPrice'] = round((float(i['quantity']) * float(i['price'][1:])),2)
-            reservedList.append(i)
-    
+        data_list = json.loads(json_data)
+
+        for item in data_list:
+            product = item['product']
+            productType = item['productType']
+            units = item['units']
+            price = item['price']
+            marketID = item['marketID']
+            # all to get correct formatting for price...round was not working when price = 1.5
+            totalPrice_float = float(item['quantity']) * float(item['price'][1:])
+            totalPrice_str = '{0:.2f}'.format(totalPrice_float)
+            totalPrice = '$' + totalPrice_str 
+            quantity = item['quantity']
+            collection = chooseCollection('reservations')
+            insertToReservations(collection, session['username'], product, productType, units, price, marketID, totalPrice, quantity)
+
+    collection = chooseCollection('reservations')
+    contents = retrieveShoppingCart(collection, session['username'])
+
+    reservedList = []
+    for item in contents:
+        reservedList.append(item)
+
     print (reservedList)
 
     return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])

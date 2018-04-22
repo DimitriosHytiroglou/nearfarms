@@ -53,6 +53,17 @@ def retrieveShoppingCart(collection, username):
 	else:
 		return []
 
+# # # RESERVATIONS # # #
+def insertToReservations(collection, username, product, productType, units, price, marketID, totalPrice, quantity):
+	collection.insert({"Username":username, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
+
+def retrieveReservations(collection, username):
+	contents = collection.find({'Username':username})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
 # # # PRODUCERS # # #
 
 # Insert Producer

@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block head %}
-
 <link type="text/css" rel="stylesheet" href="/static/modal.css">
 {% endblock %}
 
@@ -29,28 +28,30 @@
 
             </div>
 
-            <table class = "table" id="product_table">
+            <table class = "table">
                 <thead>
                     <tr>
-                        <th class="product_col" class="category_col">Product</th>
-                        <th class="type_col" class="category_col">Type</th>
-                        <th class="quantity_col" class="category_col">Quantity</th>
-                        <th class="units_col" class="category_col">Units</th>
-                        <th class="price_col" class="category_col">Price/Unit</th>
-                        <th class="totalPrice_col" class="category_col">Total Price</th>
-                        <th class="remove_col" class="button_col"></th>
+                        <th class="market_col category_col">Market</th>
+                        <th class="product_col category_col">Product</th>
+                        <th class="type_col category_col">Type</th>
+                        <th class="quantity_col category_col">Quantity</th>
+                        <th class="units_col category_col">Units</th>
+                        <th class="price_col category_col">Price/Unit</th>
+                        <th class="totalPrice_col category_col">Total Price</th>
+                        <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for item in reservedList %}
                     <tr>
-                        <td class="product_col" class="category_col">{{ item['product'] }}</td>                        
-                        <td class="type_col" class="category_col">{{ item['productType'] }}</td>                        
-                        <td class="quantity_col" class="category_col">{{ item['quantity'] }}</td>
-                        <td class="units_col" class="category_col">{{ item['units'] }}</td>
-                        <td class="price_col" class="category_col">{{ item['price'] }}</td> 
-                        <td class="totalPrice_col" class="category_col">{{ item['totalPrice'] }}</td>
+                        <td class="market_col category_col">{{ item['marketID'] }}</td>
+                        <td class="product_col category_col">{{ item['Product'] }}</td>
+                        <td class="type_col category_col">{{ item['Product Type'] }}</td>                        
+                        <td class="quantity_col category_col">{{ item['Quantity'] }}</td>
+                        <td class="units_col category_col">{{ item['units'] }}</td>
+                        <td class="price_col category_col">{{ item['Price'] }}</td> 
+                        <td class="totalPrice_col category_col">{{ item['totalPrice'] }}</td>
                         <td style="display: none" class="id_col" class="id_col">{{ item['_id'] }}</td>
                     </tr>
                     {% endfor %}
@@ -59,8 +60,5 @@
         </section>
     <script src="{{ url_for('static', filename="main.js")}}"></script>
 </section>
-
-
-
 
 {% endblock %}

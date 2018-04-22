@@ -22,8 +22,6 @@ $(".update_col").on('click', function() {
 	$('#product_table > tbody > tr').eq(rowIndex-1).after("<tr> <td class='product_col'><input value="+product+"></td> <td class='type_col'><input value="+type+"></td> <td class='units_col'><input value="+units+"></td> <td class='quantity_col'><input value="+quantity+"></td> <td class='price_col'><input value="+price+"></td> <td class='image_col'><input value="+image+"></td> <td style='display:none' class='_id_col'>"+_id+"</td> <td class='submit_col'> <button type='button' class='submit_prod_button'> Submit</button></td> </tr>");
 
 	}
-	
-
 });
 
 // UPDATE PRODUCT VALUES
@@ -52,14 +50,8 @@ $('body').on('click','.submit_prod_button','click', function() {
 
  			}).done(function (reply) {
             window.location.reload(true);
-                
-                
-            }
-        );
-
-}
-
-);
+            });
+});
 
 
 // DELETE PRODUCT FROM FARMER'S LIST
@@ -76,12 +68,8 @@ $(".remove_col").on('click', function() {
  			}).done(function (reply) {
             window.location.reload(true);
                 
-            }
-        );
-}
-
-);
-
+            });
+});
 
 
 // Apply filters
@@ -103,10 +91,7 @@ $("#apply_filter_btn").on('click', function applyFilter() {
  			}).done(function (reply) {
                 $(document.body).html(reply);
                 
-            }
-        );
-
-
+            });
 });
 
 
@@ -134,16 +119,10 @@ $('body').on('click','.add_to_cart_button','click', function() {
                 $(document.body).html(reply);
                 
                 
-            }
-        );
-
+            });
 });
 
 // FUNCTION TO INCREMENT OR DECREMENT QUANTITY ON SHOPPING CART PAGE
-
-// $(".update_col").on('click', function() {
-// 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
-// 	var product = $(this).closest('tr').find('.product_col').text();
 
 $('.pos_increment_col').on('click',function() {
 	var quantity = $(this).closest('tr').find('.quantity_col').text();
@@ -169,19 +148,9 @@ $('.neg_increment_col').on('click',function() {
 		MarketID:MarketID
 	}).done(function (reply) {
                 $(document.body).html(reply);
-                
-                
-            }
-        );
+                       
+            });
     });
-
-
-
-
-
-
-
-
 
 // FUNCTION TO PULL AND PUSH DATA INTO RESERVATIONS PAGE
 // Function to change value to true or false based on whether box is checked or not
@@ -189,7 +158,6 @@ $('.neg_increment_col').on('click',function() {
       var checkbox = $(this).closest( ".checkbox" );
 			checkbox.val( checkbox[0].checked ? "true" : "false" );
  });
-
 
 // function to post reservation data
 $(".reserve_button").on("click", function() {
@@ -206,6 +174,7 @@ $(".reserve_button").on("click", function() {
 			var units = $(this).closest('tr').find('.units_col').text();
 			var quantity = $(this).closest('tr').find('.quantity_col').text();
 			var price = $(this).closest('tr').find('.price_col').text();
+			var marketID = $(this).closest('tr').find('.market_col').text();
 			var _id = $(this).closest('tr').find(":hidden").text();
 
 			var product_dict = {
@@ -215,6 +184,7 @@ $(".reserve_button").on("click", function() {
 				units: units,
 				quantity: quantity,
 				price: price,
+				marketID: marketID,
 				_id: _id
 			}
 
@@ -222,17 +192,14 @@ $(".reserve_button").on("click", function() {
 		}
 
     });
-	console.log(reserved_list)
 
-  $.post("reservations", {
-		reserved_list: JSON.stringify(reserved_list)
-	}).done(function (reply) {
-                $(document.body).html(reply);
-                
-                
-            }
-        );
+$.post("reservations", {
+	reserved_list: JSON.stringify(reserved_list)
+}).done(function (reply) {
+    $(document.body).html(reply);               
+              
     });
+});
 
 
 
