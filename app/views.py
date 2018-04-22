@@ -123,8 +123,6 @@ def login():
     return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
 
-
-
 # App routing to CREATE FARMER ACCOUNT
 @app.route('/create_newProducer', methods=['GET', 'POST'])
 def create_newProducer():
@@ -166,7 +164,6 @@ def create_newProducer():
                 os.makedirs('app/static/file_uploads/'+username)
 
             return redirect('/farmer_home') 
-
 
         else:
             wrong = 'block'
@@ -227,7 +224,6 @@ def create_newConsumer():
     return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
 
-
 # App routing to ADD PRODUCE
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
@@ -241,7 +237,7 @@ def add_product():
         productType = productForm.productType.data
         units = productForm.units.data
         quantity = productForm.quantity.data
-        price = str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
+        price = '$ ' + str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
         image = ''
         # image = productForm.image.data
 
@@ -250,6 +246,7 @@ def add_product():
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'])
+
 
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():
@@ -279,12 +276,12 @@ def farmer_home():
         # blank filter
         filters = {'MarketID':''}
         
-
         return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
 
     else:
         flash('You were successfully logged in')
         return redirect('/home')
+
 
 @app.route('/apply-filter-farmer', methods=['POST'])
 def applyFilterFarmer():
