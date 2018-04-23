@@ -109,12 +109,11 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var marketID = $(this).closest('.card-content').find('.marketID_detail').text();
 
 	var product_id = $(this).closest('.card-content').find("._id_detail:hidden").text();
-	var ProducerID = $(this).closest('.card-content').find("ProducerID_detail:hidden").text();
+	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
+	
 
-	console.log(ProducerID);
-	console.log(product_id);
-
-	shopping_cart = [product, productType, units, price]
+	$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
+	$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
 
 	$.post("add_to_shopping_cart", {
 		product:product,
@@ -122,14 +121,19 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		units:units,
 		price:price,
 		marketID:marketID,
-		product_id:product_id
+		product_id:product_id,
+		ProducerID:ProducerID
 	}).done(function (reply) {
                 
                 window.location.reload(true);
                 
                 
-            });
+                
+            
 });
+	});
+
+
 
 // FUNCTION TO INCREMENT OR DECREMENT QUANTITY ON SHOPPING CART PAGE
 

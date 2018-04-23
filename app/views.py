@@ -64,7 +64,7 @@ def index():
 
     session['status'] = user_status
 
-    return redirect('/homepage')
+    return redirect('/home')
     #return redirect('/farmer_home')
 
 @app.route('/home', methods=['GET'])
@@ -352,7 +352,9 @@ def productDelete():
     collection = chooseCollection('products')
     
     if request.method == "POST":
-       
+        
+        delete_product(collection,request.form['_id'])
+
         products = retrieve_products(collection,session['username'])
 
         productList = []
@@ -444,6 +446,7 @@ def shop_produce():
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
         marketList.append(produce['MarketID'])
+        print(produce['ProducerID'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
@@ -454,6 +457,7 @@ def shop_produce():
     filters['product'] = ''
     filters['productType'] = ''
     filters['MarketID'] = ''
+
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
@@ -570,10 +574,22 @@ def add_to_shopping_cart():
         price = request.form['price'].strip()[7:]
 
         product_id = request.form['product_id']
+        ProducerID = request.form['ProducerID']
 
-        # Insert to shopping cart
+    # TO BE UPDATED
+        quantity = 3
+
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product_id, product, productType, units, price, marketID)
+
+    # Check if the product is already in the cart
+        check = checkShoppingCart(collection, session['username'], product_id)
+        print(check)
+        if check == []:
+        # Insert to shopping cart
+            insertToShoppingCart(collection, session['username'], product_id, ProducerID, product, productType, units, price, quantity, marketID)
+        else:
+        # Already in there, so we add to the quantity
+            incrementInShoppingCart(collection, session['username'], product_id, quantity)
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 

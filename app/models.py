@@ -43,11 +43,21 @@ def insertConsumer(collection, email, username, password, first, last, userType)
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
 # # # SHOPPING CART # # #
-def insertToShoppingCart(collection, username, product_id, product, productType, units, price, marketID):
-	collection.insert({"Username":username, "Product_id":product_id, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID})
+def insertToShoppingCart(collection, username, product_id, ProducerID, product, productType, units, price, quantity, marketID):
+	collection.insert({"Username":username, "Product_id":product_id, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "Quantity":quantity, "marketID":marketID})
+
+def incrementInShoppingCart(collection, username, product_id, quantity):
+	collection.update_one({"Username":username, "Product_id":product_id}, {"$inc": {'Quantity':quantity}})	
 
 def retrieveShoppingCart(collection, username):
 	contents = collection.find({'Username':username})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
+def checkShoppingCart(collection, username, product_id):
+	contents = collection.find({'Username':username, "Product_id":product_id})
 	if contents.count() is not 0:
 		return contents
 	else:

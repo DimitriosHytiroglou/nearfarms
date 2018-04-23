@@ -86,3 +86,10 @@ select {
 	height: 150px;
 	width: 150px;
 }
+
+.added_msg {
+	text-align: center;
+	color: green;
+	font-weight: bold;
+	padding-top: 0.7em; 
+}
