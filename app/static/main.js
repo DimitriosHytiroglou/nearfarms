@@ -110,7 +110,7 @@ $('body').on('click','.add_to_cart_button','click', function() {
 
 	var product_id = $(this).closest('.card-content').find("._id_detail:hidden").text();
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
-	
+	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
 	$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
 	$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
@@ -122,12 +122,11 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		price:price,
 		marketID:marketID,
 		product_id:product_id,
-		ProducerID:ProducerID
+		ProducerID:ProducerID,
+		quantity:quantity
 	}).done(function (reply) {
                 
                 window.location.reload(true);
-                
-                
                 
             
 });

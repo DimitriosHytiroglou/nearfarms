@@ -575,9 +575,7 @@ def add_to_shopping_cart():
 
         product_id = request.form['product_id']
         ProducerID = request.form['ProducerID']
-
-    # TO BE UPDATED
-        quantity = 3
+        quantity = int(request.form['quantity'])
 
         collection = chooseCollection('shoppingCart')
 
