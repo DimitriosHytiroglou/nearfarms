@@ -594,8 +594,8 @@ def add_to_shopping_cart():
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
 
-@app.route('/reservations', methods=['GET','POST'])
-def reservations():
+@app.route('/make_reservation', methods=['GET','POST'])
+def make_reservation():
 
     if request.method == "POST":
         json_data = request.form['reserved_list']
@@ -612,9 +612,18 @@ def reservations():
             totalPrice_str = '{0:.2f}'.format(totalPrice_float)
             totalPrice = '$' + totalPrice_str 
             quantity = item['quantity']
+            
             collection = chooseCollection('reservations')
             insertToReservations(collection, session['username'], product, productType, units, price, marketID, totalPrice, quantity)
 
+            collection = chooseCollection('shoppingCart')
+            emptyShoppingCart(collection, session['username'])
+
+    return redirect('/reservations')
+    
+@app.route('/reservations', methods=['GET','POST'])
+def reservations():
+    
     collection = chooseCollection('reservations')
     contents = retrieveShoppingCart(collection, session['username'])
 

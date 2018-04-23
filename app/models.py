@@ -42,6 +42,7 @@ def retrieve_all_produce(collection):
 def insertConsumer(collection, email, username, password, first, last, userType):
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
+
 # # # SHOPPING CART # # #
 def insertToShoppingCart(collection, username, product_id, ProducerID, product, productType, units, price, quantity, marketID):
 	collection.insert({"Username":username, "Product_id":product_id, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "Quantity":quantity, "marketID":marketID})
@@ -62,6 +63,9 @@ def checkShoppingCart(collection, username, product_id):
 		return contents
 	else:
 		return []
+
+def emptyShoppingCart(collection, username):
+	collection.delete_many({"Username":username })
 
 # # # RESERVATIONS # # #
 def insertToReservations(collection, username, product, productType, units, price, marketID, totalPrice, quantity):

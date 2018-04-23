@@ -188,7 +188,9 @@ $(".reserve_button").on("click", function() {
 			var quantity = $(this).closest('tr').find('.quantity_col').text();
 			var price = $(this).closest('tr').find('.price_col').text();
 			var marketID = $(this).closest('tr').find('.market_col').text();
-			var _id = $(this).closest('tr').find(":hidden").text();
+			var _id = $(this).closest('tr').find("._id_col:hidden").text();
+			var ProducerID = $(this).closest('tr').find(".ProducerID_col:hidden").text();
+			var Product_id = $(this).closest('tr').find(".Product_id_col:hidden").text();
 
 			var product_dict = {
 
@@ -198,6 +200,8 @@ $(".reserve_button").on("click", function() {
 				quantity: quantity,
 				price: price,
 				marketID: marketID,
+				ProducerID:ProducerID,
+				Product_id:Product_id,
 				_id: _id
 			}
 
@@ -206,7 +210,7 @@ $(".reserve_button").on("click", function() {
 
     });
 
-$.post("reservations", {
+$.post("make_reservation", {
 	reserved_list: JSON.stringify(reserved_list)
 }).done(function (reply) {
     $(document.body).html(reply);               
