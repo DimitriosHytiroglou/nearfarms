@@ -605,15 +605,18 @@ def make_reservation():
             units = item['units']
             price = item['price']
             marketID = item['marketID']
+            ProducerID = item['ProducerID']
             # all to get correct formatting for price...round was not working when price = 1.5
             totalPrice_float = float(item['quantity']) * float(item['price'][1:])
             totalPrice_str = '{0:.2f}'.format(totalPrice_float)
             totalPrice = '$' + totalPrice_str 
             quantity = item['quantity']
-            
+        
+        # Adds reservation to database 
             collection = chooseCollection('reservations')
-            insertToReservations(collection, session['username'], product, productType, units, price, marketID, totalPrice, quantity)
+            insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
 
+        # Empties the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
             emptyShoppingCart(collection, session['username'])
 
@@ -629,9 +632,15 @@ def reservations():
     for item in contents:
         reservedList.append(item)
 
-    print (reservedList)
-
     return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])
+
+
+@app.route('/reserved_produce', methods=['GET','POST'])
+def reserved_produce():
+
+    filters ={}
+    return render_template('reserved_produce.html', filters=filters, user=session['username'], user_status=session['status'])    
+
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -21,7 +21,7 @@
 
     <div class="field is-grouped-right">
         <p class="control">
-            <a class="button is-primary" href="{{ url_for('reservations') }}">Reservations</a>  
+            <a class="button is-primary" href="{{ url_for('reserved_produce') }}">Reservations</a>  
         </p>
     </div>
 
@@ -29,7 +29,7 @@
 
         <section>
             <div class="table_title">
-<!--                 <h4>Farmers Market Products</h4> -->
+
             </div>
 
             <table class = "table" id="product_table">
@@ -66,9 +66,6 @@
                         <th class="remove_col" class="button_col"></th>
                     </tr>
                 </thead>
-                
-
-                <!--D Are all these ID's and CLASSES needed in the forms above and below? Let's leave those to be determined by whoever develops the relevant CSS or JS -->
 
 
                 <tbody>
@@ -90,8 +87,10 @@
             </table>
         </section>
     </form>
-    <div id="myModal" class="modal">
+    
 
+
+    <div id="myModal" class="modal">
   <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>

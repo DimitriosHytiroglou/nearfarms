@@ -68,8 +68,8 @@ def emptyShoppingCart(collection, username):
 	collection.delete_many({"Username":username })
 
 # # # RESERVATIONS # # #
-def insertToReservations(collection, username, product, productType, units, price, marketID, totalPrice, quantity):
-	collection.insert({"Username":username, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
+def insertToReservations(collection, username, ProducerID, product, productType, units, price, marketID, totalPrice, quantity):
+	collection.insert({"Username":username, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
 
 def retrieveReservations(collection, username):
 	contents = collection.find({'Username':username})
