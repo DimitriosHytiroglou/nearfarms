@@ -569,9 +569,9 @@ def add_to_shopping_cart():
         productType = request.form['productType']
         marketID = request.form['marketID']
         # have to extract units from request.form since text before
-        units = request.form['units'].strip()[7:]
+        units = request.form['units']
         # have to extract price from request.form since text before
-        price = request.form['price'].strip()[7:]
+        price = request.form['price']
 
         product_id = request.form['product_id']
         ProducerID = request.form['ProducerID']
