@@ -62,6 +62,12 @@
                       {% endblock %}
                       {% block login %}
                       <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                      
+                      <!-- Shopping cart icon -->
+                      <a href="{{ url_for('shopping_cart') }}">
+                      <img src="{{url_for('static', filename='shopping cart.png')}}">
+                      </a>
+
                     </p>
                     {% endblock %}
                   </div>

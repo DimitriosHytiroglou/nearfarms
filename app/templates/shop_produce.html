@@ -77,6 +77,10 @@
                         </figure>
                       </div>
                       <div class="media-content">
+                        <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
+                        <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
+                        <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
+
                         <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
                         <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
                       </div>
@@ -90,7 +94,7 @@
                             UNITS: {{ produce['units'] }}
                         </p>
                         <p  class="price_detail content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
-                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart" href="{{ url_for('shopping_cart') }}">
+                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-plus"></i>
                             </span>

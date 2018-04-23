@@ -24,22 +24,28 @@ def homepage():
     ProductList = []
     ProductTypeList = []
     unitsList = []
+    marketsList = []
 
     for produce in all_produce:
         produceList.append(produce)
         ProductList.append(produce['Product'])
         ProductTypeList.append(produce['Product Type'])
         unitsList.append(produce['units'])
+        marketsList.append(produce['MarketID'])
 
     # getting unique values and sorting in alphabetical order
     ProductList = sorted(list(set(ProductList)))
     ProductTypeList = sorted(list(set(ProductTypeList)))
     unitsList = sorted(list(set(unitsList)))
+    marketsList = sorted(list(set(marketsList)))
     # Populate the filters with empty values
     filters = {}
     filters['product'] = ''
     filters['productType'] = ''
     filters['units'] = ''
+
+# MARKET FILTER -- THIS NEEDS TO BE CONNECTED TO THE FRONT
+    filters['markets'] = ''
 
     return render_template('homepage.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         unitsList=unitsList, filters=filters)
@@ -58,7 +64,7 @@ def index():
 
     session['status'] = user_status
 
-    return redirect('/home')
+    return redirect('/homepage')
     #return redirect('/farmer_home')
 
 @app.route('/home', methods=['GET'])
@@ -317,16 +323,6 @@ def applyFilterFarmer():
 
 
 
-
-
-
-
-
-
-
-
-
-
 @app.route('/product_update', methods=['POST'])
 def productUpdate():
     
@@ -533,40 +529,36 @@ def applyFilter():
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
 
-@app.route('/add_to_shopping_cart', methods=['GET','POST'])
-def add_to_shopping_cart():
+@app.route('/shopping_cart', methods=['GET','POST'])
+def shopping_cart():
+
+    collection = chooseCollection('shoppingCart')
+    contents = retrieveShoppingCart(collection, session['username'])
 
     cartList = []
-    cart = {}
+    for item in contents:
+        cartList.append(item)
 
-    if request.method == "POST":
-        cart['product'] = request.form['product']
-        cart['productType'] = request.form['productType']
-        
-        cart['marketID'] = request.form['marketID']
-        # have to extract units from request.form since text before
-        cart['units'] = request.form['units']
-        # have to extract price from request.form since text before
-        cart['price'] = request.form['price'].strip()[7:]
-        cartList.append(cart)
-        # Insert to shopping cart
-        collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, units, price, marketID)
+    # temp = {}
+    # for d in cartList:
+    #     if d['Product_id'] not in temp:
+    #         temp[d['Product_id']] = {}
+    #         temp_d = temp[d['Product_id']]
+    #         temp_d['Price'] = float(temp_d.get('Price', 0)) + float(d['Price'])
+    
+    # print(temp)
+
+    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
 
 # ADD HERE FUNCTION TO REMOVE
     collection = chooseCollection('products')
     # deductFromInventory()
 
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-    # return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
 
-#  RENAME THESE 2 APPROPRIATELY
-#  ABOVE should be: add_to_shopping_cart
-#  BELOW should be: shopping_cart 
 
-@app.route('/shopping_cart', methods=['GET','POST'])
-def shopping_cart():
+@app.route('/add_to_shopping_cart', methods=['GET','POST'])
+def add_to_shopping_cart():
     
     if request.method == "POST":
         product = request.form['product']
@@ -576,19 +568,14 @@ def shopping_cart():
         units = request.form['units'].strip()[7:]
         # have to extract price from request.form since text before
         price = request.form['price'].strip()[7:]
+
+        product_id = request.form['product_id']
+
         # Insert to shopping cart
         collection = chooseCollection('shoppingCart')
-        insertToShoppingCart(collection, session['username'], product, productType, units, price, marketID)
+        insertToShoppingCart(collection, session['username'], product_id, product, productType, units, price, marketID)
 
-
-    collection = chooseCollection('shoppingCart')
-    contents = retrieveShoppingCart(collection, session['username'])
-
-    cartList = []
-    for item in contents:
-        cartList.append(item)
-
-    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
 
 @app.route('/reservations', methods=['GET','POST'])

@@ -79,6 +79,7 @@ $("#apply_filter_btn").on('click', function applyFilter() {
 	var productType = $('#productType_filter').find('option:selected').text();
 	var MarketID = $('#market_filter').find('option:selected').text();
 	
+
 	filters = [product, productType,MarketID]
 	// console.log(subType);
 	// var apply = {'product':product,'productType':productType,'subType':subType};
@@ -107,16 +108,24 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var price = $(this).closest('.card-content').find('.price_detail').text();
 	var marketID = $(this).closest('.card-content').find('.marketID_detail').text();
 
+	var product_id = $(this).closest('.card-content').find("._id_detail:hidden").text();
+	var ProducerID = $(this).closest('.card-content').find("ProducerID_detail:hidden").text();
+
+	console.log(ProducerID);
+	console.log(product_id);
+
 	shopping_cart = [product, productType, units, price]
 
-	$.post("shopping_cart", {
+	$.post("add_to_shopping_cart", {
 		product:product,
 		productType:productType,
 		units:units,
 		price:price,
-		marketID:marketID
+		marketID:marketID,
+		product_id:product_id
 	}).done(function (reply) {
-                $(document.body).html(reply);
+                
+                window.location.reload(true);
                 
                 
             });

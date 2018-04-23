@@ -77,7 +77,12 @@ select {
 }
 
 /* DIMITRIS: I added this to keep those apples pics small :P :P change it however is more appropriate!*/
-#product-image {
-	height: 20px;
-	width: 20px;
+.prod  {
+	height: 30px;
+	width: 30px;
+}
+
+.profPic {
+	height: 150px;
+	width: 150px;
 }

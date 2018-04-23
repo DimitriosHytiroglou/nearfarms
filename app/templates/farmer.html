@@ -36,9 +36,9 @@
                 <thead>
                     <form>
                         <div class="field">
-                        <p>AT THIS POINT THE VALUE OF THE MARKET SHOULD BE PASSED TO A VARIABLE OF FARM ID TO BE STORED IN THE DATABASE</p>
+                        
                         <div>
-                        <h3>Farm Profile Pic</h3>
+                        <h2>Farm Profile Pic</h2>
                         <img class="profPic" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=farmer['Image'])}}" id="product-image">
                         </div>
 
@@ -95,7 +95,7 @@
   <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <p>Select a picture to upload..</p>
             <form action = {{ url_for('file_upload') }} method = "POST" 
                 enctype = "multipart/form-data">
                 <input type = "file" name = "file" />
