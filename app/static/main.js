@@ -184,7 +184,7 @@ $(".reserve_button").on("click", function() {
 			var product = $(this).closest('tr').find('.product_col').text();
 			var productType = $(this).closest('tr').find('.type_col').text();
 			var units = $(this).closest('tr').find('.units_col').text();
-			var quantity = $(this).closest('tr').find('.quantity_col').text();
+			var quantity = $(this).closest('tr').find(".quantity_res_filter").find('option:selected').text();
 			var price = $(this).closest('tr').find('.price_col').text();
 			var marketID = $(this).closest('tr').find('.market_col').text();
 			var _id = $(this).closest('tr').find("._id_col:hidden").text();

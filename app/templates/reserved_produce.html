@@ -11,8 +11,8 @@
 
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">Shop for local produce</h1>
-      <h1 class="subtitle">We have an amazing assortment just for you</h1>
+      <h1 class="title">Here is your reserved produce</h1>
+      <h1 class="subtitle">Each tile shows an order to be fulfilled</h1>
     </div>
   </div>
 </section>
@@ -20,41 +20,9 @@
 <section class="hero is-white">
    
   <div class="hero-body">
-    <h1 class="title">Farmers Market Products:</h1>
-        <!-- Adding filters: product, productType, units -->
-        <div>
-            <p>Filters:</p>
-        </div>
-        <!-- market filter -->
-        <div class="select is-medium">    
-            <select id="market_filter" name="market_filter">
-                <option>{{filters['MarketID']}}</option>
-                {% for market in marketList %}
-                <option>{{market}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- product filter -->
-        <div class="select is-medium">    
-            <select id="product_filter" name="product_filter">
-                <option>{{filters['product']}}</option>
-                {% for product in ProductList %}
-                <option>{{product}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- productType filter -->
-        <div class="select is-medium">    
-            <select id="productType_filter" name="poductType_filter">
-                <option>{{filters['productType']}}</option>
-                {% for productType in ProductTypeList %}
-                <option>{{productType}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button class="button is-primary" id="apply_filter_btn" name="apply_filter" value="apply_filter">Apply Filter</button>
-
-        <!-- Adding list of the produce from the database -->
+    
+        
+        <!-- Adding list of reservations from the database -->
 
     <br>
     <br>
@@ -97,7 +65,8 @@
                         
                         <p  class="amount_detail content is-small card-footer-item">QUANTITY: 
                             <select class="quantity_cart_filter" name="quantity_cart_filter">
-                                {% for quantity in range(1,21) %}
+                                <option></option>
+                                {% for quantity in range(1,11) %}
                                 <option>{{quantity}}</option>
                                 {% endfor %}
                             </select>  
