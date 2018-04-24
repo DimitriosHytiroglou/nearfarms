@@ -9,6 +9,8 @@ $(".update_col").on('click', function() {
 	var quantity = $(this).closest('tr').find('.quantity_col').text();
 	var price = $(this).closest('tr').find('.price_col').text();
 	var _id = $(this).closest('tr').find(":hidden").text();
+	
+	console.log(_id);
 	var tr = $(this).closest("tr").remove().clone();
 
 	// this if function makes sure the update occurs in the same table row rather than appending the update to the end of the table
@@ -36,7 +38,9 @@ $('body').on('click','.submit_prod_button','click', function() {
 	var quantity = $(this).closest('tr').find('.quantity_col').find('input').val();
 	var price = $(this).closest('tr').find('.price_col').find('input').val();
 	var units = $('.units_filter').find('option:selected').text();
-	var _id = $(this).closest('tr').find(":hidden").text();
+	var _id = $(this).closest('tr').find("._id_col:hidden").text();
+
+	console.log(_id);
 
 	if (!Number.isInteger(Number(quantity)) || isNaN(Number(price))) {
 		alert("Entry error: please enter price as a number and quantity as an integer.");
