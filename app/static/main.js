@@ -130,10 +130,13 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
 	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
-	if (username == 'None') {
+	iif (username == 'None') {
 			alert("Please login/register before adding items to your shopping cart. Thank you!")
 	}
 	
+	else if (quantity == "QUANTITY") {
+			alert("Please select the amount you want to add to the shopping cart. Thank you!")
+	}
 	else {
 			$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
 			$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
