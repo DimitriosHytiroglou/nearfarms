@@ -74,7 +74,6 @@ $(".remove_col").on('click', function() {
             });
 });
 
-
 // DELETE PRODUCT FROM SHOPPING CART
 $(".remove_col_cart").on('click', function() {
 	var _id = $(this).closest('tr').find("._id_col").text();
@@ -86,14 +85,6 @@ $(".remove_col_cart").on('click', function() {
             window.location.reload(true);
             });
 });
-
-
-
-
-
-
-
-
 
 // Apply filters
 $("#apply_filter_btn").on('click', function applyFilter() {
@@ -112,8 +103,7 @@ $("#apply_filter_btn").on('click', function applyFilter() {
  					MarketID:MarketID					
 
  			}).done(function (reply) {
-                $(document.body).html(reply);
-                
+                $(document.body).html(reply);                
             });
 });
 
@@ -130,29 +120,32 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var price = $(this).closest('.card-content').find('.price_detail').text();
 	var marketID = $(this).closest('.card-content').find('.marketID_detail').text();
 
+	var username = $(this).closest('.card-content').find(".username_detail:hidden").text();
 	var product_id = $(this).closest('.card-content').find("._id_detail:hidden").text();
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
 	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
-	$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
-	$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
-
-	$.post("add_to_shopping_cart", {
-		product:product,
-		productType:productType,
-		units:units,
-		price:price,
-		marketID:marketID,
-		product_id:product_id,
-		ProducerID:ProducerID,
-		quantity:quantity
-	}).done(function (reply) {
-                
-                window.location.reload(true);
-                
-            
-});
+	if (username == 'None') {
+		alert("Please login/register before adding items to your shopping cart. Thank you!")
+	}
+	
+	else {
+		$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
+		$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
+		$.post("add_to_shopping_cart", {
+			product:product,
+			productType:productType,
+			units:units,
+			price:price,
+			marketID:marketID,
+			product_id:product_id,
+			ProducerID:ProducerID,
+			quantity:quantity
+		}).done(function (reply) {
+	                window.location.reload(true);
 	});
+	}
+});
 
 
 
