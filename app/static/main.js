@@ -125,7 +125,6 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
 	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
-<<<<<<< HEAD
 	$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
 	$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
 
@@ -139,12 +138,10 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		ProducerID:ProducerID,
 		quantity:quantity
 	}).done(function (reply) {
-                console.log("TEST")
                 window.location.reload(true);
           
             
 });
-=======
 	if (username == 'None') {
 		alert("Please login/register before adding items to your shopping cart. Thank you!")
 	}
@@ -163,7 +160,6 @@ $('body').on('click','.add_to_cart_button','click', function() {
 			quantity:quantity
 		}).done(function (reply) {
 	                window.location.reload(true);
->>>>>>> 1ec47fdfb2c7078c822e561edd9f0b21f33c571f
 	});
 	}
 });

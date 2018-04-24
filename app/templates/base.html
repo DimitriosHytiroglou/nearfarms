@@ -68,7 +68,15 @@
                     </p>
                     {% endblock %}
                     {% block login %}
-                    <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                    <p class="control"> 
+                      <div class="navbar-item">
+                        <a style="display: {{ user_status['in'] }}" class="icon is-small" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
+                        <div class="navbar-item"></div>
+                        <a style="display: {{ user_status['in'] }}" class="icon is-small" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
+                      </div>
+                      <div class="navbar-item"></div>
+                      <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                    </p>
                     {% endblock %}
                     
                   </div>
