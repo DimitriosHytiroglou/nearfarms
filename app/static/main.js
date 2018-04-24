@@ -11,10 +11,6 @@ $(".update_col").on('click', function() {
 	var _id = $(this).closest('tr').find(":hidden").text();
 	var tr = $(this).closest("tr").remove().clone();
 
-
-	console.log(product);
-
-
 	// this if function makes sure the update occurs in the same table row rather than appending the update to the end of the table
 	if (rowIndex == 0) {
 
@@ -28,23 +24,28 @@ $(".update_col").on('click', function() {
 	}
 });
 
+
 // UPDATE PRODUCT VALUES
 $('body').on('click','.submit_prod_button','click', function() {
-
+	console.log("hello");
 
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
+	var market = $('.markets_filter').find('option:selected').text();
 	var product = $(this).closest('tr').find('.product_col').find('input').val();
 	var productType = $(this).closest('tr').find('.type_col').find('input').val();
-	var units = $(this).closest('tr').find('.units_col').find('input').val();
 	var quantity = $(this).closest('tr').find('.quantity_col').find('input').val();
 	var price = $(this).closest('tr').find('.price_col').find('input').val();
+	var units = $('.units_filter').find('option:selected').text();
 	var _id = $(this).closest('tr').find(":hidden").text();
 
-	// var tr = $(this).closest("tr").remove().clone();
+	if (!Number.isInteger(Number(quantity)) || isNaN(Number(price))) {
+		alert("Entry error: please enter price as a number and quantity as an integer.");
+	}
 
 // THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
-
+	else {
 	$.post("product_update", {
+ 					market:market,
  					product:product,
  					productType:productType,
  					units:units,
@@ -55,6 +56,7 @@ $('body').on('click','.submit_prod_button','click', function() {
  			}).done(function (reply) {
             window.location.reload(true);
             });
+ 		}
 });
 
 
