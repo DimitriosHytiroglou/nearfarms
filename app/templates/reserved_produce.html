@@ -31,7 +31,6 @@
     <div class="tile is-ancestor" style="flex-wrap: wrap">
         {% for order in orderList %}
             
-            
             <div class="tile is-10 is-parent">
                 <div class="tile is-child card">
                   <div class="card-image">
@@ -39,7 +38,6 @@
                   </div>
                   <div class="card-content">
                     
-
                     <div class="content">
                       <span class="Customer_detail tag is-light">Customer: {{ order['Username'] }}</span><br><br>
                       <span class="MarketID_detail tag is-light">Market: {{ order['MarketID'] }}</span>
@@ -71,7 +69,6 @@
                             {% endfor %}
                         </table>
                         
-
                     </footer>
                     <span class="Order_id_detail tag is-light" style="float: right">Order ID: {{ order['_id'] }}</span>
                         

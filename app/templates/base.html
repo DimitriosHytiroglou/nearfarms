@@ -33,9 +33,10 @@
             <!-- Bulma navbar-brand stickt to left hand  -->
             <div class="navbar-brand">
               <!-- Bulma navbar-item is child of brand  -->
-              <a class="navbar-item" href="{{ url_for('homepage') }}">
+              <a class="navbar-item" href="{{ url_for('home') }}">
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
+               <a href="{{ url_for('homepage') }}">Homepage</a>
               <!-- navbar-burger needs to be last child of navbar-brand -->
               <div class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
@@ -67,7 +68,7 @@
                       <a href="{{ url_for('shopping_cart') }}">
                       <img src="{{url_for('static', filename='shopping cart.png')}}">
                       </a>
-                      
+
                       <a href="{{ url_for('reservations') }}">
                       <img src="{{url_for('static', filename='reservations.png')}}">
                       </a>
