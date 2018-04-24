@@ -305,20 +305,32 @@ def productUpdate():
 
 
 @app.route('/product_delete', methods=['POST'])
-def productDelete():
-    
+def productDelete():   
     # Retrieve data from database to display
     collection = chooseCollection('products')
     
-    if request.method == "POST":
-        
+    if request.method == "POST":     
         delete_product(collection,request.form['_id'])
-
         products = retrieve_products(collection,session['username'])
-
         productList = []
 
         for product in products:
+            productList.append(product)
+     
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.route('/product_delete_cart', methods=['POST'])
+def productDelete_shoppingCart():   
+    # Retrieve data from database to display
+    collection = chooseCollection('shoppingCart')
+    
+    if request.method == "POST":
+        print (request.form['_id'])
+        delete_shoppingCart_product(collection,request.form['_id'])
+        shoppingCart_products = retrieveShoppingCart(collection,session['username'])
+        shoppingCartList = []
+
+        for product in shoppingCart_products:
             productList.append(product)
      
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
@@ -538,15 +550,11 @@ def add_to_shopping_cart():
         quantity = int(request.form['quantity'])
         totalPrice_float = price_float * quantity
         totalPrice_str = '{0:.2f}'.format(price_float*quantity)
-        print (totalPrice_float)
-
-
 
         collection = chooseCollection('shoppingCart')
 
     # Check if the product is already in the cart
         check = checkShoppingCart(collection, session['username'], product_id)
-        print(check)
         if check == []:
         # Insert to shopping cart
             insertToShoppingCart(collection, session['username'], product_id, ProducerID, product, productType, units, price, quantity, marketID, totalPrice_float)

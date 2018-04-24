@@ -138,6 +138,13 @@ def delete_product(collection, _id):
 	idb = bson.ObjectId(_id)
 	collection.delete_one({"_id": idb })	
 
+# Delete item from shoppingCart
+def delete_shoppingCart_product(collection, _id):
+	idb = bson.ObjectId(_id)
+	collection.delete_one({"_id": idb })	
+
+
+
 # Update existing product's image
 def update_image(collection, _id, image):
 	idb = bson.ObjectId(_id)

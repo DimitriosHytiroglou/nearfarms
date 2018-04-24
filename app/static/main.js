@@ -63,27 +63,30 @@ $('body').on('click','.submit_prod_button','click', function() {
  		}
 });
 
-
 // DELETE PRODUCT FROM FARMER'S LIST
 $(".remove_col").on('click', function() {
-
 	var _id = $(this).closest('tr').find(":hidden").text();
-
-
 // THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
-
 	$.post("product_delete", {
  					_id:_id					
-
  			}).done(function (reply) {
             window.location.reload(true);
-                
             });
 });
 
+// DELETE PRODUCT FROM SHOPPING CART
+$(".remove_col_cart").on('click', function() {
+	var _id = $(this).closest('tr').find("._id_col").text();
+	console.log(_id);
+// THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
+	$.post("product_delete_cart", {
+ 					_id:_id					
+ 			}).done(function (reply) {
+            window.location.reload(true);
+            });
+});
 
 // Apply filters
-
 $("#apply_filter_btn").on('click', function applyFilter() {
 	var product = $('#product_filter').find('option:selected').text();
 	var productType = $('#productType_filter').find('option:selected').text();
@@ -100,8 +103,7 @@ $("#apply_filter_btn").on('click', function applyFilter() {
  					MarketID:MarketID					
 
  			}).done(function (reply) {
-                $(document.body).html(reply);
-                
+                $(document.body).html(reply);                
             });
 });
 
@@ -118,10 +120,12 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var price = $(this).closest('.card-content').find('.price_detail').text();
 	var marketID = $(this).closest('.card-content').find('.marketID_detail').text();
 
+	var username = $(this).closest('.card-content').find(".username_detail:hidden").text();
 	var product_id = $(this).closest('.card-content').find("._id_detail:hidden").text();
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
 	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
+<<<<<<< HEAD
 	$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
 	$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
 
@@ -140,7 +144,29 @@ $('body').on('click','.add_to_cart_button','click', function() {
           
             
 });
+=======
+	if (username == 'None') {
+		alert("Please login/register before adding items to your shopping cart. Thank you!")
+	}
+	
+	else {
+		$(this).closest('.card-content').find('.add_to_cart_button').css('display','none');
+		$(this).closest('.card-content').find('.added_msg:hidden').css('display','block');
+		$.post("add_to_shopping_cart", {
+			product:product,
+			productType:productType,
+			units:units,
+			price:price,
+			marketID:marketID,
+			product_id:product_id,
+			ProducerID:ProducerID,
+			quantity:quantity
+		}).done(function (reply) {
+	                window.location.reload(true);
+>>>>>>> 1ec47fdfb2c7078c822e561edd9f0b21f33c571f
 	});
+	}
+});
 
 
 
@@ -218,21 +244,24 @@ $(".reserve_button").on("click", function() {
 			var ProducerID = $(this).closest('tr').find(".ProducerID_col:hidden").text();
 			var Product_id = $(this).closest('tr').find(".Product_id_col:hidden").text();
 
-			var product_dict = {
+			// condition to check if quantity doesn't equal zero
+			if (Number.parseInt(quantity) !=0) {
+				var product_dict = {
 
-				product: product,
-				productType: productType,
-				units: units,
-				quantity: quantity,
-				price: price,
-				marketID: marketID,
-				ProducerID:ProducerID,
-				Product_id:Product_id,
-				totalPrice:totalPrice,
-				_id: _id
+					product: product,
+					productType: productType,
+					units: units,
+					quantity: quantity,
+					price: price,
+					marketID: marketID,
+					ProducerID:ProducerID,
+					Product_id:Product_id,
+					totalPrice:totalPrice,
+					_id: _id
+				}
+
+				reserved_list.push(product_dict);
 			}
-
-			reserved_list.push(product_dict);
 		}
 
     });
