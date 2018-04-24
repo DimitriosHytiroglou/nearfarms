@@ -164,6 +164,23 @@ $('.neg_increment_col').on('click',function() {
             });
     });
 
+
+// SHOPPING CART PAGE CHANGE TOTAL PRICE BASED ON CHANGE QUANTITY
+ $(".quantity_cart_filter").change(function () {
+    var quantity = this.value;
+    var price = $(this).closest('tr').find('.price_col').text();
+    var totalPrice = '$'+String((quantity*price).toFixed(2));
+    $(this).closest('tr').find('.totalPrice_col').text(totalPrice);
+
+    });
+
+
+
+
+
+
+
+
 // FUNCTION TO PULL AND PUSH DATA INTO RESERVATIONS PAGE
 // Function to change value to true or false based on whether box is checked or not
  $(".checkbox").on("click", function () { 
@@ -173,7 +190,6 @@ $('.neg_increment_col').on('click',function() {
 
 // function to post reservation data
 $(".reserve_button").on("click", function() {
-
 	var reserved_list = []
 
 	// function to pull data based on whether box is checked or not
@@ -184,8 +200,9 @@ $(".reserve_button").on("click", function() {
 			var product = $(this).closest('tr').find('.product_col').text();
 			var productType = $(this).closest('tr').find('.type_col').text();
 			var units = $(this).closest('tr').find('.units_col').text();
-			var quantity = $(this).closest('tr').find(".quantity_res_filter").find('option:selected').text();
+			var quantity = $(this).closest('tr').find(".quantity_cart_filter").find('option:selected').text();
 			var price = $(this).closest('tr').find('.price_col').text();
+			var totalPrice = $(this).closest('tr').find('.totalPrice_col').text();
 			var marketID = $(this).closest('tr').find('.market_col').text();
 			var _id = $(this).closest('tr').find("._id_col:hidden").text();
 			var ProducerID = $(this).closest('tr').find(".ProducerID_col:hidden").text();
@@ -201,6 +218,7 @@ $(".reserve_button").on("click", function() {
 				marketID: marketID,
 				ProducerID:ProducerID,
 				Product_id:Product_id,
+				totalPrice:totalPrice,
 				_id: _id
 			}
 

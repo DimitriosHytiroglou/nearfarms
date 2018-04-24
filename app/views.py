@@ -243,7 +243,7 @@ def add_product():
         productType = productForm.productType.data
         units = productForm.units.data
         quantity = productForm.quantity.data
-        price = '$' + str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
+        price = str(round(productForm.price.data,2)) # have to convert to string since mongodb doesn't take decimals
         image = ''
         # image = productForm.image.data
 
@@ -572,10 +572,16 @@ def add_to_shopping_cart():
         units = request.form['units']
         # have to extract price from request.form since text before
         price = request.form['price']
+        price_float = float(request.form['price'])
 
         product_id = request.form['product_id']
         ProducerID = request.form['ProducerID']
         quantity = int(request.form['quantity'])
+        totalPrice_float = price_float * quantity
+        totalPrice_str = '{0:.2f}'.format(price_float*quantity)
+        print (totalPrice_float)
+
+
 
         collection = chooseCollection('shoppingCart')
 
@@ -584,10 +590,10 @@ def add_to_shopping_cart():
         print(check)
         if check == []:
         # Insert to shopping cart
-            insertToShoppingCart(collection, session['username'], product_id, ProducerID, product, productType, units, price, quantity, marketID)
+            insertToShoppingCart(collection, session['username'], product_id, ProducerID, product, productType, units, price, quantity, marketID, totalPrice_float)
         else:
         # Already in there, so we add to the quantity
-            incrementInShoppingCart(collection, session['username'], product_id, quantity)
+            incrementInShoppingCart(collection, session['username'], product_id, quantity, totalPrice_float)
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
@@ -640,10 +646,7 @@ def make_reservation():
             price = item['price']
             marketID = item['marketID']
             ProducerID = item['ProducerID']
-            # all to get correct formatting for price...round was not working when price = 1.5
-            totalPrice_float = float(item['quantity']) * float(item['price'][1:])
-            totalPrice_str = '{0:.2f}'.format(totalPrice_float)
-            totalPrice = '$' + totalPrice_str 
+            totalPrice = item['totalPrice']
 
             '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
 

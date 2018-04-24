@@ -34,7 +34,7 @@
             <!-- Bulma navbar-brand stickt to left hand  -->
             <div class="navbar-brand">
               <!-- Bulma navbar-item is child of brand  -->
-              <a class="navbar-item" href="{{ url_for('home') }}">
+              <a class="navbar-item" href="{{ url_for('homepage') }}">
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
               <!-- navbar-burger needs to be last child of navbar-brand -->
@@ -220,10 +220,19 @@
         <div>
             <p>Filters:</p>
         </div>
+        <!-- market filter -->
+        <div class="select is-medium">    
+            <select id="market_filter" name="market_filter">
+                <option>{{filters['MarketID']}}</option>
+                {% for market in marketList %}
+                <option>{{market}}</option>
+                {% endfor %}
+            </select>
+        </div>
         <!-- product filter -->
         <div class="select is-medium">    
             <select id="product_filter" name="product_filter">
-                <option></option>
+                <option>{{filters['product']}}</option>
                 {% for product in ProductList %}
                 <option>{{product}}</option>
                 {% endfor %}
@@ -232,18 +241,9 @@
         <!-- productType filter -->
         <div class="select is-medium">    
             <select id="productType_filter" name="poductType_filter">
-                <option></option>
+                <option>{{filters['productType']}}</option>
                 {% for productType in ProductTypeList %}
                 <option>{{productType}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- units filter -->
-        <div class="select is-medium">    
-            <select id="units_filter" name="units_filter">
-                <option></option>
-                {% for units in unitsList %}
-                <option>{{units}}</option>
                 {% endfor %}
             </select>
         </div>
@@ -275,24 +275,36 @@
                         <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
                         <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
                         <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
+
                         <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
                         <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
                       </div>
                     </div>
 
                     <div class="content">
-                      <span class="units_detail tag is-light">{{ produce['units'] }}</span>
+                      <span class="marketID_detail tag is-light">{{ produce['MarketID'] }}</span>
+
                     </div>
                     <footer class="card-footer">
-                        <p  class="quantity_detail content is-small card-footer-item">
-                            QUANTITY: {{ produce['Quantity'] }}
-                        </p>
-                        <p  class="price_detail content is-small card-footer-item">PRICE: {{ produce['Price'] }}</p>
-                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart" href="{{ url_for('shopping_cart') }}">
+                        <p  class="units_detail content is-small card-footer-item" style="display: none">{{ produce['units'] }}</p>
+                        <p  class="price_detail content is-small card-footer-item" style="display: none">{{ produce['Price'] }}</p>
+                        <p  class="price_unit_detail content is-small card-footer-item">${{ produce['Price'] }} per {{ produce['units'] }} </p>
+                        
+                        <p  class="amount_detail content is-small card-footer-item">QUANTITY: 
+                            <select class="quantity_cart_filter" name="quantity_cart_filter">
+                                {% for quantity in range(1,21) %}
+                                <option>{{quantity}}</option>
+                                {% endfor %}
+                            </select>  
+                        </p>          
+                        
+                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-plus"></i>
                             </span>
                         </a>
+                        <p class="added_msg" style="display: none">Added to cart!</p>
+
                     </footer>
                   </div>
                 </div>
