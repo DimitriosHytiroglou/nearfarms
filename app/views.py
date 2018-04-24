@@ -9,47 +9,6 @@ from app.encryption.HashingHandler import *
 import json
 # Access the models file to use SQL functions
 
-@app.route('/homepage')
-def homepage():
-    collection = chooseCollection('products')
-
-    # Retrieve all products from the database
-    all_produce = retrieve_all_produce(collection)
-    print (all_produce)
-    
-    # gathering all of the produce listed in database
-    produceList = []
-
-    # gathing all of the products, productypes, units, 
-    ProductList = []
-    ProductTypeList = []
-    unitsList = []
-    marketsList = []
-
-    for produce in all_produce:
-        produceList.append(produce)
-        ProductList.append(produce['Product'])
-        ProductTypeList.append(produce['Product Type'])
-        unitsList.append(produce['units'])
-        marketsList.append(produce['MarketID'])
-
-    # getting unique values and sorting in alphabetical order
-    ProductList = sorted(list(set(ProductList)))
-    ProductTypeList = sorted(list(set(ProductTypeList)))
-    unitsList = sorted(list(set(unitsList)))
-    marketsList = sorted(list(set(marketsList)))
-    # Populate the filters with empty values
-    filters = {}
-    filters['product'] = ''
-    filters['productType'] = ''
-    filters['units'] = ''
-
-# MARKET FILTER -- THIS NEEDS TO BE CONNECTED TO THE FRONT
-    filters['markets'] = ''
-
-    return render_template('homepage.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        unitsList=unitsList, filters=filters)
-
 @app.route('/')
 def index():
 
@@ -70,7 +29,7 @@ def index():
 @app.route('/home', methods=['GET'])
 def home():
     
-    return render_template('home.html', user=session['username'], user_status=session['status'])
+    return render_template('homepage.html', user=session['username'], user_status=session['status'])
 
 @app.route('/logout')
 def logout():
