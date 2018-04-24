@@ -130,7 +130,7 @@ $('body').on('click','.add_to_cart_button','click', function() {
 	var ProducerID = $(this).closest('.card-content').find(".ProducerID_detail:hidden").text();
 	var quantity = $(this).closest('.card-content').find(".amount_detail").find ('.quantity_cart_filter').find('option:selected').text();
 
-	iif (username == 'None') {
+	if (username == 'None') {
 			alert("Please login/register before adding items to your shopping cart. Thank you!")
 	}
 	
