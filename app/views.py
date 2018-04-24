@@ -612,10 +612,7 @@ def make_reservation():
             price = item['price']
             marketID = item['marketID']
             ProducerID = item['ProducerID']
-            # all to get correct formatting for price...round was not working when price = 1.5
-            totalPrice_float = float(item['quantity']) * float(item['price'][1:])
-            totalPrice_str = '{0:.2f}'.format(totalPrice_float)
-            totalPrice = '$' + totalPrice_str 
+            totalPrice = item['totalPrice']
             quantity = item['quantity']
         
         # Adds reservation to database 
