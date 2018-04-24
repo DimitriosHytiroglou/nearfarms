@@ -626,16 +626,12 @@ def make_reservation():
                 if item['ProducerID'] == producer:
                     totalPrice = '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
                     stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
-            # reservations.append({"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
+    
             collection = chooseCollection('reservationsDict')
             insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
 
 
-        print('reservations')
-        print(reservations)
-        # chooseCollection(reservationsDict)
-        # insertDictToReservations(collection, dicton )
-            # check = item[ProducerID]
+    
             
 # ################ NEW RESERVATION SYSTEM #################################
 
@@ -680,8 +676,19 @@ def reservations():
 @app.route('/reserved_produce', methods=['GET','POST'])
 def reserved_produce():
 
+    # IMPORTANT in this case we pass the username of the farmer, 
+    # but in the back we check for the "ProducerID" that matches it!
+    collection = chooseCollection('reservationsDict')
+    orders = retrieveDictReservations(collection, session['username'])    
+
+    orderList = []
+    for order in orders:
+        orderList.append(order)
+
+    print(orderList)
+
     filters ={}
-    return render_template('reserved_produce.html', filters=filters, user=session['username'], user_status=session['status'])    
+    return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'])    
 
 
 @app.errorhandler(404)

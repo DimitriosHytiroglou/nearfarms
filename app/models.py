@@ -71,15 +71,27 @@ def emptyShoppingCart(collection, username):
 def insertToReservations(collection, username, ProducerID, product, productType, units, price, marketID, totalPrice, quantity):
 	collection.insert({"Username":username, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
 
-def insertDictToReservations(collection, dicton):
-	collection.insert(dicton)
-
 def retrieveReservations(collection, username):
 	contents = collection.find({'Username':username})
 	if contents.count() is not 0:
 		return contents
 	else:
 		return []
+
+# ##### NEW RESERVATION FUNCTIONS #########
+
+def insertDictToReservations(collection, order):
+	collection.insert(order)
+
+
+def retrieveDictReservations(collection, ProducerID):
+	contents = collection.find({'ProducerID':ProducerID})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
+# ##### NEW RESERVATION FUNCTIONS #########
 
 
 # # # PRODUCERS # # #
