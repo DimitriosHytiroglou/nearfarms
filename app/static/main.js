@@ -2,45 +2,54 @@
 // update products in line via farmer.html
 $(".update_col").on('click', function() {
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
+	var market = $(this).closest('tr').find('.marketID_col').text();
 	var product = $(this).closest('tr').find('.product_col').text();
 	var type = $(this).closest('tr').find('.type_col').text();
 	var units = $(this).closest('tr').find('.units_col').text();
 	var quantity = $(this).closest('tr').find('.quantity_col').text();
 	var price = $(this).closest('tr').find('.price_col').text();
-	var image = $(this).closest('tr').find('.image_col').text();
 	var _id = $(this).closest('tr').find(":hidden").text();
+	
+	console.log(_id);
 	var tr = $(this).closest("tr").remove().clone();
-
 
 	// this if function makes sure the update occurs in the same table row rather than appending the update to the end of the table
 	if (rowIndex == 0) {
 
-		$('#product_table').prepend("<tr> <td class='product_col'><input value="+product+"></td> <td class='type_col'><input value="+type+"></td> <td class='units_col'><input value="+units+"></td> <td class='quantity_col'><input value="+quantity+"></td> <td class='price_col'><input value="+price+"></td> <td class='image_col'><input value="+image+"></td> <td style='display:none' class='_id_col'>"+_id+"</td> <td class='submit_col'> <button type='button' class='submit_prod_button'> Submit</button></td> </tr>");
+		$('#product_table').prepend("<tr> <td></td><td><select class='markets_filter'><option>"+market+"</option><option>Berkeley</option><option>Oakland</option><option>San Francisco</option></select></td> <td class='product_col'><input value=\""+product+"\"></td> <td class='type_col'><input value=\""+type+"\"></td> <td class='quantity_col'><input value="+quantity+"></td> <td class='price_col'><input value="+price+"></td> <td><select class='units_filter'><option>"+units+"</option><option>lbs</option><option>bunch</option><option>item</option></select></td><td style='display:none' class='_id_col'>"+_id+"</td> <td class='submit_col'> <button type='button' class='submit_prod_button'> Submit</button></td> </tr>");
+                            
 
 	} else {
 
-	$('#product_table > tbody > tr').eq(rowIndex-1).after("<tr> <td class='product_col'><input value="+product+"></td> <td class='type_col'><input value="+type+"></td> <td class='units_col'><input value="+units+"></td> <td class='quantity_col'><input value="+quantity+"></td> <td class='price_col'><input value="+price+"></td> <td class='image_col'><input value="+image+"></td> <td style='display:none' class='_id_col'>"+_id+"</td> <td class='submit_col'> <button type='button' class='submit_prod_button'> Submit</button></td> </tr>");
+	$('#product_table > tbody > tr').eq(rowIndex-1).after("<tr> <td></td><td><select class='markets_filter'><option>"+market+"</option><option>Berkeley</option><option>Oakland</option><option>San Francisco</option></select></td> <td class='product_col'><input value=\""+product+"\"></td> <td class='type_col'><input value=\""+type+"\"></td> <td class='quantity_col'><input value="+quantity+"></td> <td class='price_col'><input value="+price+"></td> <td><select class='units_filter'><option>"+units+"</option><option>lbs</option><option>bunch</option><option>item</option></select></td><td style='display:none' class='_id_col'>"+_id+"</td> <td class='submit_col'> <button type='button' class='submit_prod_button'> Submit</button></td> </tr>");
 
 	}
 });
 
+
 // UPDATE PRODUCT VALUES
 $('body').on('click','.submit_prod_button','click', function() {
-
+	console.log("hello");
 
 	var rowIndex = $('#product_table tr').index($(this).closest('tr'))-1;
+	var market = $('.markets_filter').find('option:selected').text();
 	var product = $(this).closest('tr').find('.product_col').find('input').val();
 	var productType = $(this).closest('tr').find('.type_col').find('input').val();
-	var units = $(this).closest('tr').find('.units_col').find('input').val();
 	var quantity = $(this).closest('tr').find('.quantity_col').find('input').val();
 	var price = $(this).closest('tr').find('.price_col').find('input').val();
-	var _id = $(this).closest('tr').find(":hidden").text();
+	var units = $('.units_filter').find('option:selected').text();
+	var _id = $(this).closest('tr').find("._id_col:hidden").text();
 
-	// var tr = $(this).closest("tr").remove().clone();
+	console.log(_id);
+
+	if (!Number.isInteger(Number(quantity)) || isNaN(Number(price))) {
+		alert("Entry error: please enter price as a number and quantity as an integer.");
+	}
 
 // THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
-
+	else {
 	$.post("product_update", {
+ 					market:market,
  					product:product,
  					productType:productType,
  					units:units,
@@ -51,6 +60,7 @@ $('body').on('click','.submit_prod_button','click', function() {
  			}).done(function (reply) {
             window.location.reload(true);
             });
+ 		}
 });
 
 

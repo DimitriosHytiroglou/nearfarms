@@ -564,6 +564,38 @@ def make_reservation():
         json_data = request.form['reserved_list']
         data_list = json.loads(json_data)
 
+
+# ################ NEW RESERVATION SYSTEM #################################
+
+# #### Keeping this until we fix it for the consumer interface as well ####
+
+        sorted_data_list = sorted(data_list, key = lambda i: i['ProducerID'])
+
+    # List producers in the order
+        producers = []
+        for item in sorted_data_list:
+            producers.append(item['ProducerID']) 
+        producers = list(set(producers))
+        
+        print('producers')
+        print(producers)
+
+        reservations = []
+        for producer in producers:
+            stuff = []
+            for item in sorted_data_list:
+                if item['ProducerID'] == producer:
+                    totalPrice = '{0:.2f}'.format(float(item['price'])*float(item['quantity']))
+                    stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
+    
+            collection = chooseCollection('reservationsDict')
+            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
+
+
+    
+            
+# ################ NEW RESERVATION SYSTEM #################################
+
         for item in data_list:
             product = item['product']
             productType = item['productType']
@@ -572,8 +604,13 @@ def make_reservation():
             marketID = item['marketID']
             ProducerID = item['ProducerID']
             totalPrice = item['totalPrice']
+
+            '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
+
             quantity = item['quantity']
         
+
+
         # Adds reservation to database 
             collection = chooseCollection('reservations')
             insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
@@ -600,8 +637,19 @@ def reservations():
 @app.route('/reserved_produce', methods=['GET','POST'])
 def reserved_produce():
 
+    # IMPORTANT in this case we pass the username of the farmer, 
+    # but in the back we check for the "ProducerID" that matches it!
+    collection = chooseCollection('reservationsDict')
+    orders = retrieveDictReservations(collection, session['username'])    
+
+    orderList = []
+    for order in orders:
+        orderList.append(order)
+
+    print(orderList)
+
     filters ={}
-    return render_template('reserved_produce.html', filters=filters, user=session['username'], user_status=session['status'])    
+    return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'])    
 
 
 @app.errorhandler(404)

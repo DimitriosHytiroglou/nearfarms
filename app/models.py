@@ -78,6 +78,22 @@ def retrieveReservations(collection, username):
 	else:
 		return []
 
+# ##### NEW RESERVATION FUNCTIONS #########
+
+def insertDictToReservations(collection, order):
+	collection.insert(order)
+
+
+def retrieveDictReservations(collection, ProducerID):
+	contents = collection.find({'ProducerID':ProducerID})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
+# ##### NEW RESERVATION FUNCTIONS #########
+
+
 # # # PRODUCERS # # #
 
 # Insert Producer
