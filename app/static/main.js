@@ -164,6 +164,23 @@ $('.neg_increment_col').on('click',function() {
             });
     });
 
+
+// SHOPPING CART PAGE CHANGE TOTAL PRICE BASED ON CHANGE QUANTITY
+ $(".quantity_cart_filter").change(function () {
+    var quantity = this.value;
+    var price = $(this).closest('tr').find('.price_col').text();
+    var totalPrice = '$'+String((quantity*price).toFixed(2));
+    $(this).closest('tr').find('.totalPrice_col').text(totalPrice);
+
+    });
+
+
+
+
+
+
+
+
 // FUNCTION TO PULL AND PUSH DATA INTO RESERVATIONS PAGE
 // Function to change value to true or false based on whether box is checked or not
  $(".checkbox").on("click", function () { 

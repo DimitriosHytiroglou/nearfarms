@@ -44,11 +44,11 @@ def insertConsumer(collection, email, username, password, first, last, userType)
 
 
 # # # SHOPPING CART # # #
-def insertToShoppingCart(collection, username, product_id, ProducerID, product, productType, units, price, quantity, marketID):
-	collection.insert({"Username":username, "Product_id":product_id, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "Quantity":quantity, "marketID":marketID})
+def insertToShoppingCart(collection, username, product_id, ProducerID, product, productType, units, price, quantity, marketID, totalPrice):
+	collection.insert({"Username":username, "Product_id":product_id, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "Quantity":quantity, "marketID":marketID, "totalPrice":totalPrice})
 
-def incrementInShoppingCart(collection, username, product_id, quantity):
-	collection.update_one({"Username":username, "Product_id":product_id}, {"$inc": {'Quantity':quantity}})	
+def incrementInShoppingCart(collection, username, product_id, quantity, totalPrice):
+	collection.update_one({"Username":username, "Product_id":product_id}, {"$inc": {'Quantity':quantity, 'totalPrice':totalPrice}})	
 
 def retrieveShoppingCart(collection, username):
 	contents = collection.find({'Username':username})
