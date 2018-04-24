@@ -599,6 +599,40 @@ def make_reservation():
         json_data = request.form['reserved_list']
         data_list = json.loads(json_data)
 
+
+# ################ NEW RESERVATION SYSTEM #################################
+
+        sorted_data_list = sorted(data_list, key = lambda i: i['ProducerID'])
+
+    # List producers in the order
+        producers = []
+        for item in sorted_data_list:
+            producers.append(item['ProducerID']) 
+        producers = list(set(producers))
+        
+        print('producers')
+        print(producers)
+
+        reservations = []
+        for producer in producers:
+            stuff = []
+            for item in sorted_data_list:
+                if item['ProducerID'] == producer:
+                    totalPrice = '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
+                    stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
+            # reservations.append({"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
+            collection = chooseCollection('reservationsDict')
+            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
+
+
+        print('reservations')
+        print(reservations)
+        # chooseCollection(reservationsDict)
+        # insertDictToReservations(collection, dicton )
+            # check = item[ProducerID]
+            
+# ################ NEW RESERVATION SYSTEM #################################
+
         for item in data_list:
             product = item['product']
             productType = item['productType']
@@ -610,8 +644,13 @@ def make_reservation():
             totalPrice_float = float(item['quantity']) * float(item['price'][1:])
             totalPrice_str = '{0:.2f}'.format(totalPrice_float)
             totalPrice = '$' + totalPrice_str 
+
+            '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
+
             quantity = item['quantity']
         
+
+
         # Adds reservation to database 
             collection = chooseCollection('reservations')
             insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
