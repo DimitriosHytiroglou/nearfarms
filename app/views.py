@@ -608,6 +608,8 @@ def make_reservation():
 
 # ################ NEW RESERVATION SYSTEM #################################
 
+# #### Keeping this until we fix it for the consumer interface as well ####
+
         sorted_data_list = sorted(data_list, key = lambda i: i['ProducerID'])
 
     # List producers in the order
@@ -624,7 +626,7 @@ def make_reservation():
             stuff = []
             for item in sorted_data_list:
                 if item['ProducerID'] == producer:
-                    totalPrice = '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
+                    totalPrice = '{0:.2f}'.format(float(item['price'])*float(item['quantity']))
                     stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
     
             collection = chooseCollection('reservationsDict')
