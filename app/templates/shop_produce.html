@@ -60,63 +60,87 @@
     <br>
     <br>   
 
-    <div class="tile is-ancestor" style="flex-wrap: wrap">
+    <div class="columns is-multiline is-mobile">
         {% for produce in produceList %}
-            <div class="tile is-3 is-parent">
-                <div class="tile is-child card">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img onerror="this.src='https://bulma.io/images/placeholders/1280x960.png'" alt="Placeholder image" src="{{url_for('static', filename=produce['Image'])}}">
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <figure class="image is-48x48">
-                          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            <!-- using coulumns instead of cards to control for the width proportion that each column takes up -->
+            <div class="column is-one-fifth">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img onerror="this.src='https://bulma.io/images/placeholders/1280x960.png'" alt="Placeholder image" src="{{url_for('static', filename=produce['Image'])}}">
                         </figure>
-                      </div>
-                      <div class="media-content">
-                        <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
-                        <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
-                        <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
-
-                        <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
-                        <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
-                      </div>
                     </div>
 
-                    <div class="content">
-                      <span class="marketID_detail tag is-light">{{ produce['MarketID'] }}</span>
+                    <div class="card-content">
+                        <!-- Image details for card -->
+                        <div class="media">
+                          <div class="media-left">
+                            <figure class="image is-48x48">
+                              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                            </figure>
+                          </div>
+                          <div class="media-content">
+                            <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
+                            <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
+                            <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
 
+                            <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
+                            <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
+                          </div>
+                        </div>
+
+                        <!-- Market tag -->
+                        <div class="content">
+                          <span class="marketID_detail tag is-light">{{ produce['MarketID'] }}</span>
+                        </div>
+
+                        <!-- Hidden Message -->
+                        <div class="content">
+                            <div class="added_msg content is-small is-light" style="display: none">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Added to cart
+                            </div>
+                        </div>
+                        
+                        <!-- produce details -->
+                        <div class="content">
+                            <h5 class="units_detail content is-small" style="display: none">{{ produce['units'] }}</h5>
+                            <h5 class="price_detail content is-small" style="display: none">{{ produce['Price'] }}</h5>
+                            <h5 class="price_unit_detail content is-small">${{ produce['Price'] }} per {{ produce['units'] }} </h5>
+                            
+                            <!-- Quantity and add to cart buttons -->
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="amount_detail">
+                                        <div class="field">
+                                          <div class="control">
+                                            <div class="select is-primary is-small">
+                                                <select class="quantity_cart_filter select is-primary" name="quantity_cart_filter">
+                                                    <option>QUANTITY</option>
+                                                    {% for quantity in range(1,21) %}
+                                                    <option>{{quantity}}</option>
+                                                    {% endfor %}
+                                                </select>  
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                     <a class="add_to_cart_button button card-footer-item is-small is-primary" name="add_to_cart" value="add_to_cart">
+                                         <span class="icon is-small is-left">
+                                             <i class="fas fa-plus"></i>
+                                         </span>
+                                     </a>
+                                </div>
+                            </div>
+                        </div>          
                     </div>
-                    <footer class="card-footer">
-                        <p  class="units_detail content is-small card-footer-item" style="display: none">{{ produce['units'] }}</p>
-                        <p  class="price_detail content is-small card-footer-item" style="display: none">{{ produce['Price'] }}</p>
-                        <p  class="price_unit_detail content is-small card-footer-item">${{ produce['Price'] }} per {{ produce['units'] }} </p>
-                        
-                        <p  class="amount_detail content is-small card-footer-item">QUANTITY: 
-                            <select class="quantity_cart_filter" name="quantity_cart_filter">
-                                {% for quantity in range(1,21) %}
-                                <option>{{quantity}}</option>
-                                {% endfor %}
-                            </select>  
-                        </p>          
-                        
-                        <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                        </a>
-                        <p class="added_msg" style="display: none">Added to cart!</p>
-
-                    </footer>
-                  </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-</div>
+  </div>
 </section>
     
     <script src="{{ url_for('static', filename="main.js")}}"></script>

@@ -135,9 +135,9 @@ $('body').on('click','.add_to_cart_button','click', function() {
 		ProducerID:ProducerID,
 		quantity:quantity
 	}).done(function (reply) {
-                
+                console.log("TEST")
                 window.location.reload(true);
-                
+          
             
 });
 	});
