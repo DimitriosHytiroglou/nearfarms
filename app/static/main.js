@@ -63,27 +63,39 @@ $('body').on('click','.submit_prod_button','click', function() {
  		}
 });
 
-
 // DELETE PRODUCT FROM FARMER'S LIST
 $(".remove_col").on('click', function() {
-
 	var _id = $(this).closest('tr').find(":hidden").text();
-
-
 // THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
-
 	$.post("product_delete", {
  					_id:_id					
-
  			}).done(function (reply) {
             window.location.reload(true);
-                
             });
 });
 
 
-// Apply filters
+// DELETE PRODUCT FROM SHOPPING CART
+$(".remove_col_cart").on('click', function() {
+	var _id = $(this).closest('tr').find("._id_col").text();
+	console.log(_id);
+// THERE IS A MINOR ISSUE HERE BECAUSE THE AJAX IS SYNCHRONOUS, BUT IT ISNT!!
+	$.post("product_delete_cart", {
+ 					_id:_id					
+ 			}).done(function (reply) {
+            window.location.reload(true);
+            });
+});
 
+
+
+
+
+
+
+
+
+// Apply filters
 $("#apply_filter_btn").on('click', function applyFilter() {
 	var product = $('#product_filter').find('option:selected').text();
 	var productType = $('#productType_filter').find('option:selected').text();
@@ -218,21 +230,24 @@ $(".reserve_button").on("click", function() {
 			var ProducerID = $(this).closest('tr').find(".ProducerID_col:hidden").text();
 			var Product_id = $(this).closest('tr').find(".Product_id_col:hidden").text();
 
-			var product_dict = {
+			// condition to check if quantity doesn't equal zero
+			if (Number.parseInt(quantity) !=0) {
+				var product_dict = {
 
-				product: product,
-				productType: productType,
-				units: units,
-				quantity: quantity,
-				price: price,
-				marketID: marketID,
-				ProducerID:ProducerID,
-				Product_id:Product_id,
-				totalPrice:totalPrice,
-				_id: _id
+					product: product,
+					productType: productType,
+					units: units,
+					quantity: quantity,
+					price: price,
+					marketID: marketID,
+					ProducerID:ProducerID,
+					Product_id:Product_id,
+					totalPrice:totalPrice,
+					_id: _id
+				}
+
+				reserved_list.push(product_dict);
 			}
-
-			reserved_list.push(product_dict);
 		}
 
     });

@@ -52,7 +52,7 @@
                         <td class="quantity_col category_col">
                             <select class="quantity_cart_filter" name="quantity_cart_filter">
                                 <option>{{ item['Quantity'] }}</option>
-                                {% for quantity in range(1,21) %}
+                                {% for quantity in range(21) %}
                                 <option>{{quantity}}</option>
                                 {% endfor %}
                             </select>  
@@ -66,7 +66,7 @@
                         <td style="display: none" class="ProducerID_col">{{ item['ProducerID'] }}</td>
                         <td style="display: none" class="_id_col">{{ item['_id'] }}</td>
                         <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
-                        <td class="remove_col button_col"><button  name="remove" value="Remove">Remove</button></td>
+                        <td class="remove_col_cart button_col"><button  name="remove" value="Remove">Remove</button></td>
 
                     </tr>
                     {% endfor %}
