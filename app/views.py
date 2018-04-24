@@ -325,7 +325,6 @@ def productDelete_shoppingCart():
     collection = chooseCollection('shoppingCart')
     
     if request.method == "POST":
-        print (request.form['_id'])
         delete_shoppingCart_product(collection,request.form['_id'])
         shoppingCart_products = retrieveShoppingCart(collection,session['username'])
         shoppingCartList = []
