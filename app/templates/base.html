@@ -58,22 +58,19 @@
                       <div class="navbar-item">
                         <p style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
                         <div class="navbar-item"></div>
-                        <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
+                        <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
+                        <div class="navbar-item"></div>
+                        <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
                       </div>
-                      {% endblock %}
-                      {% block login %}
-                      <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
-                      
-                      <!-- Shopping cart icon -->
-                      <a href="{{ url_for('shopping_cart') }}">
-                      <img src="{{url_for('static', filename='shopping cart.png')}}">
-                      </a>
-
-                      <a href="{{ url_for('reservations') }}">
-                      <img src="{{url_for('static', filename='reservations.png')}}">
-                      </a>
+                      <div class="navbar-item"></div>
+                        <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
+                        <div class="navbar-item"></div>
                     </p>
                     {% endblock %}
+                    {% block login %}
+                    <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                    {% endblock %}
+                    
                   </div>
                 </div>
               </div>
