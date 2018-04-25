@@ -17,8 +17,49 @@
   </div>
 </section>
 
+<!-- Breadcrumb test -->
+<section>
+    <div class="container is-fluid">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <a href="{{ url_for('home') }}">
+            <span class="icon is-small">
+              <i class="fas fa-home" aria-hidden="true"></i>
+            </span>
+            <span>Home</span>
+          </a>
+        </li>
+        <li  class="is-active">
+          <a href="#">
+            <span class="icon is-small">
+              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            </span>
+            <span>Shop</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon is-small">
+              <i class="fas fa-list" aria-hidden="true"></i>
+            </span>
+            <span>Review</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon is-small">
+              <i class="fas fa-handshake" aria-hidden="true"></i>
+            </span>
+            <span>Reserve</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+</div>
+</section>
+
 <section class="hero is-white">
-   
   <div class="hero-body">
     <h1 class="title">Farmers Market Products:</h1>
         <!-- Adding filters: product, productType, units -->
