@@ -26,6 +26,7 @@ def getUserPass(collection, username):
 	else:
 		return []
 
+# Get Logged In user's type (Producer/Consumer)
 def getUserType(collection, username):
 	types = collection.find({'Username':username})
 	if types.count() is not 0:
@@ -35,21 +36,27 @@ def getUserType(collection, username):
 		return []
 
 # # # CONSUMERS # # #
+
 # returns all of the produce in database to display for the consumer !!! WILL NEED TO DELINEATE BY MARKET EVENTUALLY
 def retrieve_all_produce(collection):
     return collection.find()
 
+# Create new consumer entry in database
 def insertConsumer(collection, email, username, password, first, last, userType):
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
 
 # # # SHOPPING CART # # #
+
+# Insert product to shopping cart
 def insertToShoppingCart(collection, username, product_id, ProducerID, product, productType, units, price, quantity, marketID, totalPrice):
 	collection.insert({"Username":username, "Product_id":product_id, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "Quantity":quantity, "marketID":marketID, "totalPrice":totalPrice})
 
+# Increment quantity of product in shopping cart
 def incrementInShoppingCart(collection, username, product_id, quantity, totalPrice):
 	collection.update_one({"Username":username, "Product_id":product_id}, {"$inc": {'Quantity':quantity, 'totalPrice':totalPrice}})	
 
+# Retrieve shopping cart contents
 def retrieveShoppingCart(collection, username):
 	contents = collection.find({'Username':username})
 	if contents.count() is not 0:
@@ -57,6 +64,7 @@ def retrieveShoppingCart(collection, username):
 	else:
 		return []
 
+# Check if the product is already in the cart
 def checkShoppingCart(collection, username, product_id):
 	contents = collection.find({'Username':username, "Product_id":product_id})
 	if contents.count() is not 0:
@@ -64,26 +72,36 @@ def checkShoppingCart(collection, username, product_id):
 	else:
 		return []
 
+# Empty user's shopping cart
 def emptyShoppingCart(collection, username):
 	collection.delete_many({"Username":username })
 
 # # # RESERVATIONS # # #
-def insertToReservations(collection, username, ProducerID, product, productType, units, price, marketID, totalPrice, quantity):
-	collection.insert({"Username":username, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
 
-def retrieveReservations(collection, username):
-	contents = collection.find({'Username':username})
-	if contents.count() is not 0:
-		return contents
-	else:
-		return []
 
-# ##### NEW RESERVATION FUNCTIONS #########
+# ###### Deprecated system ######
 
+# def insertToReservations(collection, username, ProducerID, product, productType, units, price, marketID, totalPrice, quantity):
+# 	collection.insert({"Username":username, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
+
+# def retrieveReservations(collection, username):
+# 	contents = collection.find({'Username':username})
+# 	if contents.count() is not 0:
+# 		return contents
+# 	else:
+# 		return []
+
+# ###### Deprecated system ######
+
+
+# ##### NEW RESERVATION SYSTEM FUNCTIONS #########
+
+# Insert reservation to system
 def insertDictToReservations(collection, order):
 	collection.insert(order)
 
 
+# Retrieve a producer's reservations
 def retrieveProducerReservations(collection, ProducerID):
 	contents = collection.find({'ProducerID':ProducerID})
 	if contents.count() is not 0:
@@ -91,7 +109,7 @@ def retrieveProducerReservations(collection, ProducerID):
 	else:
 		return []
 
-
+# Retrieve a consumer's reservations
 def retrieveConsumerReservations(collection, username):
 	contents = collection.find({'Username':username})
 	if contents.count() is not 0:
@@ -100,7 +118,7 @@ def retrieveConsumerReservations(collection, username):
 		return []
 
 
-# ##### NEW RESERVATION FUNCTIONS #########
+# ##### NEW RESERVATION SYSTEM FUNCTIONS #########
 
 
 # # # PRODUCERS # # #
@@ -114,6 +132,7 @@ def getFarmData(collection, username):
 	farm_data = collection.find({'Username':username})
 	return farm_data
 
+# Update producer prof pic
 def update_prof_pic(collection, username, image):
 	collection.update_one({"Username": username }, {"$set": {'Image':image}})	
 	
@@ -151,7 +170,6 @@ def delete_product(collection, _id):
 def delete_shoppingCart_product(collection, _id):
 	idb = bson.ObjectId(_id)
 	collection.delete_one({"_id": idb })	
-
 
 
 # Update existing product's image
