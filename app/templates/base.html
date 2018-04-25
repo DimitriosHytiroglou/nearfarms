@@ -24,6 +24,7 @@
     {% block head %}{% endblock %}  </head>
   <body>
     {% block navigation %}
+    {% endblock %}
     <section class="hero is-white is-small is-medium">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
@@ -36,7 +37,7 @@
               <a class="navbar-item" href="{{ url_for('home') }}">
                 <img src="/static/logo.png" id="logo" alt="Logo">
               </a>
-               <a href="{{ url_for('home') }}">Homepage</a>
+               
               <!-- navbar-burger needs to be last child of navbar-brand -->
               <div class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
@@ -54,30 +55,59 @@
                 <div class="navbar-item">
                   <div class="field is-grouped">
                     {% block account %}
-                    <p class="control"> 
-                      <div class="navbar-item">
+                    {% endblock %}
+
+                    {% block login %}
+                    {% endblock %}
+
+                    <p class="control">      
+                      <!-- This is to display the "logged in as" message -->
+                        <div class="navbar-item">
                         <p style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
+
+                      <!-- This is to display the shopping cart icon -->
                         <div class="navbar-item"></div>
                         <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
+                      
+                      <!-- Message to display reservatons icon -->
                         <div class="navbar-item"></div>
                         <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
-                      </div>
-                      <div class="navbar-item"></div>
+                        </div>
+                      
+                      <!-- Message to display the LOGOUT button -->
+                        <div class="navbar-item"></div>
                         <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
                         <div class="navbar-item"></div>
                     </p>
-                    {% endblock %}
-                    {% block login %}
+                    
                     <p class="control"> 
-                      <div class="navbar-item">
-                        <a style="display: {{ user_status['in'] }}" class="icon is-small" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
-                        <div class="navbar-item"></div>
-                        <a style="display: {{ user_status['in'] }}" class="icon is-small" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
-                      </div>
+
+                    <!-- This is to display the LOGIN button -->
                       <div class="navbar-item"></div>
                       <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
                     </p>
-                    {% endblock %}
+
+              <!-- This is to Display or Hide the Register button -->
+                    <div style="display: {{ user_status['in'] }}" class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                          <button class="button is-white">
+                            <span>REGISTER</span>
+                          </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                          <div class="dropdown-content">
+                            <a href="{{ url_for('create_newConsumer') }}" class="dropdown-item">
+                              Consumer
+                            </a>
+                            <a href="{{ url_for('create_newProducer') }}" class="dropdown-item">
+                              Producer
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+                    
                     
                   </div>
                 </div>
@@ -86,9 +116,11 @@
           </nav>
       </div>
     </section>
-    {% endblock %}
+    
 
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
     
     {% block footer %} 
     <footer class="hero-foot is-fixed-bottom">

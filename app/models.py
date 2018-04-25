@@ -84,7 +84,7 @@ def insertDictToReservations(collection, order):
 	collection.insert(order)
 
 
-def retrieveDictReservations(collection, ProducerID):
+def retrieveProducerReservations(collection, ProducerID):
 	contents = collection.find({'ProducerID':ProducerID})
 	if contents.count() is not 0:
 		return contents

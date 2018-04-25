@@ -29,7 +29,7 @@ def index():
 @app.route('/home', methods=['GET'])
 def home():
     
-    return render_template('homepage.html', user=session['username'], user_status=session['status'])
+    return render_template('home.html', user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 @app.route('/logout')
 def logout():
@@ -85,7 +85,7 @@ def login():
                 wrong = 'block'
                 return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
 
-    return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
+    return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
 # App routing to CREATE FARMER ACCOUNT
@@ -132,9 +132,9 @@ def create_newProducer():
 
         else:
             wrong = 'block'
-            return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'])
+            return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
-    return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'])
+    return render_template('register_producer.html', newProducerForm=newProducerForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
 # App routing to CREATE USER
@@ -184,9 +184,9 @@ def create_newConsumer():
 
         else:
             wrong = 'block'
-            return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'])
+            return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
-    return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'])
+    return render_template('register_consumer.html', newConsumerForm=newConsumerForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
 # App routing to ADD PRODUCE
@@ -210,7 +210,7 @@ def add_product():
         insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID)
 
         return redirect('/farmer_home')
-    return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'])
+    return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
 @app.route('/farmer_home', methods=['GET'])
@@ -241,7 +241,7 @@ def farmer_home():
         # blank filter
         filters = {'MarketID':''}
         
-        return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
+        return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
     else:
         flash('You were successfully logged in')
@@ -277,7 +277,7 @@ def applyFilterFarmer():
     farmer = farmerList[0]
     
 
-    return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'])
+    return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
 
@@ -430,7 +430,7 @@ def shop_produce():
 
 
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
+        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
@@ -501,7 +501,7 @@ def applyFilter():
     marketList = sorted(list(set(marketList)))
     
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
-        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'])
+        marketList=marketList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 @app.route('/shopping_cart', methods=['GET','POST'])
 def shopping_cart():
@@ -513,19 +513,11 @@ def shopping_cart():
     for item in contents:
         cartList.append(item)
 
-    # temp = {}
-    # for d in cartList:
-    #     if d['Product_id'] not in temp:
-    #         temp[d['Product_id']] = {}
-    #         temp_d = temp[d['Product_id']]
-    #         temp_d['Price'] = float(temp_d.get('Price', 0)) + float(d['Price'])
-    
-    # print(temp)
 
-    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'])
+    return render_template('cart.html', cartList=cartList, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
-# ADD HERE FUNCTION TO REMOVE
+# ADD HERE FUNCTION TO REMOVE RESERVED PRODUCE FROM INVENTORY ?? 
     collection = chooseCollection('products')
     # deductFromInventory()
 
@@ -595,45 +587,51 @@ def make_reservation():
                     totalPrice = '{0:.2f}'.format(float(item['price'])*float(item['quantity']))
                     stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
     
-            collection = chooseCollection('reservationsDict')
-            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
-
-
-    
-            
-# ################ NEW RESERVATION SYSTEM #################################
-
-        for item in data_list:
-            product = item['product']
-            productType = item['productType']
-            units = item['units']
-            price = item['price']
-            marketID = item['marketID']
-            ProducerID = item['ProducerID']
-            totalPrice = item['totalPrice']
-
-            '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
-
-            quantity = item['quantity']
-        
-
-
         # Adds reservation to database 
             collection = chooseCollection('reservations')
-            insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
+            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
 
         # Empties the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
             emptyShoppingCart(collection, session['username'])
 
     return redirect('/reservations')
+            
+# ################ NEW RESERVATION SYSTEM #################################
+
+
+# ################ OLD RESERVATION SYSTEM #################################
+
+    #     for item in data_list:
+    #         product = item['product']
+    #         productType = item['productType']
+    #         units = item['units']
+    #         price = item['price']
+    #         marketID = item['marketID']
+    #         ProducerID = item['ProducerID']
+    #         totalPrice = item['totalPrice']
+
+    #         '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
+
+    #         quantity = item['quantity']
+        
+    #     # Adds reservation to database 
+    #         collection = chooseCollection('reservations')
+    #         insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
+
+    #     # Empties the shopping cart when reservation is placed
+    #         collection = chooseCollection('shoppingCart')
+    #         emptyShoppingCart(collection, session['username'])
+
+    # return redirect('/reservations')
+
+# ################ OLD RESERVATION SYSTEM #################################
     
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 
-# ################### NEW RESERVATIONS SYSTEM ####################
     
-    collection = chooseCollection('reservationsDict')
+    collection = chooseCollection('reservations')
     orders = retrieveConsumerReservations(collection, session['username'])    
 
     orderList = []
@@ -643,19 +641,8 @@ def reservations():
     print(orderList)
 
     filters ={}
-    return render_template('consumer_reservations.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'])    
+    return render_template('consumer_reservations.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])    
 
-# ################### NEW RESERVATIONS SYSTEM ####################
-
-
-    # collection = chooseCollection('reservations')
-    # contents = retrieveShoppingCart(collection, session['username'])
-
-    # reservedList = []
-    # for item in contents:
-    #     reservedList.append(item)
-
-    # return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])
 
 
 @app.route('/reserved_produce', methods=['GET','POST'])
@@ -663,8 +650,8 @@ def reserved_produce():
 
     # IMPORTANT in this case we pass the username of the farmer, 
     # but in the back we check for the "ProducerID" that matches it!
-    collection = chooseCollection('reservationsDict')
-    orders = retrieveDictReservations(collection, session['username'])    
+    collection = chooseCollection('reservations')
+    orders = retrieveProducerReservations(collection, session['username'])    
 
     orderList = []
     for order in orders:
@@ -673,9 +660,9 @@ def reserved_produce():
     print(orderList)
 
     filters ={}
-    return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'])    
+    return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])    
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404_error.html', user=session['username'], user_status=session['status']), 404
+    return render_template('404_error.html', user=session['username'], user_status=session['status'], user_type=session['user_type']), 404

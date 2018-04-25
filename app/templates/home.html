@@ -1,50 +1,136 @@
 {% extends "base.html" %}
+
 {% block content %}
-
-<!-- Template home page that differentiates between logins -->
-
-<!-- 4.12.2018 – CONNER UPDATED CLASSES WITH BULMA FRAMEWORK -->
-<section class="hero is-primary is-bold">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title">THIS IS A TEMPORARY ROUTING FOR DEVELOPING THE INTERFACES</h1>
-            <div class="hero is-white">
-                <a class="button is-large is-primary is-inverted" href="{{ url_for('farmer_home') }}">FARMER</a>
-            </div>
-        <!-- <a class="button is-primary is-inverted" href="{{ url_for('consumer_home') }}">CONSUMER</a> -->
+<section class="hero is-small is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-search"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Search</p>
+              <p class="heading  has-text-centered">Delicious produce in your area.</p>
+          </div>
         </div>
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-shopping-cart"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Order</p>
+              <p class="heading  has-text-centered">As much produce as the land can provide.</p>
+          </div>
+        </div>  
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-hand-paper"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Pickup</p>
+              <p class="heading has-text-centered">At a local farmers market.</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content has-text-centered">
+            <br>
+            <span class="icon">
+              <i class="fas fa-3x fa-users"></i>
+            </span>
+            <br>
+            <br>
+            <br>
+              <p class="title has-text-centered">Pickup</p>
+              <p class="heading  has-text-centered">At a local farmers market.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
-<section class="hero is-medium is-light">
-    <div class="hero-body">
-        <nav class="level">
-            <div class="level-item has-text-centered">
-                <div>
-                    <a class="button is-large is-primary" href="{{ url_for('create_newProducer') }}">Register Producer</a>
-                </div>
-            </div>
 
-            <div class="level-item has-text-centered">
-                <div>
-                    <a class="button is-large is-primary" href="{{ url_for('farmer_home') }}">Farm Manager</a>
-                </div>
-            </div>
-
-            <div class="level-item has-text-centered">
-                <div>
-                    <a class="button is-large is-primary" href="{{ url_for('shop_produce') }}">Shop for Produce</a>
-                </div>
-            </div>
-
-            <div class="level-item has-text-centered">
-                <div>
-                    <a class="button is-large is-primary" href="{{ url_for('create_newConsumer') }}">Register Consumer</a>
-                </div>
-            </div>
-
-            
-        </nav>
-    </div>
+<section class="hero is-white is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-mobile has-background-dark">
+        <div class="column is-half-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
+          <figure class="image is-4by3">
+            <img src="https://picsum.photos/400/300">
+          </figure>
+        </div>
+        <div class="column is-half-mobile is-half-tablet is-half-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
+          <div class="content is-large">
+            <h1>Berkeley Farmers Market</h1>
+            <p>Widely regarded as the first farmers market in human history, Berkeley Farmers Market is where people shop who care about the world. <strong>So should you.</strong> </p>
+          </div>
+          <div class="buttons has-addons is-right">
+            <a class="button is-primary is-large" href="{{ url_for('shop_produce') }}">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+      <div class='carousel is-5 carousel-animated carousel-animate-slide'>
+        <div class='carousel-container'>
+<!--           {% for produce in produceList %}
+          <div class='carousel-item is-active'>
+            <figure class="image is-2by1">
+              <img src="{{url_for('static', filename=produce['Image'])}}">
+            </figure>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="carousel-navigation is-centered">
+          <div class="carousel-nav-left">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </div>
+          <div class="carousel-nav-right">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </div>
+        </div> -->
+      </div>
+      <div class="columns is-mobile">
+        <div class="column">
+          <div class="content">
+          <h1>Hours of Operation</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Monday-Friday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+                <tr>
+                  <td>Saturday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+                <tr>
+                  <td>Sunday</td>
+                  <td>9:00-5:00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>      
+  </div>
 </section>
+
 
 {% endblock %}
