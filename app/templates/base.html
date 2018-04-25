@@ -12,10 +12,11 @@
     <title>Nearfarms</title>
     <!-- Bulma framework -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    
+
+    <!-- Main CSS -->
     <link type="text/css" rel="stylesheet" href="/static/main.css"  media="screen,projection"/>
 
-    <!-- JQuery -->
+    <!-- JQuery import -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
 
     <!-- reference to font awesome icons -->
@@ -63,27 +64,32 @@
                     <p class="control">      
                       <!-- This is to display the "logged in as" message -->
                         <div class="navbar-item">
-                        <p style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
+                        <p  style="display: {{ user_status['out'] }}">You are logged in as {{ user }} </p>
 
                       <!-- This is to display the shopping cart icon -->
                         <div class="navbar-item"></div>
-                        <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
+                        <a style="display: {{ user_status['out'] }}" class="icon is-medium" href="{{ url_for('shopping_cart') }}"><i class="fas fa-shopping-cart"></i></a>
                       
                       <!-- Message to display reservatons icon -->
                         <div class="navbar-item"></div>
-                        <a style="display: {{ user_status['out'] }}" class="icon is-small" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
+                        <a style="display: {{ user_status['out'] }}" class="icon is-medium" href="{{ url_for('reservations') }}"><i class="fas fa-list-ul"></i></a>
                         </div>
                       
+                      {% if (user_type == 'producer') %}
+                        
+                        <a  class="button is-primary is-outlined" href="{{ url_for('farmer_home') }}">Farm Manager</a>
+                        <div class="navbar-item"></div>
+                      
+                      {% endif %}
+
                       <!-- Message to display the LOGOUT button -->
-                        <div class="navbar-item"></div>
-                        <a style="display: {{ user_status['out'] }}" class="button is-primary" href="{{ url_for('logout') }}">LOG OUT</a>
-                        <div class="navbar-item"></div>
-                    </p>
+                        
+                        <a style="display: {{ user_status['out'] }}" class="button is-danger" href="{{ url_for('logout') }}">LOG OUT</a>
+                        
                     
-                    <p class="control"> 
 
                     <!-- This is to display the LOGIN button -->
-                      <div class="navbar-item"></div>
+                      
                       <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
                     </p>
 
@@ -105,10 +111,6 @@
                           </div>
                         </div>
                       </div>
-
-                    
-                    
-                    
                   </div>
                 </div>
               </div>
@@ -117,12 +119,10 @@
       </div>
     </section>
     
-
     {% block content %}
 
     {% endblock %}
     
-    {% block footer %} 
     <footer class="hero-foot is-fixed-bottom">
       <nav class="tabs is-fullwidth">
         <div class="container">
@@ -134,8 +134,10 @@
           </ul>
         </div>
       </nav>
-    </footer>
+      {% block footer %}
     {% endblock %}
+    </footer>
+    
 
 <script type="text/javascript">
 // Get all "navbar-burger" elements

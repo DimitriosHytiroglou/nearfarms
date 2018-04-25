@@ -16,7 +16,7 @@
 </section>
 
 <section class="hero is-white">
-  <div class="hero-body">
+  <div class="hero-body container is-fluid">
     <h1 class="title">Farmers Market Products:</h1>
 
     <div class="field is-grouped-right">
@@ -79,8 +79,8 @@
                         <td class="price_col" class="category_col">{{ product['Price'] }}</td>
                         <td class="units_col" class="category_col">{{ product['units'] }}</td>  
                         <td style="display: none" class="id_col" class="id_col">{{ product['_id'] }}</td>
-                        <td class="update_col" class="button_col"><button  name="update" value="Update">Update</button></td>   
-                        <td class="remove_col" class="button_col"><button  name="remove" value="Remove">Remove</button></td>
+                        <td class="update_col" class="button_col"><button class="button is-small is-rounded is-outlined is-primary"  name="update" value="Update">Update</button></td>   
+                        <td class="remove_col" class="button_col"><button class="button is-small is-rounded is-outlined is-primary" name="remove" value="Remove">Remove</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -107,7 +107,6 @@
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>
-            
         </p>
     </div>
 </section>

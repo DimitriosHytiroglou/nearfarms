@@ -80,10 +80,10 @@ def login():
                     return redirect('/shop_produce')
             else:
                 wrong = 'block'
-                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
+                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
         else:
                 wrong = 'block'
-                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'])
+                return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
     return render_template('login.html', loginForm=loginForm, wrong=wrong, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
