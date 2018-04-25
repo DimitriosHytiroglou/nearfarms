@@ -261,5 +261,16 @@ $.post("make_reservation", {
 });
 
 
+$(".fulfill_order").on("click", function() {
 
+	var order_id = $(this).closest('.card-content').find('.Order_id_detail').text().slice(10, );
+	console.log(order_id);
 
+	$.post("fulfill_order", {
+		order_id:order_id
+	}).done(function (reply) {
+	window.location.reload(true);
+                       
+            });
+
+});

@@ -33,7 +33,11 @@
         <div class="column is-one-half">
           <div class="card">
             <div class="card-image"></div>
-            <div class="card-content">        
+            {% if (order['Fulfilled']=='Yes') %}
+            <div class="fulfilled card-content">
+            {% else %}
+            <div class="card-content">
+            {% endif %}        
               <div class="content">
                 <span class="Customer_detail tag is-primary">Customer: {{ order['Username'] }}</span><br><br>
                 <span class="MarketID_detail tag is-primary">Market: {{ order['MarketID'] }}</span>
@@ -61,7 +65,13 @@
                     </tr>
                     {% endfor %}
                 </table>
-              </div>   
+              </div>
+              
+              {% if (order['Fulfilled']=='No') %}
+              <button class="fulfill_order button is-small is-rounded is-outlined is-primary">Fulfill Order</button>
+              <button class="cancel_order button is-small is-rounded is-outlined is-danger">Cancel Order</button>
+              {% endif %}
+
               <footer>
                 <span class="Order_id_detail tag is-light" style="float: right">Order ID: {{ order['_id'] }}</span>
               </footer>

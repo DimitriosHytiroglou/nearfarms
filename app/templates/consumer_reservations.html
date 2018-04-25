@@ -33,7 +33,11 @@
         <div class="column is-one-half">
           <div class="card">
             <div class="card-image"></div>
-            <div class="card-content">        
+            {% if (order['Fulfilled']=='Yes') %}
+            <div class="fulfilled card-content">
+            {% else %}
+            <div class="card-content">
+            {% endif %}
               <div class="content">
                 <span class="Customer_detail tag is-primary">Producer: {{ order['ProducerID'] }}</span><br><br>
                 <span class="MarketID_detail tag is-primary">Market: {{ order['MarketID'] }}</span>

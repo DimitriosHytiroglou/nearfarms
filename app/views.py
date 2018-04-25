@@ -580,7 +580,7 @@ def make_reservation():
     
         # Add reservations to database 
             collection = chooseCollection('reservations')
-            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
+            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No', "Stuff":stuff})
 
         # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
@@ -624,6 +624,21 @@ def reserved_produce():
 
     filters ={}
     return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])    
+
+
+
+@app.route('/fulfill_order', methods=['GET','POST'])
+def fulfill_order():
+
+    print('received request')
+
+    if request.method == "POST":
+        order_id = request.form['order_id']
+
+        collection = chooseCollection('reservations')
+        fulfillOrder(collection, order_id)        
+
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
 
 @app.errorhandler(404)

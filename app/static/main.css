@@ -103,3 +103,8 @@ select {
 .farmer_welcome{
 	padding-left: 200px;
 }
+
+.fulfilled{
+	background: lightgrey;
+}
+
