@@ -86,15 +86,10 @@
                         
                         <a style="display: {{ user_status['out'] }}" class="button is-danger" href="{{ url_for('logout') }}">LOG OUT</a>
                         
+                    <!-- This is to Display or Hide the Register button -->
                     
-
-                    <!-- This is to display the LOGIN button -->
-                      
-                      <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
-                    </p>
-
-              <!-- This is to Display or Hide the Register button -->
                     <div style="display: {{ user_status['in'] }}" class="dropdown is-hoverable">
+                      
                         <div class="dropdown-trigger">
                           <button class="button is-white">
                             <span>REGISTER</span>
@@ -108,9 +103,19 @@
                             <a href="{{ url_for('create_newProducer') }}" class="dropdown-item">
                               Producer
                             </a>
+                            <div class="navbar-item"></div>
                           </div>
                         </div>
+
                       </div>
+
+
+                    <!-- This is to display the LOGIN button -->
+                      
+                      <a style="display: {{ user_status['in'] }}" class="button is-primary" href="{{ url_for('login') }}">LOG IN</a>
+                    </p>
+
+
                   </div>
                 </div>
               </div>
