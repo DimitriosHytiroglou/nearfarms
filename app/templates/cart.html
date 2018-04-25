@@ -50,7 +50,7 @@
                         <td class="product_col category_col">{{ item['Product'] }}</td>  
                         <td class="type_col category_col">{{ item['Product Type'] }}</td>
                         <td class="quantity_col category_col">
-                            <select class="quantity_cart_filter" name="quantity_cart_filter">
+                            <select class="quantity_cart_filter select" name="quantity_cart_filter">
                                 <option>{{ item['Quantity'] }}</option>
                                 {% for quantity in range(21) %}
                                 <option>{{quantity}}</option>
@@ -59,14 +59,14 @@
                         </td>
                         <td style="display: none" class="units_col category_col">{{ item['units'] }}</td>
                         <td style="display: none" class="price_col category_col">{{ item['Price'] }}</td>
-                        <td class="price_unit_col category_col">${{ item['Price'] }} per {{ item['units'] }}</td>
+                        <td class="price_unit_col category_col">${{ item['Price'] }} {{ item['units'] }}</td>
                         <td class="market_col category_col">{{ item['marketID'] }}</td>
                         <td class="totalPrice_col category_col">${{ '%.2f' % item['totalPrice'] }}</td>
                         <td style="display: none" class="Product_id_col">{{ item['Product_id'] }}</td>
                         <td style="display: none" class="ProducerID_col">{{ item['ProducerID'] }}</td>
                         <td style="display: none" class="_id_col">{{ item['_id'] }}</td>
                         <td><input class="checkbox" type="checkbox" checked="checked" value="true"></td>
-                        <td class="remove_col_cart button_col"><button  name="remove" value="Remove">Remove</button></td>
+                        <td class="remove_col_cart button_col"><button  class="button is-small is-white has-text-primary name="remove" value="Remove">Remove</button></td>
 
                     </tr>
                     {% endfor %}
