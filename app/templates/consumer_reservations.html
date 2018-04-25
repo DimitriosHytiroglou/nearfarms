@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block JS %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<section class="hero is-primary is-bold">
+
+
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Here are your nearfarms reservations</h1>
+      <h1 class="subtitle">Each tile represents a pending or past reservation</h1>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+   
+  <div class="hero-body">
+    
+        
+        <!-- Adding list of reservations from the database -->
+
+    <br>
+    <br>
+    <br>   
+
+    <div class="columns is-multiline is-mobile">
+        {% for order in orderList %}
+        <div class="column is-one-half">
+          <div class="card">
+            <div class="card-image"></div>
+            <div class="card-content">        
+              <div class="content">
+                <span class="Customer_detail tag is-primary">Producer: {{ order['ProducerID'] }}</span><br><br>
+                <span class="MarketID_detail tag is-primary">Market: {{ order['MarketID'] }}</span>
+              </div>
+              <div class="content is-small">   
+                <table>
+                    <thead>
+                      <tr>
+                        <th class="Produt_col">Product</th>
+                        <th class="ProductType_col">Product Type</th>
+                        <th class="Price_col" >Price($)</th>
+                        <th class="Units_col" >Units($)
+                        <th class="Quantity_col" >Quantity</th>
+                        <th class="TotalPrice_col" >Total Price($)</th>
+                      </tr>
+                    </thead>
+                    {% for stuff in order['Stuff'] %}
+                    <tr>
+                        <td>{{ stuff['Product'] }}</td>
+                        <td>{{ stuff['Product Type'] }}</td>
+                        <td>{{ stuff['Price'] }}</td>
+                        <td>{{ stuff['Units'] }}</td>
+                        <td>{{ stuff['Quantity'] }}</td>
+                        <td>{{ stuff['Total Price'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+              </div>   
+              <footer>
+                <span class="Order_id_detail tag is-light" style="float: right">Order ID: {{ order['_id'] }}</span>
+              </footer>
+            </div>
+          </div> 
+        </div>           
+        {% endfor %}
+  </div>
+</div>
+</section>
+    
+    <script src="{{ url_for('static', filename="main.js")}}"></script>
+</section>
+{% endblock %}

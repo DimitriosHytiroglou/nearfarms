@@ -630,15 +630,32 @@ def make_reservation():
     
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
+
+# ################### NEW RESERVATIONS SYSTEM ####################
     
-    collection = chooseCollection('reservations')
-    contents = retrieveShoppingCart(collection, session['username'])
+    collection = chooseCollection('reservationsDict')
+    orders = retrieveConsumerReservations(collection, session['username'])    
 
-    reservedList = []
-    for item in contents:
-        reservedList.append(item)
+    orderList = []
+    for order in orders:
+        orderList.append(order)
 
-    return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])
+    print(orderList)
+
+    filters ={}
+    return render_template('consumer_reservations.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'])    
+
+# ################### NEW RESERVATIONS SYSTEM ####################
+
+
+    # collection = chooseCollection('reservations')
+    # contents = retrieveShoppingCart(collection, session['username'])
+
+    # reservedList = []
+    # for item in contents:
+    #     reservedList.append(item)
+
+    # return render_template('reservations.html', reservedList=reservedList, user=session['username'], user_status=session['status'])
 
 
 @app.route('/reserved_produce', methods=['GET','POST'])

@@ -91,6 +91,15 @@ def retrieveDictReservations(collection, ProducerID):
 	else:
 		return []
 
+
+def retrieveConsumerReservations(collection, username):
+	contents = collection.find({'Username':username})
+	if contents.count() is not 0:
+		return contents
+	else:
+		return []
+
+
 # ##### NEW RESERVATION FUNCTIONS #########
 
 
