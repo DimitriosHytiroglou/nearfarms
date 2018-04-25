@@ -66,7 +66,7 @@ def login():
                 session['username'] = u
                 session['password'] = userPass
 
-        # Sets the session variable for the Login/Logout button
+        # Sets the session variable needed to check for elements that require login
                 session['status']['in'] = 'none'
                 session['status']['out'] = 'block'
 
@@ -119,6 +119,7 @@ def create_newProducer():
             session['username'] = username
             session['password'] = password
 
+        # Sets the session variable needed to check for elements that require login
             session['status']['in'] = 'none'
             session['status']['out'] = 'block'
 
@@ -158,7 +159,6 @@ def create_newConsumer():
 
     # Check if username exists in database
         collection = chooseCollection('users')
-        
         userPass = getUserPass(collection, username)
         
         if userPass == []:
@@ -256,7 +256,6 @@ def applyFilterFarmer():
         filters['MarketID'] = request.form['MarketID']
         
     collection = chooseCollection('products')
-
     products = retrieve_products(collection,session['username'])
 
     productList = []
@@ -530,21 +529,19 @@ def add_to_shopping_cart():
         product = request.form['product']
         productType = request.form['productType']
         marketID = request.form['marketID']
-        # have to extract units from request.form since text before
         units = request.form['units']
-        # have to extract price from request.form since text before
         price = request.form['price']
         price_float = float(request.form['price'])
-
         product_id = request.form['product_id']
         ProducerID = request.form['ProducerID']
         quantity = int(request.form['quantity'])
         totalPrice_float = price_float * quantity
         totalPrice_str = '{0:.2f}'.format(price_float*quantity)
 
-        collection = chooseCollection('shoppingCart')
 
     # Check if the product is already in the cart
+        collection = chooseCollection('shoppingCart')
+
         check = checkShoppingCart(collection, session['username'], product_id)
         if check == []:
         # Insert to shopping cart
@@ -563,11 +560,7 @@ def make_reservation():
         json_data = request.form['reserved_list']
         data_list = json.loads(json_data)
 
-
-# ################ NEW RESERVATION SYSTEM #################################
-
-# #### Keeping this until we fix it for the consumer interface as well ####
-
+    # Sort shopping cart contents by producer
         sorted_data_list = sorted(data_list, key = lambda i: i['ProducerID'])
 
     # List producers in the order
@@ -576,9 +569,7 @@ def make_reservation():
             producers.append(item['ProducerID']) 
         producers = list(set(producers))
         
-        print('producers')
-        print(producers)
-
+    # Split shopping cart items into individual reservations to relevant producers
         reservations = []
         for producer in producers:
             stuff = []
@@ -587,45 +578,17 @@ def make_reservation():
                     totalPrice = '{0:.2f}'.format(float(item['price'])*float(item['quantity']))
                     stuff.append({"Product":item['product'], "Product Type":item['productType'], "Units":item['units'], "Price":item['price'], "Quantity":item['quantity'], "Total Price":totalPrice})
     
-        # Adds reservation to database 
+        # Add reservations to database 
             collection = chooseCollection('reservations')
             insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Stuff":stuff})
 
-        # Empties the shopping cart when reservation is placed
+        # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
             emptyShoppingCart(collection, session['username'])
 
     return redirect('/reservations')
             
-# ################ NEW RESERVATION SYSTEM #################################
 
-
-# ################ OLD RESERVATION SYSTEM #################################
-
-    #     for item in data_list:
-    #         product = item['product']
-    #         productType = item['productType']
-    #         units = item['units']
-    #         price = item['price']
-    #         marketID = item['marketID']
-    #         ProducerID = item['ProducerID']
-    #         totalPrice = item['totalPrice']
-
-    #         '$'+'{0:.2f}'.format(float(item['quantity']) * float(item['price'][1:]))
-
-    #         quantity = item['quantity']
-        
-    #     # Adds reservation to database 
-    #         collection = chooseCollection('reservations')
-    #         insertToReservations(collection, session['username'], ProducerID, product, productType, units, price, marketID, totalPrice, quantity)
-
-    #     # Empties the shopping cart when reservation is placed
-    #         collection = chooseCollection('shoppingCart')
-    #         emptyShoppingCart(collection, session['username'])
-
-    # return redirect('/reservations')
-
-# ################ OLD RESERVATION SYSTEM #################################
     
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
