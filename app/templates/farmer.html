@@ -9,21 +9,41 @@
 <section class="hero is-primary is-bold">
   <div class="hero-body">
     <div class="container">
+
+<!-- Profile Pic -->
+    <div class="is-pulled-left">
+    <img class="profPic" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=farmer['Image'])}}" id="product-image">
+    </div>
+
+    <div class="farmer_welcome">
       <h1 class="title">Welcome {{ user }}</h1>
       <h1 class="subtitle">Your Products Can't Wait to Get Sold</h1>
+      <br>
+      <div class="is-pulled-right">
+        <p class="control">
+            <a class="button is-big is-primary is-inverted" href="{{ url_for('reserved_produce') }}">RESERVATIONS</a>  
+        </p>
+        </div>
+    </div>
+
+    </div>
+
     </div>
   </div>
 </section>
 
 <section class="hero is-white">
   <div class="hero-body container is-fluid">
+    
+    
+    <br>
     <h1 class="title">Farmers Market Products:</h1>
 
-    <div class="field is-grouped-right">
+    <!-- <div class="field is-grouped-right">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('reserved_produce') }}">Reservations</a>  
         </p>
-    </div>
+    </div> -->
 
     <form action="" method="get" name="update_remove">
 
@@ -37,10 +57,7 @@
                     <form>
                         <div class="field">
                         
-                        <div>
-                        <h2>Farm Profile Pic</h2>
-                        <img class="profPic" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=farmer['Image'])}}" id="product-image">
-                        </div>
+                        
 
                         <label class="label">Select farmers market:
                         </label>
