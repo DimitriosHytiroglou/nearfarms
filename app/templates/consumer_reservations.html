@@ -37,7 +37,7 @@
         <div class="column is-one-half">
           <div class="card">
             <div class="card-image"></div>
-            {% if (order['Fulfilled']=='Yes') %}
+            {% if (order['Fulfilled']!='No') %}
             <div class="fulfilled card-content">
             {% else %}
             <div class="card-content">

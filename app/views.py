@@ -622,7 +622,7 @@ def make_reservation():
             insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No',"Timestamp":timestamp, "Stuff":stuff})
         
         # Send Twilio text notification to producer
-            producer_reservation_notification(producer, telephone, session['username'], stuff)
+            # producer_reservation_notification(producer, telephone, session['username'], stuff)
 
         # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
@@ -676,9 +676,10 @@ def fulfill_order():
 
     if request.method == "POST":
         order_id = request.form['order_id']
+        status = request.form['status']
 
         collection = chooseCollection('reservations')
-        fulfillOrder(collection, order_id)        
+        fulfillOrder(collection, order_id, status)        
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 

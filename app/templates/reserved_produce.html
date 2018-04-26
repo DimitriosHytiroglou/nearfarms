@@ -33,14 +33,19 @@
         <div class="column is-one-half">
           <div class="card">
             <div class="card-image"></div>
-            {% if (order['Fulfilled']=='Yes') %}
+            {% if (order['Fulfilled']!='No') %}
             <div class="fulfilled card-content">
             {% else %}
             <div class="card-content">
             {% endif %}        
               
               <div class="content">
-                
+                {% if (order['Fulfilled']=='Yes') %}
+                <span class="tag is-warning is-outlined is-pulled-right is-medium">FULFILLED</span>
+                {% endif %}
+                {% if (order['Fulfilled']=='Cancelled') %}
+                <span class="tag is-danger is-outlined is-pulled-right is-medium">CANCELLED</span>
+                {% endif %}
                 <span class="Timestamp_detail tag is-light">Time placed: {{ order['Timestamp'] }}</span><br>
                 <span class="Customer_detail tag is-white">Customer: {{ order['Username'] }}</span><br>
                 <span class="MarketID_detail tag is-white">Market: {{ order['MarketID'] }}</span>

@@ -129,9 +129,9 @@ def retrieveConsumerReservations(collection, username):
 		return []
 
 # Fulfill Order
-def fulfillOrder(collection, order_id):
+def fulfillOrder(collection, order_id, status):
 	_id = bson.ObjectId(order_id)
-	collection.update_one({"_id": _id }, {"$set": {'Fulfilled':'Yes'}})	
+	collection.update_one({"_id": _id }, {"$set": {'Fulfilled':status}})	
 
 
 # ##### NEW RESERVATION SYSTEM FUNCTIONS #########
