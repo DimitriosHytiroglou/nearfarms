@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link type="text/css" rel="stylesheet" href="/static/modal.css">
+{% endblock %}
+
+{% block content %}
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+
+    <div class="consumer_welcome">
+      <h1 class="title">Welcome {{ user }}</h1>
+      <h1 class="subtitle">Your Profile</h1>
+      <br>
+    </div>
+
+    </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="hero is-white">
+  <div class="hero-body container is-fluid">
+    
+    
+    <br>
+
+    <!-- <div class="field is-grouped-right">
+        <p class="control">
+            <a class="button is-primary" href="{{ url_for('reserved_produce') }}">Reservations</a>  
+        </p>
+    </div> -->
+    {% for consumer in consumerList %}
+    <div class="field">
+        <label class="label">First Name:</label>
+        <div class="control has-icons-left">       
+          <p class="first_name_p">{{ consumer['First'] }}</p>
+        <span class="icon is-small is-left">
+        </span>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Last Name:</label>
+        <div class="control has-icons-left">          
+          <p class="last_name_p">{{ consumer['Last'] }}</p>
+        <span class="icon is-small is-left">
+        </span>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Email:</label>
+        <div class="control has-icons-left">          
+          <p class="email_p">{{ consumer['Email'] }}</p>
+        <span class="icon is-small is-left">
+        </span>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Username:</label>
+        <div class="control has-icons-left">          
+          <p class="username_p">{{ consumer['Username'] }}</p>
+          <p style="display: none" class="_id_p">{{ consumer['_id'] }}</p>
+        <span class="icon is-small is-left">
+        </span>
+        </div>
+    </div>
+    {% endfor %}
+
+    <button class="update_button button is-small is-rounded is-outlined is-primary"  name="update" value="Update">Update</button>
+
+</section>
+<!--C 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
+If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
+<script src="{{ url_for('static', filename="main.js")}}"></script>
+<script src="{{ url_for('static', filename="modal.js")}}"></script>
+{% endblock %}

@@ -212,6 +212,37 @@ def add_product():
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+@app.route('/consumer_profile', methods=['GET'])
+def consumer_profile():
+    # Retreive data from database to display
+     if session['username'] != None and session['user_type']=='consumer':
+        print("hello")
+    # Get Farmer data
+        collection = chooseCollection('users')
+        consumerDeets = getConsumerData(collection, session['username'])
+        consumerList = []
+        [consumerList.append(deets) for deets in consumerDeets]
+        print (consumerList)
+        
+        return render_template('consumer_profile.html', consumerList=consumerList, user=session['username'], user_status=session['status'], user_type=session['user_type'])
+
+@app.route('/consumer_update', methods=['POST'])
+def consumerUpdate():
+    collection = chooseCollection('users')
+
+    if request.method == "POST":
+
+        update_consumer(collection, request.form['_id'], request.form['email'], request.form['username'], request.form['first_name'], request.form['last_name'])
+
+        # products = retrieve_products(collection,session['username'])
+
+        # productList = []
+
+        # for product in products:
+        #     productList.append(product)
+     
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
 
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():
@@ -279,8 +310,6 @@ def applyFilterFarmer():
     return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
 
-
-
 @app.route('/product_update', methods=['POST'])
 def productUpdate():
     
@@ -288,7 +317,6 @@ def productUpdate():
     collection = chooseCollection('products')
     
     if request.method == "POST":
-       
 
         update_product(collection, request.form['_id'], request.form['product'], request.form['productType'], request.form['units'], request.form['quantity'], request.form['price'])     
 
