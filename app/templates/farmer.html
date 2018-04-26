@@ -15,7 +15,7 @@
     <img class="profPic" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=farmer['Image'])}}" id="product-image">
     </div>
 
-    <div class="farmer_welcome">
+    <div class="user_welcome">
       <h1 class="title">Welcome {{ user }}</h1>
       <h1 class="subtitle">Your Products Can't Wait to Get Sold</h1>
       <br>
@@ -119,8 +119,8 @@
                 <input type = "submit"/>
             </form>
         </div>
-
     </div>
+    
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>

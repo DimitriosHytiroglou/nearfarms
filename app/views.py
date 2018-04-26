@@ -157,6 +157,7 @@ def create_newConsumer():
         username = newConsumerForm.username.data
         password = newConsumerForm.password.data
         user_type = 'consumer'
+        image = ''
 
     # Check if username exists in database
         collection = chooseCollection('users')
@@ -168,7 +169,7 @@ def create_newConsumer():
 
         # Insert new consumer user in the database
             collection = chooseCollection('users')
-            insertConsumer(collection, email, username, password, first_name, last_name, user_type)
+            insertConsumer(collection, email, username, password, first_name, last_name, user_type, image)
 
         # Set username and password session variables
             session['username'] = username
@@ -180,6 +181,11 @@ def create_newConsumer():
 
         # Set session variable that determines user access to features
             session['user_type'] = 'consumer'
+
+            # Create directory to save images of this producer
+            if not os.path.exists('app/static/file_uploads/'+username):
+                os.makedirs('app/static/file_uploads/'+username)
+
 
             return redirect('/shop_produce')
 

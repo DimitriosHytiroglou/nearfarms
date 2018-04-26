@@ -10,7 +10,11 @@
   <div class="hero-body">
     <div class="container">
 
-    <div class="consumer_welcome">
+    <div class="is-pulled-left">
+    <img class="profPic" onerror="this.src='{{url_for('static', filename='file_uploads/no_image.jpg')}}'" src="{{url_for('static', filename=user['Image'])}}" id="product-image">
+    </div>
+
+    <div class="user_welcome">
       <h1 class="title">Welcome {{ user }}</h1>
       <h1 class="subtitle">Your Profile</h1>
       <br>
@@ -64,6 +68,23 @@
     <button class="update_button button is-small is-rounded is-outlined is-primary"  name="update" value="Update">Update</button>
 
 </section>
+
+
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+            <p>Select a picture to upload..</p>
+            <form action = {{ url_for('file_upload') }} method = "POST" 
+                enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+                <input style="display: none" type="text" name="_id">
+                <input type = "submit"/>
+            </form>
+    </div>
+</div>
+
+
 <!--C 'static' is the folder that we are telling this script tag to look, where the main.js file is located.
 If we needed this to look/retrieve python, we could use '/whatever to be routed to the /whatever route' -->
 <script src="{{ url_for('static', filename="main.js")}}"></script>

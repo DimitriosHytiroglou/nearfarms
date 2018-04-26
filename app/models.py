@@ -42,8 +42,8 @@ def retrieve_all_produce(collection):
     return collection.find()
 
 # Create new consumer entry in database
-def insertConsumer(collection, email, username, password, first, last, userType):
-	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
+def insertConsumer(collection, email, username, password, first, last, userType, image):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType, "Image":image})
 
 # Retrieve all consumer data
 def getConsumerData(collection, username):
