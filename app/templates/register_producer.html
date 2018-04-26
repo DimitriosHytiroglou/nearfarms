@@ -70,6 +70,16 @@
       </div>
 
       <div class="field">
+        <label class="label">Telephone:</label>
+        <div class="control has-icons-left">          
+          {{newProducerForm.telephone(size=100, class="input", placeholder= "Tel")}}
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        </div>
+      </div>
+
+      <div class="field">
         <label class="label">Username:</label>
         <p style="display:{{ wrong }};color:red">
           Username exists, please choose a different one!

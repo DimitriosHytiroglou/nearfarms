@@ -1,4 +1,4 @@
-import os
+import os, sys
 from flask import session, render_template, redirect, request, flash
 from app import app, models
 from .forms import *
@@ -8,6 +8,8 @@ from werkzeug.datastructures import ImmutableMultiDict
 from app.encryption.HashingHandler import *
 import json
 import time, datetime
+from .twilioCall import *
+from twilio.rest import Client
 # Access the models file to use SQL functions
 
 @app.route('/')
@@ -104,6 +106,7 @@ def create_newProducer():
         username = newProducerForm.username.data
         password = newProducerForm.password.data
         farm_description = newProducerForm.farm_description.data
+        telephone = newProducerForm.telephone.data
         user_type = 'producer'
         image = ''
 
@@ -115,7 +118,7 @@ def create_newProducer():
             password = hashPass(password)
 
             collection = chooseCollection('users')
-            insertProducer(collection, email, username, password, first_name, last_name, farm_name, farm_description, user_type, image)
+            insertProducer(collection, email, username, password, first_name, last_name, telephone, farm_name, farm_description, user_type, image)
 
             session['username'] = username
             session['password'] = password
@@ -617,6 +620,9 @@ def make_reservation():
         # Add reservations to database 
             collection = chooseCollection('reservations')
             insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No',"Timestamp":timestamp, "Stuff":stuff})
+        
+        # Send Twilio text notification to producer
+            producer_reservation_notification(producer, telephone, session['username'], stuff)
 
         # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')

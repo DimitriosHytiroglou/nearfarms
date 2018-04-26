@@ -140,8 +140,8 @@ def fulfillOrder(collection, order_id):
 # # # PRODUCERS # # #
 
 # Insert Producer
-def insertProducer(collection, email, username, password, first, last, farm, description, userType, image):
-	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "Farm":farm, "description":description, "User Type":userType, 'Image':image})
+def insertProducer(collection, email, username, password, first, last, telephone, farm, description, userType, image):
+	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last,"Telephone":telephone , "Farm":farm, "description":description, "User Type":userType, 'Image':image})
 
 # Retrieve all Producer data
 def getFarmData(collection, username):

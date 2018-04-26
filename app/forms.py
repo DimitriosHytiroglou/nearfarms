@@ -38,7 +38,8 @@ class NewProducerForm(Form):
     email = EmailField('email', validators=[DataRequired()])                # john.farmer@gmail.com
     username = StringField('username', validators=[DataRequired()])         # j_farmer
     password = PasswordField('password', validators=[DataRequired()])       # pAsSwOrD
-    
+    telephone = StringField('telephone', validators=[DataRequired()])         # j_farmer
+
     # Is this the WTF form type to be used for free text? 
     # Also, this should be optional initially.
     farm_description = StringField('description')
