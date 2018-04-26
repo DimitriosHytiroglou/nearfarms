@@ -40,7 +40,7 @@
             <br>
             <br>
               <p class="title has-text-centered">Pickup</p>
-              <p class="heading has-text-centered">At a local farmers market.</p>
+              <p class="heading has-text-centered">At a local farmers market<br>or<br>at your front door.</p>
           </div>
         </div>
         <div class="column">
@@ -61,10 +61,85 @@
   </div>
 </section>
 
-<section class="hero is-white is-medium">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-mobile has-background-dark">
+<div class="container">
+  <section class="articles">
+    <div class="column is-12">
+      <section class="articles">
+        <div class="column is-8 is-offset-2">
+         
+          <!-- START FARMERS MARKET HEADER -->
+          <section class="hero is-primary is-bold is-small promo-block">
+            <div class="hero-body">
+                <div class="columns">
+                  <div class="column is-two-thirds">
+                    <h1 class="title">
+                    Berkeley Farmers Market
+                    </h1>
+                    <h2 class="subtitle">
+                    <a class="has-text-white-ter" href="https://goo.gl/maps/VDXLCpg6MhL2">1931 Center St, Berkeley, CA 94704</a>
+                    </h2>
+                  </div>
+                  <div class="column is-one-third">
+                    <div class="container">
+                      <div class="buttons has-addons is-left">
+                        <a class="button is-primary is-inverted is-outlined is-medium" href="{{ url_for('shop_produce') }}">SHOP NOW</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </section>
+          <!-- END HEADER -->
+
+          <!-- START FARMERS MARKET ARTICLE -->
+          <div class="card article">
+            <div class="card-image">
+              <figure class="image is-2by1">
+                <img src="/static/dummy-images/BerkeleyFarmersMarket.png">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content has-text-centered">
+                  <p class="title article-title">One of the first farmers markets in the US, the Downtown Berkeley Farmers Market is a perfect place to bring your whole family.</p>
+                </div>
+              </div>
+              <div class="content article-body">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Day</th>
+                        <th>Hours</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Monday-Friday</td>
+                        <td>9:00-5:00</td>
+                      </tr>
+                      <tr>
+                        <td>Saturday</td>
+                        <td>9:00-5:00</td>
+                      </tr>
+                      <tr>
+                        <td>Sunday</td>
+                        <td>9:00-5:00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+
+      
+
+
+<!--       <div class="columns is-mobile has-background-dark">
         <div class="column is-half-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
           <figure class="image is-4by3">
             <img src="https://picsum.photos/400/300">
@@ -80,25 +155,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class='carousel is-5 carousel-animated carousel-animate-slide'>
-        <div class='carousel-container'>
-          {% for produce in produceList %}
-          <div class='carousel-item is-active'>
-            <figure class="image is-2by1">
-              <img src="{{url_for('static', filename=produce['Image'])}}">
-            </figure>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="carousel-navigation is-centered">
-          <div class="carousel-nav-left">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-          </div>
-          <div class="carousel-nav-right">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div> -->
       <div class="columns is-mobile">
         <div class="column">
           <div class="content">
@@ -129,7 +185,7 @@
         </div>
     </div>      
   </div>
-</section>
+</section> -->
 
 
 {% endblock %}
