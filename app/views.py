@@ -690,3 +690,7 @@ def fulfill_order():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404_error.html', user=session['username'], user_status=session['status'], user_type=session['user_type']), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('404_error.html', user=session['username'], user_status=session['status'], user_type=session['user_type']), 500
