@@ -17,7 +17,7 @@
 
     <div class="user_welcome">
       <h1 class="title">Welcome {{ user }}</h1>
-      <h1 class="subtitle">Your Products Can't Wait to Get Sold</h1>
+      <h1 class="subtitle">The community can't wait to buy {{ farmer['Farm'] }} products!</h1>
       <br>
       <div class="is-pulled-right">
         <p class="control">
@@ -120,7 +120,7 @@
             </form>
         </div>
     </div>
-    
+
     <div class="field is-grouped-left">
         <p class="control">
             <a class="button is-primary" href="{{ url_for('add_product') }}">Add Product</a>

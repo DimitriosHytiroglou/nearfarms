@@ -156,8 +156,8 @@ def update_prof_pic(collection, username, image):
 # # # PRODUCTS # # #
 
 # Insert new product
-def insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID):
-    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'units':units,'Quantity':quantity, 'Price':price, 'Image':'','MarketID':marketID})
+def insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID, farm):
+    collection.insert({'ProducerID':producerID, 'Product':product, 'Product Type':productType, 'units':units,'Quantity':quantity, 'Price':price, 'Image':'','MarketID':marketID, "Farm":farm})
 
 # Retrieve all of producer's products
 def retrieve_products(collection, username):

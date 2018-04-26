@@ -216,8 +216,13 @@ def add_product():
         image = ''
         # image = productForm.image.data
 
+        collection = chooseCollection('users')
+        farmData = getFarmData(collection, session['username'])
+        for data in farmData:
+            farmDeets = data
+
         collection = chooseCollection('products')
-        insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID)
+        insert_products(collection, producerID, product, productType, units, quantity, price, image, marketID, farmDeets["Farm"])
 
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'], user_type=session['user_type'])
