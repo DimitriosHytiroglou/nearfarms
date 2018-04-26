@@ -45,6 +45,17 @@ def retrieve_all_produce(collection):
 def insertConsumer(collection, email, username, password, first, last, userType):
 	collection.insert({"Email":email, "Username":username, "Password":password, "First":first, "Last":last, "User Type":userType})
 
+# Retrieve all consumer data
+def getConsumerData(collection, username):
+	consumer_data = collection.find({'Username':username})
+	return consumer_data
+
+# Update existing consumer
+def update_consumer(collection, _id, email, first, last):
+	idb = bson.ObjectId(_id)
+	collection.update_one({"_id": idb }, {"$set": {"Email":email, "First":first, "Last":last}})	
+
+
 
 # # # SHOPPING CART # # #
 

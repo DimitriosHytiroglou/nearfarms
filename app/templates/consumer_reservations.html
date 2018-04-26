@@ -33,7 +33,7 @@
     <br>   
 
     <div class="columns is-multiline is-mobile">
-        {% for order in orderList %}
+        {% for order in orderList|sort(attribute='Timestamp', reverse=true) %}
         <div class="column is-one-half">
           <div class="card">
             <div class="card-image"></div>
@@ -42,10 +42,16 @@
             {% else %}
             <div class="card-content">
             {% endif %}
+
               <div class="content">
-                <span class="Customer_detail tag is-primary">Producer: {{ order['ProducerID'] }}</span><br><br>
-                <span class="MarketID_detail tag is-primary">Market: {{ order['MarketID'] }}</span>
+
+                <span class="Timestamp_detail tag is-light">Time placed: {{ order['Timestamp'] }}</span><br>
+                <span class="Customer_detail tag is-white">Producer: {{ order['ProducerID'] }}</span><br>
+                <span class="MarketID_detail tag is-white">Market: {{ order['MarketID'] }}</span>
+
+
               </div>
+
               <div class="content is-small">   
                 <table>
                     <thead>
