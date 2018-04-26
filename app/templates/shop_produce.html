@@ -11,183 +11,166 @@
 
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">Shop for local produce</h1>
-      <h1 class="subtitle">We have an amazing assortment just for you</h1>
+      <h1 class="title">Berkeley Farmers Market</h1>
+      <h1 class="subtitle">The one and only, every Sunday since 1963.</h1>
     </div>
   </div>
-</section>
-
-<!-- Breadcrumb test -->
-<section>
-    <div class="container is-fluid">
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-      <ul>
-        <li>
-          <a href="{{ url_for('home') }}">
-            <span class="icon is-small">
-              <i class="fas fa-home" aria-hidden="true"></i>
-            </span>
-            <span>Home</span>
-          </a>
-        </li>
-        <li  class="is-active">
-          <a href="#">
-            <span class="icon is-small">
-              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-            </span>
-            <span>Shop</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span class="icon is-small">
-              <i class="fas fa-list" aria-hidden="true"></i>
-            </span>
-            <span>Review</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span class="icon is-small">
-              <i class="fas fa-handshake" aria-hidden="true"></i>
-            </span>
-            <span>Reserve</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-</div>
 </section>
 
 <section class="hero is-white">
-  <div class="hero-body">
-    <h1 class="title">Farmers Market Products:</h1>
-        <!-- Adding filters: product, productType, units -->
-        <div>
-            <p>Filters:</p>
-        </div>
-        <!-- market filter -->
-        <div class="select is-medium">    
-            <select id="market_filter" name="market_filter">
-                <option>{{filters['MarketID']}}</option>
-                {% for market in marketList %}
-                <option>{{market}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- product filter -->
-        <div class="select is-medium">    
-            <select id="product_filter" name="product_filter">
-                <option>{{filters['product']}}</option>
-                {% for product in ProductList %}
-                <option>{{product}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- productType filter -->
-        <div class="select is-medium">    
-            <select id="productType_filter" name="poductType_filter">
-                <option>{{filters['productType']}}</option>
-                {% for productType in ProductTypeList %}
-                <option>{{productType}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button class="button is-primary" id="apply_filter_btn" name="apply_filter" value="apply_filter">Apply Filter</button>
 
-        <!-- Adding list of the produce from the database -->
-
-    <br>
-    <br>
-    <br>   
-
-    <div class="columns is-multiline is-mobile">
-        {% for produce in produceList %}
-            <!-- using coulumns instead of cards to control for the width proportion that each column takes up -->
-            <div class="column is-one-fifth">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img onerror="this.src='https://bulma.io/images/placeholders/1280x960.png'" alt="Placeholder image" src="{{url_for('static', filename=produce['Image'])}}">
-                        </figure>
+      <div class="hero-body">
+        <div class="container" id="grey-container">
+            <div class="container">
+            <h1 class="title">Filter Products:</h1>
+            <!-- market filter -->
+            <div class="columns is-1">
+                <div class="column is-one-fifth">
+                    <div class="select is-medium">    
+                        <select id="market_filter" name="market_filter">
+                            <option>{{filters['MarketID']}}</option>
+                            {% for market in marketList %}
+                            <option>{{market}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-
-                    <div class="card-content">
-                        <!-- Image details for card -->
-                        <div class="media">
-                          <div class="media-left">
-                            <figure class="image is-48x48">
-                              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                              
-                              <!-- CODE FOR ADDING FARMER PIC -->
-                              
-                              <!-- <img onerror="this.src='https://bulma.io/images/placeholders/96x96.png'" alt="Placeholder image" src="{{url_for('static', filename='file_uploads/'+produce['ProducerID']+'/'+produce['ProducerID']+'_profile.jpg')}}"> -->
-
-                            </figure>
-                          </div>
-                          <div class="">
-                            <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
-                            <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
-                            <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
-
-                            <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
-                            <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
-                          </div>
-                        </div>
-
-                        <!-- Market tag -->
-                        <div class="content">
-                          <span class="marketID_detail tag is-light">{{ produce['MarketID'] }}</span>
-                        </div>
-
-                        <!-- Hidden Message -->
-                        <div class="content">
-                            <p class="added_msg content is-small is-light" style="display: none">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                Added to cart
-                            </p>
-                        </div>
-                        
-                        <!-- produce details -->
-                        <div class="content">
-                            <h5  class="username_detail" style="display: none">{{ session['username'] }}</h5>
-                            <h5 class="units_detail content is-small" style="display: none">{{ produce['units'] }}</h5>
-                            <h5 class="price_detail content is-small" style="display: none">{{ produce['Price'] }}</h5>
-                            <h5 class="price_unit_detail content is-small">${{ produce['Price'] }} per {{ produce['units'] }} </h5>
-                            
-                            <!-- Quantity and add to cart buttons -->
-                            <div class="columns">
-                                <div class="column">
-                                    <div class="amount_detail">
-                                        <div class="field">
-                                          <div class="control">
-                                            <div class="select is-primary is-small">
-                                                <select class="quantity_cart_filter select is-primary" name="quantity_cart_filter">
-                                                    <option>QUANTITY</option>
-                                                    {% for quantity in range(1,21) %}
-                                                    <option>{{quantity}}</option>
-                                                    {% endfor %}
-                                                </select>  
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                     <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
-                                         <span class="icon is-small is-left">
-                                             <i class="fas fa-plus"></i>
-                                         </span>
-                                     </a>
-                                </div>
+                </div>
+                <!-- product filter -->
+                <div class="column is-one-fifth">
+                    <div class="select is-medium">    
+                        <select id="product_filter" name="product_filter">
+                            <option>{{filters['product']}}</option>
+                            {% for product in ProductList %}
+                            <option>{{product}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- productType filter -->
+                <div class="column is-one-quarter">
+                    <div class="select is-medium">    
+                        <select id="productType_filter" name="poductType_filter">
+                            <option>{{filters['productType']}}</option>
+                            {% for productType in ProductTypeList %}
+                            <option>{{productType}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- apply filter button -->
+                <div class="column is-one-quarter">
+                    <div class="level">
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <a class="button is-primary" id="apply_filter_btn" name="apply_filter" value="apply_filter">Apply Filter</a>
                             </div>
-                        </div>          
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <a class="button is-outlined is-primary" href="{{ url_for('shopping_cart') }}">Shopping Cart</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>   
+
+<!-- Adding list of the produce from the database -->
+        <div class="container">
+        <div class="columns is-multiline is-mobile">
+            {% for produce in produceList %}
+                <!-- using coulumns instead of cards to control for the width proportion that each column takes up -->
+                <div class="column is-one-quarter">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img onerror="this.src='https://bulma.io/images/placeholders/1280x960.png'" alt="Placeholder image" src="{{url_for('static', filename=produce['Image'])}}">
+                            </figure>
+                        </div>
+
+                        <div class="card-content">
+                            <!-- Image details for card -->
+                            <div class="media">
+                              <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                  
+                                  <!-- CODE FOR ADDING FARMER PIC -->
+                                  
+                                  <!-- <img onerror="this.src='https://bulma.io/images/placeholders/96x96.png'" alt="Placeholder image" src="{{url_for('static', filename='file_uploads/'+produce['ProducerID']+'/'+produce['ProducerID']+'_profile.jpg')}}"> -->
+
+                                </figure>
+                              </div>
+                              <div class="">
+                                <p class="_id_detail" style="display: none">{{ produce['_id'] }}</p>
+                                <p class="ProducerID_detail" style="display: none">{{ produce['ProducerID'] }}</p>
+                                <p class="MarketID_detail" style="display: none">{{ produce['MarketID'] }}</p>
+
+                                <p  class="product_detail title is-4">{{ produce['Product'] }}</p>
+                                <p  class="productType_detail subtitle is-6">{{ produce['Product Type'] }}</p>
+                              </div>
+                            </div>
+
+                            <!-- Market tag -->
+                            <div class="content">
+                              <span class="marketID_detail tag is-light">{{ produce['MarketID'] }}</span>
+                            </div>
+
+                            <!-- Hidden Message -->
+                            <div class="content">
+                                <p class="added_msg content is-small is-light" style="display: none">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Added to cart
+                                </p>
+                            </div>
+                            
+                            <!-- produce details -->
+                            <div class="content">
+                                <h5  class="username_detail" style="display: none">{{ session['username'] }}</h5>
+                                <h5 class="units_detail content is-small" style="display: none">{{ produce['units'] }}</h5>
+                                <h5 class="price_detail content is-small" style="display: none">{{ produce['Price'] }}</h5>
+                                <h5 class="price_unit_detail content is-small">${{ produce['Price'] }} per {{ produce['units'] }} </h5>
+                                
+                                <!-- Quantity and add to cart buttons -->
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="amount_detail">
+                                            <div class="field">
+                                              <div class="control">
+                                                <div class="select is-primary is-small">
+                                                    <select class="quantity_cart_filter select is-primary" name="quantity_cart_filter">
+                                                        <option>QUANTITY</option>
+                                                        {% for quantity in range(1,21) %}
+                                                        <option>{{quantity}}</option>
+                                                        {% endfor %}
+                                                    </select>  
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                         <a class="add_to_cart_button button card-footer-item is-small is-white" name="add_to_cart" value="add_to_cart">
+                                             <span class="icon is-small is-left">
+                                                 <i class="fas fa-plus"></i>
+                                             </span>
+                                         </a>
+                                    </div>
+                                </div>
+                            </div>          
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
     </div>
-  </div>
+
 </section>
     
     <script src="{{ url_for('static', filename="main.js")}}"></script>
