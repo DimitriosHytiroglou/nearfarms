@@ -99,7 +99,6 @@ $('body').on('click','.update_button','click', function() {
 	$("p.first_name_p").replaceWith("<p class='first_name_p'><input value=\""+first_name+"\"></p>");
 	$("p.last_name_p").replaceWith("<p class='last_name_p'><input value=\""+last_name+"\"></p>");
 	$("p.email_p").replaceWith("<p class='email_p'><input value=\""+email+"\"></p>");
-	$("p.username_p").replaceWith("<p class='username_p'><input value=\""+username+"\"></p>");
 	$("button.update_button").replaceWith("<button class='submit_button button is-small is-rounded is-outlined is-primary'  name='submit' value='Submit'>Submit</button>");
 
 });
@@ -110,14 +109,12 @@ $('body').on('click','.submit_button','click', function() {
 	var first_name = $('.first_name_p').find('input').val();
 	var last_name = $('.last_name_p').find('input').val();
 	var email = $('.email_p').find('input').val();
-	var username = $('.username_p').find('input').val();
 	var _id = $("._id_p:hidden").text();
 	
 	$.post("consumer_update", {
  					first_name:first_name,
  					last_name:last_name,
  					email:email,
- 					username:username,
  					_id:_id					
 
  			}).done(function (reply) {

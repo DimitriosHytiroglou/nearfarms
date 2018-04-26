@@ -233,7 +233,7 @@ def consumerUpdate():
 
     if request.method == "POST":
 
-        update_consumer(collection, request.form['_id'], request.form['email'], request.form['username'], request.form['first_name'], request.form['last_name'])
+        update_consumer(collection, request.form['_id'], request.form['email'], request.form['first_name'], request.form['last_name'])
 
         # products = retrieve_products(collection,session['username'])
 
