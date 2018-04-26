@@ -51,9 +51,9 @@ def getConsumerData(collection, username):
 	return consumer_data
 
 # Update existing consumer
-def update_consumer(collection, _id, email, username, first, last):
+def update_consumer(collection, _id, email, first, last):
 	idb = bson.ObjectId(_id)
-	collection.update_one({"_id": idb }, {"$set": {"Email":email, "Username":username, "First":first, "Last":last}})	
+	collection.update_one({"_id": idb }, {"$set": {"Email":email, "First":first, "Last":last}})	
 
 
 
