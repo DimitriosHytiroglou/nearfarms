@@ -7,6 +7,7 @@ from werkzeug import secure_filename
 from werkzeug.datastructures import ImmutableMultiDict
 from app.encryption.HashingHandler import *
 import json
+import time, datetime
 # Access the models file to use SQL functions
 
 @app.route('/')
@@ -560,6 +561,7 @@ def make_reservation():
         json_data = request.form['reserved_list']
         data_list = json.loads(json_data)
 
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d, %H:%M')
     # Sort shopping cart contents by producer
         sorted_data_list = sorted(data_list, key = lambda i: i['ProducerID'])
 
@@ -580,7 +582,7 @@ def make_reservation():
     
         # Add reservations to database 
             collection = chooseCollection('reservations')
-            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No', "Stuff":stuff})
+            insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No',"Timestamp":timestamp, "Stuff":stuff})
 
         # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')

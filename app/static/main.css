@@ -111,3 +111,6 @@ select {
 	background: lightgrey;
 }
 
+.Timestamp_detail{
+	font-weight: bold;
+}
