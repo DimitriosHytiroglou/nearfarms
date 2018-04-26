@@ -227,27 +227,25 @@ def add_product():
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
-@app.route('/consumer_profile', methods=['GET'])
-def consumer_profile():
+@app.route('/user_profile', methods=['GET'])
+def user_profile():
     # Retreive data from database to display
-     if session['username'] != None and session['user_type']=='consumer':
-        print("hello")
+     if session['username'] != None:
     # Get Farmer data
         collection = chooseCollection('users')
-        consumerDeets = getConsumerData(collection, session['username'])
-        consumerList = []
-        [consumerList.append(deets) for deets in consumerDeets]
-        print (consumerList)
+        userDeets = getUserData(collection, session['username'])
+        userList = []
+        [userList.append(deets) for deets in userDeets]
         
-        return render_template('consumer_profile.html', consumerList=consumerList, user=session['username'], user_status=session['status'], user_type=session['user_type'])
+        return render_template('user_profile.html', userList=userList, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
-@app.route('/consumer_update', methods=['POST'])
-def consumerUpdate():
+@app.route('/user_update', methods=['POST'])
+def userUpdate():
     collection = chooseCollection('users')
 
     if request.method == "POST":
 
-        update_consumer(collection, request.form['_id'], request.form['email'], request.form['first_name'], request.form['last_name'])
+        update_user(collection, request.form['_id'], request.form['email'], request.form['first_name'], request.form['last_name'])
 
         # products = retrieve_products(collection,session['username'])
 

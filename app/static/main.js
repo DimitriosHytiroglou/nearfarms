@@ -111,7 +111,7 @@ $('body').on('click','.submit_button','click', function() {
 	var email = $('.email_p').find('input').val();
 	var _id = $("._id_p:hidden").text();
 	
-	$.post("consumer_update", {
+	$.post("user_update", {
  					first_name:first_name,
  					last_name:last_name,
  					email:email,
