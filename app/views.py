@@ -625,7 +625,7 @@ def make_reservation():
             insertDictToReservations(collection, {"Username":session['username'], "ProducerID":producer, "MarketID":item['marketID'], "Fulfilled":'No',"Timestamp":timestamp, "Stuff":stuff})
         
         # Send Twilio text notification to producer
-            # producer_reservation_notification(producer, telephone, session['username'], stuff)
+            producer_reservation_notification(producer, telephone, session['username'], stuff)
 
         # Empty the shopping cart when reservation is placed
             collection = chooseCollection('shoppingCart')
