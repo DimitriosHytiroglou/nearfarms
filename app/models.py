@@ -87,25 +87,9 @@ def checkShoppingCart(collection, username, product_id):
 def emptyShoppingCart(collection, username):
 	collection.delete_many({"Username":username })
 
+
+
 # # # RESERVATIONS # # #
-
-
-# ###### Deprecated system ######
-
-# def insertToReservations(collection, username, ProducerID, product, productType, units, price, marketID, totalPrice, quantity):
-# 	collection.insert({"Username":username, "ProducerID":ProducerID, "Product":product, "Product Type":productType, "units":units,"Price":price, "marketID":marketID, "totalPrice":totalPrice, "Quantity":quantity})
-
-# def retrieveReservations(collection, username):
-# 	contents = collection.find({'Username':username})
-# 	if contents.count() is not 0:
-# 		return contents
-# 	else:
-# 		return []
-
-# ###### Deprecated system ######
-
-
-# ##### NEW RESERVATION SYSTEM FUNCTIONS #########
 
 # Insert reservation to system
 def insertDictToReservations(collection, order):
@@ -133,8 +117,6 @@ def fulfillOrder(collection, order_id, status):
 	_id = bson.ObjectId(order_id)
 	collection.update_one({"_id": _id }, {"$set": {'Fulfilled':status}})	
 
-
-# ##### NEW RESERVATION SYSTEM FUNCTIONS #########
 
 
 # # # PRODUCERS # # #

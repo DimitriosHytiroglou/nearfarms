@@ -12,6 +12,7 @@ from .twilioCall import *
 from twilio.rest import Client
 # Access the models file to use SQL functions
 
+# App routing for index
 @app.route('/')
 def index():
 
@@ -34,6 +35,7 @@ def home():
     
     return render_template('home.html', user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+# App routing for user logout
 @app.route('/logout')
 def logout():
     session.pop('username', None)
@@ -227,6 +229,7 @@ def add_product():
         return redirect('/farmer_home')
     return render_template('product.html', productForm=productForm, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+# App routing for user profile
 @app.route('/user_profile', methods=['GET'])
 def user_profile():
     # Retreive data from database to display
@@ -239,6 +242,7 @@ def user_profile():
         
         return render_template('user_profile.html', userList=userList, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+# App routing for updating user profile
 @app.route('/user_update', methods=['POST'])
 def userUpdate():
     collection = chooseCollection('users')
@@ -246,17 +250,10 @@ def userUpdate():
     if request.method == "POST":
 
         update_user(collection, request.form['_id'], request.form['email'], request.form['first_name'], request.form['last_name'])
-
-        # products = retrieve_products(collection,session['username'])
-
-        # productList = []
-
-        # for product in products:
-        #     productList.append(product)
      
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
-
+# App routing for farm manager menu
 @app.route('/farmer_home', methods=['GET'])
 def farmer_home():
     # Retreive data from database to display
@@ -322,7 +319,7 @@ def applyFilterFarmer():
 
     return render_template('farmer.html', marketList=marketList, filters=filters, productList=productList, farmer = farmer, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
-
+# App routing for updating listed product by farmer
 @app.route('/product_update', methods=['POST'])
 def productUpdate():
     
@@ -343,7 +340,7 @@ def productUpdate():
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
-
+# App routing for deleting listed product by farmer
 @app.route('/product_delete', methods=['POST'])
 def productDelete():   
     # Retrieve data from database to display
@@ -359,6 +356,7 @@ def productDelete():
      
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
+# App routing for emptying users cart entry when placing a reservation 
 @app.route('/product_delete_cart', methods=['POST'])
 def productDelete_shoppingCart():   
     # Retrieve data from database to display
@@ -383,6 +381,7 @@ def consumer_home():
     #UNCOMMENT when template is created
     # return render_template('consumer.html')
 
+# App routing for file upload for prof pics and product images
 @app.route('/file_upload', methods = ['GET', 'POST'])
 def file_upload():
 
@@ -398,6 +397,7 @@ def file_upload():
 
 ### NEED TO ADD CHECK FOR IF FILE EXISTS WITH SAME NAME TO NOT OVEWRITE
 ### ACTUALLY, NEED TO RENAME FILE UPON SAVING WITH RANDOM CODE AND SAVE THAT IN DATABASE
+### AND CHECK EVERY WHEN TO DELETE
 
     if request.method == 'POST':
         # check if the post request has the file part
@@ -434,7 +434,7 @@ def file_upload():
             flash('File uploaded succesfully!')
             return redirect('/farmer_home')
 
-
+# App routing for retrieving listed products
 @app.route('/shop_produce', methods=['POST','GET'])
 def shop_produce():
 
@@ -472,6 +472,8 @@ def shop_produce():
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         marketList=marketList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+
+# App routing for applying filter on browsed products
 @app.route('/apply-filter', methods=['POST'])
 def applyFilter():
     
@@ -543,6 +545,7 @@ def applyFilter():
     return render_template('shop_produce.html', produceList=produceList, ProductList=ProductList, ProductTypeList= ProductTypeList,\
         marketList=marketList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])
 
+# App routing for retrieving user's shopping cart
 @app.route('/shopping_cart', methods=['GET','POST'])
 def shopping_cart():
 
@@ -562,7 +565,7 @@ def shopping_cart():
     # deductFromInventory()
 
 
-
+# App routing for adding product to cart
 @app.route('/add_to_shopping_cart', methods=['GET','POST'])
 def add_to_shopping_cart():
     
@@ -593,7 +596,7 @@ def add_to_shopping_cart():
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
-
+# App routing for making a reservation
 @app.route('/make_reservation', methods=['GET','POST'])
 def make_reservation():
 
@@ -634,7 +637,7 @@ def make_reservation():
     return redirect('/reservations')
             
 
-    
+# App routing for retrieveing consumer side reservations
 @app.route('/reservations', methods=['GET','POST'])
 def reservations():
 
@@ -652,7 +655,7 @@ def reservations():
     return render_template('consumer_reservations.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])    
 
 
-
+# App routing for retrieving producer side reservations
 @app.route('/reserved_produce', methods=['GET','POST'])
 def reserved_produce():
 
@@ -671,7 +674,7 @@ def reserved_produce():
     return render_template('reserved_produce.html', orderList=orderList, filters=filters, user=session['username'], user_status=session['status'], user_type=session['user_type'])    
 
 
-
+# App routing for fulfilling or cancelling order by farmer
 @app.route('/fulfill_order', methods=['GET','POST'])
 def fulfill_order():
 
@@ -686,7 +689,7 @@ def fulfill_order():
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}     
 
-
+# App routing for error code 404
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404_error.html', user=session['username'], user_status=session['status'], user_type=session['user_type']), 404
