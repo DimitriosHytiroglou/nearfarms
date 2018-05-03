@@ -1,0 +1,1 @@
+Simply do python run.py and go to localhost:5000
